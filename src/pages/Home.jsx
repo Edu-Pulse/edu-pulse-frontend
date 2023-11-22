@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import StudyCategories from "../components/StudyCategories";
+import KursusPopuler from "../components/KursusPopuler";
 
 const Home = () => {
   // TODO: Tambah fitur sesuai dengan figma
@@ -7,6 +8,7 @@ const Home = () => {
     <main>
       <Hero />
       <StudyCategories />
+      <KursusPopuler />
     </main>
   );
 };
