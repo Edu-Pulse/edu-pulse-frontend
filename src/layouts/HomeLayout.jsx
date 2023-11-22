@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const HomeLayout = () => {
-	// TODO: Buat layout untuk halaman utama (terutama user), masukkan header dan footer disini
 	return (
-		<div>
+		<>
+			<Header />
 			<Outlet />
-		</div>
+			<Footer />
+		</>
 	);
 };
 

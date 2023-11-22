@@ -1,5 +1,12 @@
+import Hero from "../components/Hero";
+
 const Home = () => {
-	return <div>Home</div>;
+	// TODO: Tambah fitur sesuai dengan figma
+	return (
+		<main>
+			<Hero />
+		</main>
+	);
 };
 
 export default Home;
