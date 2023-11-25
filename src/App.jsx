@@ -5,6 +5,8 @@ import UIElements from "./pages/UIElements";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
 import Detail from "./pages/Detail";
+import User from "./pages/User";
+import Notification from "./pages/Notification";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -19,6 +21,14 @@ const App = () => {
         {
           path: "/detail",
           element: <Detail />,
+        },
+        {
+          path: "/notifikasi",
+          element: <Notification />,
+        },
+        {
+          path: "/user",
+          element: <User />,
         },
       ],
     },
