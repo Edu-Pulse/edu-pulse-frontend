@@ -9,9 +9,10 @@ import {
   RectangleStackIcon,
   ShieldCheckIcon,
   ClockIcon,
-  ArrowLongLeftIcon,
+  ArrowLeftIcon,
   CheckBadgeIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const ClassDetails = () => {
   return (
@@ -19,8 +20,13 @@ const ClassDetails = () => {
       <div className="w-full mt-1">
         <div>
           <div className="font-semibold text-xl flex items-center px-[20vh] py-10">
-            <ArrowLongLeftIcon className=" h-8 w-8"></ArrowLongLeftIcon>
-            <p className="ml-2">Kelas Lainnya</p>
+            <Link
+              to="/"
+              className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+            >
+              <ArrowLeftIcon className="w-5 h-5" />
+              <p>Kelas Lainnya</p>
+            </Link>
           </div>
         </div>
         <div className="flex container gap-20">
