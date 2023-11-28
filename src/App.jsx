@@ -4,10 +4,15 @@ import Home from "./pages/Home";
 import UIElements from "./pages/UIElements";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
+
 import MyClass from "./pages/MyClass";
 import ClassTopic from "./pages/ClassTopic";
 import PaymentDetail from "./pages/PaymentDetail";
 import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
+import Register from "./pages/Register";
+import Detail from "./pages/Detail";
+import User from "./pages/User";
+import Notification from "./pages/Notification";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -35,6 +40,18 @@ const App = () => {
           path: "/payment-success",
           element: <PaymentDetailSuccess />,
         },
+        {
+          path: "/detail",
+          element: <Detail />,
+        },
+        {
+          path: "/notifikasi",
+          element: <Notification />,
+        },
+        {
+          path: "/user",
+          element: <User />,
+        },
       ],
     },
     {
@@ -44,6 +61,10 @@ const App = () => {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
         },
       ],
     },
