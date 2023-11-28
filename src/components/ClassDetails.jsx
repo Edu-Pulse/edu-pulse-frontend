@@ -3,8 +3,11 @@ import {
   PlayCircleIcon,
   StarIcon,
   LockClosedIcon,
+  ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
+  ArrowRightCircleIcon,
+  PlayIcon,
 } from "@heroicons/react/24/solid";
-import Button from "./UI/Button";
 import {
   RectangleStackIcon,
   ShieldCheckIcon,
@@ -13,8 +16,12 @@ import {
   CheckBadgeIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Modals from "./CoursePage/Modals";
+import card from "../assets/card 3.png";
 
 const ClassDetails = () => {
+  const [open, setOpen] = useState(false);
   return (
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
@@ -61,14 +68,49 @@ const ClassDetails = () => {
                       <p>120 Menit</p>
                     </span>
                   </div>
-                  <Button className="my-5 bg-alert-success h-10 w-64">
-                    Join Grup Telegram
-                  </Button>
+                  <div className="flex justify-between">
+                    <button className="text-white my-5 bg-alert-success h-10 px-7 py-2 flex gap-4 items-center hover:bg-green-700 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
+                      <ChatBubbleLeftRightIcon className="h-5 w-5" />
+                      Join Grup Telegram
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="container">
-              <div className="bg-red-600 w-full aspect-video rounded-2xl my-10"></div>
+              <div className="bg-black w-full aspect-video rounded-2xl my-10 flex items-center justify-center">
+                <button
+                  className="text-white my-5 bg-darkblue-05 h-10 px-6 py-10 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  <PlayIcon className="h-8 w-8" />
+                </button>
+
+                <Modals open={open} onClose={() => setOpen(false)}>
+                  <div className="text-center w-56">
+                    <div className="mx-auto w-48">
+                      <h3 className="text-lg font-bold mb-4">
+                        Selangkah Lagi menuju
+                        <br />
+                        <span className="text-darkblue-05">Kelas Premium</span>
+                      </h3>
+                    </div>
+                    <img
+                      src={card}
+                      className="w-full object-cover hover:scale-105 transition-all duration-300"
+                    />
+                    <div className="flex flex-row justify-center gap-4 mt-4">
+                      <button className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
+                        Beli Sekarang
+                        <ArrowRightCircleIcon className="w-6 h-6" />
+                      </button>
+                    </div>
+                  </div>
+                </Modals>
+              </div>
+
               <div>
                 <h1 className="font-bold text-xl mb-3">Tentang Kelas</h1>
                 <p className="indent-8 mb-2">
