@@ -4,6 +4,10 @@ import Home from "./pages/Home";
 import UIElements from "./pages/UIElements";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Detail from "./pages/Detail";
+import User from "./pages/User";
+import Notification from "./pages/Notification";
 
 import MyClass from "./pages/MyClass";
 import ClassTopic from "./pages/ClassTopic";
