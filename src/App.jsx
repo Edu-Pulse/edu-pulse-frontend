@@ -13,71 +13,67 @@ import MyClass from "./pages/MyClass";
 import ClassTopic from "./pages/ClassTopic";
 import PaymentDetail from "./pages/PaymentDetail";
 import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
-import Register from "./pages/Register";
-import Detail from "./pages/Detail";
-import User from "./pages/User";
-import Notification from "./pages/Notification";
 
 const App = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomeLayout />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/my-class",
-          element: <MyClass />,
-        },
-        {
-          path: "/class-topic",
-          element: <ClassTopic />,
-        },
-        {
-          path: "/payment-pending",
-          element: <PaymentDetail />,
-        },
-        {
-          path: "/payment-success",
-          element: <PaymentDetailSuccess />,
-        },
-        {
-          path: "/detail",
-          element: <Detail />,
-        },
-        {
-          path: "/notifikasi",
-          element: <Notification />,
-        },
-        {
-          path: "/user",
-          element: <User />,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-      ],
-    },
-    {
-      path: "/ui-elements",
-      element: <UIElements />,
-    },
-  ]);
-  return <RouterProvider router={routes} />;
+	const routes = createBrowserRouter([
+		{
+			path: "/",
+			element: <HomeLayout />,
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+				{
+					path: "/my-class",
+					element: <MyClass />,
+				},
+				{
+					path: "/class-topic",
+					element: <ClassTopic />,
+				},
+				{
+					path: "/payment-pending",
+					element: <PaymentDetail />,
+				},
+				{
+					path: "/payment-success",
+					element: <PaymentDetailSuccess />,
+				},
+				{
+					path: "/detail",
+					element: <Detail />,
+				},
+				{
+					path: "/notifikasi",
+					element: <Notification />,
+				},
+				{
+					path: "/user",
+					element: <User />,
+				},
+			],
+		},
+		{
+			path: "/auth",
+			element: <AuthLayout />,
+			children: [
+				{
+					path: "login",
+					element: <Login />,
+				},
+				{
+					path: "register",
+					element: <Register />,
+				},
+			],
+		},
+		{
+			path: "/ui-elements",
+			element: <UIElements />,
+		},
+	]);
+	return <RouterProvider router={routes} />;
 };
 
 export default App;
