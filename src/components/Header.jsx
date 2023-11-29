@@ -8,7 +8,6 @@ import {
 	UserIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
-import { Link } from "react-router-dom";
 
 const Header = () => {
 	const isLoggedIn = true;
