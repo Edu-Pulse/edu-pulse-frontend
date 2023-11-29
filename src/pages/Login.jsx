@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = () => {
     const user = users.find(u => u.email === email && u.password === password);
     
-    user ? navigate('/') : (console.log('Login gagal'), setIsError(true));
+    user ? navigate('/my-class') : (console.log('Login gagal'), setIsError(true));
 
   };
 
