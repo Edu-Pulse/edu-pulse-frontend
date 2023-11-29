@@ -8,6 +8,10 @@ import Register from "./pages/Register";
 import Detail from "./pages/Detail";
 import User from "./pages/User";
 import Notification from "./pages/Notification";
+import Reset from "./pages/Reset";
+import Admin from "./pages/Admin";
+import Dashboard from "./components/Admin/Dashboard";
+import KelolaKelas from "./components/Admin/KelolaKelas";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -45,7 +49,23 @@ const App = () => {
           path: "register",
           element: <Register />,
         },
+        {
+          path: "reset",
+          element: <Reset />,
+        },
       ],
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
+      path: "/kelolakelas",
+      element: <KelolaKelas />,
     },
     {
       path: "/ui-elements",

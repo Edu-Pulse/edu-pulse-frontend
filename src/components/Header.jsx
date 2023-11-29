@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 import {
 	ArrowRightOnRectangleIcon,
@@ -23,13 +24,15 @@ const Header = () => {
 					</span>
 				</div>
 				<div>
-					<Button
-						icon={<ArrowRightOnRectangleIcon className="w-5 h-5" />}
-						iconPosition="left"
-						size="md"
-					>
-						Masuk
-					</Button>
+          <Link to="/auth/login">
+            <Button
+              icon={<ArrowRightOnRectangleIcon className="w-5 h-5" />}
+              iconPosition="left"
+              size="md"
+            >
+              Masuk
+            </Button>
+          </Link>
 				</div>
 			</nav>
 		</header>
