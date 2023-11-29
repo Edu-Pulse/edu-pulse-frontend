@@ -23,68 +23,71 @@ const User = () => {
 	const [menuSelect, setMenuSelect] = useState("my-profile");
 
 	return (
-		<main className="container flex justify-center flex-col min-h-screen my-24">
+		<main className="container flex flex-col min-h-screen mb-4 md:my-16 bg-darkblue-06 md:bg-white">
 			<div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">
 				<Link
 					to="/"
-					className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+					className="flex items-center gap-4 px-4 py-2 transition-all duration-300 rounded-full hover:bg-blue-100 w-fit hover:cursor-pointer"
 				>
 					<ArrowLeftIcon className="w-5 h-5" />
-					<p>Kembali ke Beranda</p>
+					<p className="hidden md:block">Kembali ke Beranda</p>
+					<p className="md:hidden font-bold !text-black text-2xl">
+						Akun
+					</p>
 				</Link>
 			</div>
-			<section className="max-w-[768px] w-full mx-auto rounded-xl overflow-hidden border-2 border-darkblue-05">
-				<div className="w-full py-4 bg-darkblue-05">
-					<p className="text-center text-white font-semibold">Akun</p>
+			<section className="max-w-[768px] w-full mx-auto rounded-xl overflow-hidden md:border-2 md:border-darkblue-05">
+				<div className="hidden w-full py-4 md:block bg-darkblue-05">
+					<p className="font-semibold text-center text-white">Akun</p>
 				</div>
-				<div className="flex justify-between">
-					<aside className="my-4 divide-solid divide-y w-2/5">
+				<div className="justify-between md:flex">
+					<aside className="py-2 mb-12 bg-white divide-y rounded-lg md:mb-0 md:my-4 md:py-0 md:w-2/5 divide-solid md:rounded">
 						<div
 							className={clsx(
-								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-blue-50",
+								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
 								menuSelect === "my-profile" &&
 									"font-bold text-darkblue-05"
 							)}
 							onClick={() => setMenuSelect("my-profile")}
 						>
-							<PencilIcon className="h-6 w-6 text-darkblue-05" />
+							<PencilIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Profil Saya</p>
 						</div>
 						<div
 							className={clsx(
-								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-blue-50",
+								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
 								menuSelect === "change-password" &&
 									"font-bold text-darkblue-05"
 							)}
 							onClick={() => setMenuSelect("change-password")}
 						>
-							<Cog6ToothIcon className="h-6 w-6 text-darkblue-05" />
+							<Cog6ToothIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Ubah Password</p>
 						</div>
 						<div
 							className={clsx(
-								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-blue-50",
+								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
 								menuSelect === "purchase-history" &&
 									"font-bold text-darkblue-05"
 							)}
 							onClick={() => setMenuSelect("purchase-history")}
 						>
-							<ShoppingCartIcon className="h-6 w-6 text-darkblue-05" />
+							<ShoppingCartIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Riwayat Pembayaran</p>
 						</div>
 						<div
 							className={clsx(
-								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-blue-50",
+								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
 								menuSelect === "log-out" &&
 									"font-bold text-darkblue-05"
 							)}
 							onClick={() => setMenuSelect("log-out")}
 						>
-							<PowerIcon className="h-6 w-6 text-darkblue-05" />
+							<PowerIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Keluar</p>
 						</div>
 					</aside>
-					<article className="w-3/5">
+					<article className="md:w-3/5">
 						<Suspense fallback={<p>Loading</p>}>
 							{menuSelect === "my-profile" ? (
 								<UserProfile />
