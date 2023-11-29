@@ -1,166 +1,60 @@
-import kursusImage from "../assets/image.png";
 import Button from "./UI/Button";
-import { StarIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
-import {
-  RectangleStackIcon,
-  ShieldCheckIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+import CourseCard from "./UI/CourseCard";
 
 const KursusPopuler = () => {
   return (
-    <section className="w-full ">
-      <div className="flex justify-between my-8 mx-[10%]">
-        <h2 className="font-semibold">Kursus Populer</h2>
-        <Button
-          className="text-darkblue-05 font-semibold"
-          size="md"
-          color="white"
-        >
+    <section className="container my-4">
+      <div className="flex justify-between items-center py-5">
+        <h2 className="text-xl font-bold">Kursus Popular</h2>
+        <span className="font-bold text-darkblue-05 py-2 px-4 rounded-full hover:bg-blue-200 hover:cursor-pointer transition-all duration-200">
           Lihat Semua
-        </Button>
+        </span>
       </div>
       <div className="flex justify-around w-full my-8 overflow-x-auto">
         <Button
-          className="bg-gray-300 text-black-300 hover:bg-darkblue-05 "
-          size="sm"
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05"
+          size="xs"
         >
           All
         </Button>
-        <Button>Data Science</Button>
-        <Button>UI/UX Design</Button>
-        <Button>Android Development</Button>
-        <Button>Web Development</Button>
-        <Button>IOS Development</Button>
-        <Button>Business Intelligence</Button>
+        <Button
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05 whitespace-nowrap"
+          size="xs"
+        >
+          Data Science
+        </Button>
+        <Button className="whitespace-nowrap" size="xs">
+          UI/UX Design
+        </Button>
+        <Button
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05 whitespace-nowrap"
+          size="xs"
+        >
+          Android Development
+        </Button>
+        <Button
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05 whitespace-nowrap"
+          size="xs"
+        >
+          Web Development
+        </Button>
+        <Button
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05 whitespace-nowrap"
+          size="xs"
+        >
+          IOS Development
+        </Button>
+        <Button
+          className="bg-darkblue-01 !text-black hover:bg-darkblue-05 whitespace-nowrap"
+          size="xs"
+        >
+          Business Intelligence
+        </Button>
       </div>
-      <div className="flex justify-around w-full my-8">
-        <div>
-          <img className="object-contain w-full" src={kursusImage} alt="" />
-          <div className="flex justify-between my-2">
-            <h5 className="text-darkblue-05">UI/UX Design</h5>
-            <span className="flex my-2">
-              <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-              <p>4.7</p>
-            </span>
-          </div>
-          <h5 className="font-semibold my-2">
-            Belajar Web Designer dengan Figma
-          </h5>
-          <p>by Angela Doe</p>
-          <div className="flex justify-between">
-            <span className="flex my-2">
-              <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-              <p>Intermediate Level</p>
-            </span>
-            <span className="flex my-2">
-              <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-              <p>10 Modul</p>
-            </span>
-            <span className="flex my-2">
-              <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-              <p>120 Menit</p>
-            </span>
-          </div>
-          <Button className="bg-darkblue-03">Beli RP.249.000</Button>
-        </div>
-
-        <div>
-          <img className="object-contain w-full" src={kursusImage} alt="" />
-          <div className="flex justify-between my-2">
-            <h5 className="text-darkblue-05">UI/UX Design</h5>
-            <span className="flex my-2">
-              <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-              <p>4.7</p>
-            </span>
-          </div>
-          <h5 className="font-semibold my-2">
-            Belajar Web Designer dengan Figma
-          </h5>
-          <p>by Angela Doe</p>
-          <div className="flex justify-between">
-            <span className="flex my-2">
-              <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-              <p>Intermediate Level</p>
-            </span>
-            <span className="flex my-2">
-              <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-              <p>10 Modul</p>
-            </span>
-            <span className="flex my-2">
-              <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-              <p>120 Menit</p>
-            </span>
-          </div>
-          <Button className="bg-darkblue-03">Beli RP.249.000</Button>
-        </div>
-
-        <div>
-          <img className="object-contain w-full" src={kursusImage} alt="" />
-          <div className="flex justify-between my-2">
-            <h5 className="text-darkblue-05">UI/UX Design</h5>
-            <span className="flex my-2">
-              <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-              <p>4.7</p>
-            </span>
-          </div>
-          <h5 className="font-semibold my-2">
-            Belajar Web Designer dengan Figma
-          </h5>
-          <p>by Angela Doe</p>
-          <div className="flex justify-between">
-            <span className="flex my-2">
-              <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-              <p>Intermediate Level</p>
-            </span>
-            <span className="flex my-2">
-              <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-              <p>10 Modul</p>
-            </span>
-            <span className="flex my-2">
-              <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-              <p>120 Menit</p>
-            </span>
-          </div>
-          <Button className="bg-darkblue-03">Beli RP.249.000</Button>
-        </div>
-
-        <div>
-          <img className="object-contain w-full" src={kursusImage} alt="" />
-          <div className="flex justify-between my-2">
-            <h5 className="text-darkblue-05">UI/UX Design</h5>
-            <span className="flex my-2">
-              <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-              <p>4.7</p>
-            </span>
-          </div>
-          <h5 className="font-semibold my-2">
-            Belajar Web Designer dengan Figma
-          </h5>
-          <p>by Angela Doe</p>
-          <div className="flex justify-between">
-            <span className="flex my-2">
-              <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-              <p>Intermediate Level</p>
-            </span>
-            <span className="flex my-2">
-              <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-              <p>10 Modul</p>
-            </span>
-            <span className="flex my-2">
-              <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-              <p>120 Menit</p>
-            </span>
-          </div>
-          <Button
-            className="bg-darkblue-03"
-            icon={<CurrencyDollarIcon />}
-            iconPosition="left"
-            size="sm"
-          >
-            Beli RP.249.000
-          </Button>
-        </div>
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-6 w-full my-8">
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
       </div>
     </section>
   );
