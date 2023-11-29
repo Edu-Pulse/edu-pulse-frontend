@@ -4,6 +4,7 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import CourseCard from "./UI/CourseCard";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
+import Checkbox from "./UI/Checkbox";
 
 const OngoingClass = () => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
@@ -54,212 +55,77 @@ const OngoingClass = () => {
 							className="px-4 md:p-0 bg-white mt-4 md:m-0 md:rounded-none rounded-xl"
 							aria-labelledby="dropdownDefaultButton"
 						>
+							{/* Basic Filter */}
 							<div className="py-4 space-y-2">
 								<h2 className="font-bold">Filter</h2>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="palingbaru"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="palingbaru"
-									>
-										Paling Baru
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="palingpopuler"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="palingpopuler"
-									>
-										Paling Populer
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="promo"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="promo"
-									>
-										Promo
-									</label>
-								</div>
+								<Checkbox
+									label="Paling Baru"
+									id="palingbaru"
+									value=""
+								/>
+								<Checkbox
+									label="Paling Populer"
+									id="palingpopuler"
+									value=""
+								/>
+								<Checkbox label="Promo" id="promo" value="" />
 							</div>
-
+							{/* Category filter */}
 							<div className="py-4 space-y-2">
 								<h2 className="font-bold">Kategori</h2>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="uiuxdesgin"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="uiuxdesgin"
-									>
-										UI/UX Desgin
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="webdevelopment"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="webdevelopment"
-									>
-										Web Development
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="android"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="android"
-									>
-										Android Development
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="android"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="android"
-									>
-										Data Science
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="android"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="android"
-									>
-										Business Intelligence
-									</label>
-								</div>
+								<Checkbox
+									label="UI/UX Design"
+									id="uiuxdesign"
+									value=""
+								/>
+								<Checkbox
+									label="Web Development"
+									id="webdevelopment"
+									value=""
+								/>
+								<Checkbox
+									label="Android Development"
+									id="androiddevelopment"
+									value=""
+								/>
+								<Checkbox
+									label="Data Science"
+									id="datascience"
+									value=""
+								/>
+								<Checkbox
+									label="Business Intelligence"
+									id="businessintelligence"
+									value=""
+								/>
 							</div>
 
 							<div className="py-4 space-y-2">
 								<h2 className="font-bold">Level Kesulitan</h2>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="semualevel"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="semualevel"
-									>
-										Semua Level
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="beginner"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="beginner"
-									>
-										Beginner Level
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="intermediate"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="intermediate"
-									>
-										Intermediate Level
-									</label>
-								</div>
-								<div className="flex gap-2">
-									<div className="w-5 h-5 grid place-content-center rounded-md border-2 overflow-hidden">
-										<input
-											className="w-5 h-5 border-none outline-none"
-											type="checkbox"
-											value=""
-											id="advance"
-										/>
-									</div>
-									<label
-										className="inline-block hover:cursor-pointer"
-										htmlFor="advance"
-									>
-										Advance Level
-									</label>
-								</div>
-								<Button className="bg-white !text-red-500 hover:bg-gray-500 justify-self-center">
-									Hapus Filter
-								</Button>
+								<Checkbox
+									label="Semua Level"
+									id="semualevel"
+									value=""
+								/>
+								<Checkbox
+									label="Beginner Level"
+									id="beginnerlevel"
+									value=""
+								/>
+								<Checkbox
+									label="Intermediate Level"
+									id="intermediatelevel"
+									value=""
+								/>
+								<Checkbox
+									label="Advanced Level"
+									id="advancedlevel"
+									value=""
+								/>
 							</div>
+							<Button className="bg-white !text-red-500 hover:bg-gray-500 justify-self-center">
+								Hapus Filter
+							</Button>
 						</ul>
 					</div>
 				</div>
