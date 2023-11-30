@@ -8,6 +8,15 @@ import Register from "./pages/Register";
 import Detail from "./pages/Detail";
 import User from "./pages/User";
 import Notification from "./pages/Notification";
+import Reset from "./pages/Reset";
+import Admin from "./pages/Admin";
+import Dashboard from "./components/Admin/Dashboard";
+import KelolaKelas from "./components/Admin/KelolaKelas";
+
+import MyClass from "./pages/MyClass";
+import ClassTopic from "./pages/ClassTopic";
+import PaymentDetail from "./pages/PaymentDetail";
+import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -18,6 +27,22 @@ const App = () => {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: "/my-class",
+          element: <MyClass />,
+        },
+        {
+          path: "/class-topic",
+          element: <ClassTopic />,
+        },
+        {
+          path: "/payment-pending",
+          element: <PaymentDetail />,
+        },
+        {
+          path: "/payment-success",
+          element: <PaymentDetailSuccess />,
         },
         {
           path: "/detail",
@@ -45,7 +70,23 @@ const App = () => {
           path: "register",
           element: <Register />,
         },
+        {
+          path: "reset",
+          element: <Reset />,
+        },
       ],
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
+      path: "/kelolakelas",
+      element: <KelolaKelas />,
     },
     {
       path: "/ui-elements",

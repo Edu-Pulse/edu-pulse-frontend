@@ -20,7 +20,9 @@ const Button = ({
       ? "px-3 py-1"
       : size === "md"
       ? "px-4 py-2"
-      : size === "lg" && "px-6 py-3",
+      : size === "lg"
+      ? "px-6 py-3"
+      : size === "xs" && "px-4 h-8",
     !outline
       ? {
           primary:
