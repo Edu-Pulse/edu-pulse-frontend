@@ -17,6 +17,7 @@ import MyClass from "./pages/MyClass";
 import ClassTopic from "./pages/ClassTopic";
 import PaymentDetail from "./pages/PaymentDetail";
 import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -73,6 +74,16 @@ const App = () => {
         {
           path: "reset",
           element: <Reset />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
         },
       ],
     },

@@ -102,10 +102,13 @@ const ClassDetails = () => {
                       className="w-full object-cover hover:scale-105 transition-all duration-300"
                     />
                     <div className="flex flex-row justify-center gap-4 mt-4">
-                      <button className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
-                        Beli Sekarang
-                        <ArrowRightCircleIcon className="w-6 h-6" />
-                      </button>
+                      <Link to={"/payment-pending"}>
+                        {" "}
+                        <button className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
+                          Beli Sekarang
+                          <ArrowRightCircleIcon className="w-6 h-6" />
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </Modals>

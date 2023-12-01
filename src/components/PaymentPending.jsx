@@ -80,12 +80,14 @@ const PaymentPending = () => {
           <div className="outline outline-offset-2 outline-darkblue-05 rounded-2xl p-4">
             <p className="font-bold text-lg my-4">Pembayaran Kelas</p>
             <CourseCard />
-            <Button
-              className="my-4 w-full bg-red-500"
-              icon={<ArrowRightCircleIcon className="w-6 h-6" />}
-            >
-              Bayar dan Ikuti Kelas Selamanya
-            </Button>
+            <Link to={"/payment-success"}>
+              <Button
+                className="my-4 w-full bg-red-500"
+                icon={<ArrowRightCircleIcon className="w-6 h-6" />}
+              >
+                Bayar dan Ikuti Kelas Selamanya
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

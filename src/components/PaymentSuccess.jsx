@@ -43,9 +43,11 @@ const PaymentSuccess = () => {
         </div>
         <div className="flex flex-col justify-items-center place-self-center my-6">
           <Button className="px-28 rounded-xl mb-4">Mulai Belajar</Button>
-          <p className="place-self-center text-darkblue-03 font-semibold">
-            Kembali ke Beranda
-          </p>
+          <Link to={"/"}>
+            <p className="place-self-center text-darkblue-03 font-semibold">
+              Kembali ke Beranda
+            </p>
+          </Link>
         </div>
       </div>
     </section>
