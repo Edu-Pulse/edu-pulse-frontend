@@ -1,7 +1,9 @@
 import illustration from "../assets/heroimage.png";
 import Button from "./UI/Button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
 	return (
 		<section className="md:mt-16 w-full h-[50vh] relative">
 			<div className="bg-gradient-to-l from-darkblue-05 from-30% to-transparent w-full h-full absolute top-0">
@@ -16,6 +18,7 @@ const Hero = () => {
 							className="w-full text-darkblue-05 font-semibold"
 							size="md"
 							color="white"
+              onClick={() => navigate('/auth/login')}
 						>
 							IKUT KELAS
 						</Button>

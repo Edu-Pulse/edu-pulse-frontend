@@ -1,43 +1,21 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import Button from "../components/UI/Button";
 import Input from "../components/UI/Input";
 import axios from "axios";
-// import userData from "../json/users.json";
-// import { Link } from "react-router-dom";
 
 const Login = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [users, setUsers] = useState([]);
-  // const [isError, setIsError] = useState(false);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   setUsers(userData.users);
-  // }, []);
-
-  // const handleLogin = () => {
-  //   const user = users.find(u => u.email === email && u.password === password);
-
-  //   user ? navigate('/my-class') : (console.log('Login gagal'), setIsError(true));
-
-  // };
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     try {
       let data = JSON.stringify({
         email,
         password,
       });
-
       let config = {
         method: "post",
         url: `https://pragos-academy-api-production.up.railway.app/login`,
@@ -54,32 +32,22 @@ const Login = () => {
 
       navigate("/");
 
-      // Temporary solution
       window.location.href = "/";
     } catch (error) {
-      // if (axios.isAxiosError(error)) {
-      //   toast.error(error.response.data.message);
-      //   return;
-      // }
-      // toast.error(error.message);
       console.log(error.message);
-    }
-  };
+    }}
 
   return (
-    <div className="w-[452px] h-[348px] ">
-      <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">
-        Masuk
-      </h1>
-      <Input
-        placeholder="Contoh: johndoe@gmail.com"
-        type="email"
-        value={email}
-        label="Email"
-        name="email"
-        onChange={(e) => setEmail(e.target.value)}
-        // isError={isError}
-      />
+    <div className="sm:w-[452px] w-[352px] h-[348px]">
+      <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">Masuk</h1>
+        <Input 
+          placeholder="Contoh: johndoe@gmail.com" 
+          type="email"  
+          value={email}
+          label="Email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
       <div className="flex justify-between mt-[16px]">
         <label className="font-poppins text-[14px] mb-1 font-normal leading-[18px] text-black">
           Password
@@ -90,17 +58,13 @@ const Login = () => {
           </label>
         </Link>
       </div>
-      <Input
-        placeholder="Masukkan password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        // isError={isError}
-      />
+        <Input 
+          placeholder="Masukkan password" 
+          type="password" value={password} 
+          onChange={(e) => setPassword(e.target.value)}
+          />
       <div className="flex justify-center mt-[24px]">
-        <Button className="w-[452px]" onClick={onSubmit}>
-          Masuk
-        </Button>
+      <Button className="w-[452px]" onClick={onSubmit}>Masuk</Button>
       </div>
       <div className="flex justify-center mt-[40px] gap-[8px]">
         <h3>Belum punya akun?</h3>

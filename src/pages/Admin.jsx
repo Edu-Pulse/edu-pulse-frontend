@@ -25,15 +25,16 @@ function Admin() {
   };
   return (
     <main className="flex h-screen">
-    <aside className="w-[35%] h-full bg-darkblue-05 grid place-content-center">
+    <aside className="md:grid hidden w-[35%] h-full bg-darkblue-05 place-content-center">
       <img
         src={logo}
         alt="logo-belajar"
         className="w-[135px] h-[150px]"
+        onClick={() => navigate('/')}
       />
     </aside>
-    <section className="w-[65%] h-full grid place-content-center">
-    <div className="w-[452px] h-[348px] ">
+    <section className="md:w-[65%] w-full h-full grid place-content-center">
+    <div className="sm:w-[452px] w-[352px] h-[348px] ">
       <h1 className="text-center font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">Login</h1>
         <Input 
           placeholder="ID Admin" 

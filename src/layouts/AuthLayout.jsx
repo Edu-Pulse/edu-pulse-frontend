@@ -1,5 +1,6 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import logo from "../assets/svg/Logo-Belajar.svg";
+import { Outlet } from 'react-router-dom';
+import logo from '../assets/svg/Logo-Belajar.svg';
+import { useNavigate } from 'react-router-dom';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
@@ -8,8 +9,12 @@ const AuthLayout = () => {
       <section className="md:w-[55%] w-full h-full grid place-content-center">
         <Outlet />
       </section>
-      <aside className="w-[45%] h-full bg-darkblue-05 place-content-center md:grid hidden">
-        <img src={logo} alt="logo-belajar" onClick={() => navigate("/")} />
+      <aside className="md:grid hidden w-[45%] h-full bg-darkblue-05 place-content-center">
+        <img
+          src={logo}
+          alt="logo-belajar"
+          onClick={() => navigate('/')}
+        />
       </aside>
     </main>
   );

@@ -12,12 +12,12 @@ import Reset from "./pages/Reset";
 import Admin from "./pages/Admin";
 import Dashboard from "./components/Admin/Dashboard";
 import KelolaKelas from "./components/Admin/KelolaKelas";
-
 import MyClass from "./pages/MyClass";
 import ClassTopic from "./pages/ClassTopic";
 import PaymentDetail from "./pages/PaymentDetail";
 import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
 import DashboardLayout from "./layouts/DashboardLayout";
+import Otp from "./pages/OTP";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -75,6 +75,24 @@ const App = () => {
           path: "reset",
           element: <Reset />,
         },
+        {
+          path: "otp",
+          element: <Otp />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+        },
+        {
+          path: "kelolakelas",
+          element: <KelolaKelas />,
+        },
       ],
     },
     {
@@ -90,14 +108,6 @@ const App = () => {
     {
       path: "/admin",
       element: <Admin />,
-    },
-    {
-      path: "/dashboard",
-      element: <Dashboard />,
-    },
-    {
-      path: "/kelolakelas",
-      element: <KelolaKelas />,
     },
     {
       path: "/ui-elements",
