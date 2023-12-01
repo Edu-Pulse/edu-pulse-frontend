@@ -18,7 +18,7 @@ function Reset() {
   };
 
   return (
-    <div className="w-[452px] h-[348px] ">
+    <div className="sm:w-[452px] w-[352px] h-[348px] ">
       <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">Reset Password</h1>
         <Input 
           placeholder="********" 

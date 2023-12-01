@@ -1,6 +1,6 @@
 import { useState, lazy } from "react";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
 	ArrowLeftIcon,
@@ -21,6 +21,7 @@ const UserProfile = lazy(() => import("../components/UserPage/UserProfile"));
 
 const User = () => {
 	const [menuSelect, setMenuSelect] = useState("my-profile");
+  const navigate = useNavigate();
 
 	return (
 		<main className="container flex flex-col min-h-screen mb-4 md:my-16 bg-darkblue-06 md:bg-white">
@@ -81,7 +82,10 @@ const User = () => {
 								menuSelect === "log-out" &&
 									"font-bold text-darkblue-05"
 							)}
-							onClick={() => setMenuSelect("log-out")}
+							onClick={() => {
+                localStorage.removeItem("token");
+                return window.location.reload(navigate("/"));
+              }}
 						>
 							<PowerIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Keluar</p>
