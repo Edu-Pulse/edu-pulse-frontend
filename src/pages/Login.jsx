@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from "../components/UI/Button";
 import Input from "../components/UI/Input";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -50,9 +49,13 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       <div className="flex justify-between mt-[16px]">
-        <label className="font-poppins text-[14px] mb-1 font-normal leading-[18px] text-black">Password</label>
+        <label className="font-poppins text-[14px] mb-1 font-normal leading-[18px] text-black">
+          Password
+        </label>
         <Link to="/auth/reset">
-          <label className="font-poppins text-[13px] font-normal leading-[18px] text-darkblue-05 mb-1 cursor-pointer">Lupa Kata Sandi</label>
+          <label className="font-poppins text-[13px] font-normal leading-[18px] text-darkblue-05 mb-1 cursor-pointer">
+            Lupa Kata Sandi
+          </label>
         </Link>
       </div>
         <Input 

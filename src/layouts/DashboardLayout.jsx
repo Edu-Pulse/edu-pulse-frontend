@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Icon from '../assets/svg/Icon-Dashboard.svg'
 import logo from '../assets/svg/Logo-Belajar.svg';
 import {
@@ -7,6 +7,7 @@ import {
 import Sidebar from '../components/Admin/Sidebar';
 
 const DashboardLayout = () => {
+  const navigate = useNavigate();
   return (
     <body className="flex h-[100vh] w-[100vw]">
     <aside className=" w-[20%] h-full bg-darkblue-05">
@@ -15,6 +16,7 @@ const DashboardLayout = () => {
           src={logo}
           alt="logo-belajar"
           className=" h-[150px]"
+          onClick={() => navigate('/')}
         />
       </div>
       <div className='text-white font-Montserrat text-[16px] font-bold leading-[36px]'>

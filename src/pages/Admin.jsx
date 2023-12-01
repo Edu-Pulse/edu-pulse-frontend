@@ -30,6 +30,7 @@ function Admin() {
         src={logo}
         alt="logo-belajar"
         className="w-[135px] h-[150px]"
+        onClick={() => navigate('/')}
       />
     </aside>
     <section className="md:w-[65%] w-full h-full grid place-content-center">

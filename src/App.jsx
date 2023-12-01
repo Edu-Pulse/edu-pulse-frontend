@@ -96,6 +96,16 @@ const App = () => {
       ],
     },
     {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+        },
+      ],
+    },
+    {
       path: "/admin",
       element: <Admin />,
     },

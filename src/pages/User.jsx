@@ -3,19 +3,19 @@ import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
-	ArrowLeftIcon,
-	PencilIcon,
-	Cog6ToothIcon,
-	ShoppingCartIcon,
-	PowerIcon,
+  ArrowLeftIcon,
+  PencilIcon,
+  Cog6ToothIcon,
+  ShoppingCartIcon,
+  PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
 
 const PurchaseHistory = lazy(() =>
-	import("../components/UserPage/PurchaseHistory")
+  import("../components/UserPage/PurchaseHistory")
 );
 const ChangePassword = lazy(() =>
-	import("../components/UserPage/ChangePassword")
+  import("../components/UserPage/ChangePassword")
 );
 const UserProfile = lazy(() => import("../components/UserPage/UserProfile"));
 
@@ -81,12 +81,11 @@ const User = () => {
 								"flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
 								menuSelect === "log-out" &&
 									"font-bold text-darkblue-05"
-							)}
-							onClick={() => {
+							)}onClick={() => {
                 localStorage.removeItem("token");
                 return window.location.reload(navigate("/"));
               }}
-						>
+													>
 							<PowerIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Keluar</p>
 						</div>
