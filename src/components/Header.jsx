@@ -8,10 +8,20 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <header className="fixed top-0 z-50 w-full py-3 bg-darkblue-05">
       <nav className="container flex items-center justify-between">
