@@ -1,9 +1,9 @@
 import {  useState } from "react";
-import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
+import Button from "../UI/Button";
+import Input from "../UI/Input";
 import { useNavigate } from 'react-router-dom';
 
-function Reset() {
+function ResetPassword() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
@@ -50,4 +50,4 @@ function Reset() {
   )
 }
 
-export default Reset
+export default ResetPassword

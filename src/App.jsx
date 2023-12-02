@@ -3,13 +3,13 @@ import HomeLayout from "./layouts/HomeLayout";
 import Home from "./pages/Home";
 import UIElements from "./pages/UIElements";
 import AuthLayout from "./layouts/AuthLayout";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Detail from "./pages/Detail";
 import User from "./pages/User";
 import Notification from "./pages/Notification";
-import Reset from "./pages/Reset";
-import Admin from "./pages/Admin";
+import Reset from "./components/auth/ResetPassword";
+import LoginAdmin from "./components/Admin/LoginAdmin";
 import Dashboard from "./components/Admin/Dashboard";
 import KelolaKelas from "./components/Admin/KelolaKelas";
 import MyClass from "./pages/MyClass";
@@ -17,7 +17,7 @@ import ClassTopic from "./pages/ClassTopic";
 import PaymentDetail from "./pages/PaymentDetail";
 import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Otp from "./pages/OTP";
+import Otp from "./components/auth/OTP";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -107,7 +107,7 @@ const App = () => {
     },
     {
       path: "/admin",
-      element: <Admin />,
+      element: <LoginAdmin />,
     },
     {
       path: "/ui-elements",

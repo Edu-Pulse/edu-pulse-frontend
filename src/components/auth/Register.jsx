@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
-import Button from "../components/UI/Button"
-import Input from "../components/UI/Input"
+import Button from "../UI/Button"
+import Input from "../UI/Input"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import CheckList from "../UI/CheckList";
 
 function Register() {
   const [name, setName] = useState('');
@@ -68,16 +69,12 @@ function Register() {
           value={name}
           onChange={(e) => {
             handleName();
-            setName(e.target.value);
+            setName(e.target.value.slice(0, 30));
           }}
           isError={isErrorName}
         />
         {checkName && (
-          <span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#188E55"/>
-          </svg>
-        </span>
+          <CheckList marginTop="[-1.9rem]"/>
         )}
       </div>
       <div className="flex justify-between mt-[14px]">
@@ -95,33 +92,25 @@ function Register() {
           isError={isErrorEmail}
         />
         {checkEmail && (
-          <span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[2.2rem]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#188E55"/>
-          </svg>
-        </span>
+          <CheckList marginTop="[2.2rem]" />
         )}
       </div>
       <div className="flex justify-between mt-[14px]">
       </div>
         <Input 
           placeholder="08xxxxxxxxx"
-          type="text"
+          type="number"
           label="Nomor Telepon"
           name="Nomor Telepon"
           value={noTlp}
           onChange={(e) => {
             handleNoTlp();
-            setNoTlp(e.target.value);
+            setNoTlp(e.target.value.slice(0, 13));
           }}
           isError={isErrorTlp}
         />
         {checkTlp && (
-          <span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#188E55"/>
-          </svg>
-        </span>
+          <CheckList marginTop="[-1.9rem]"/>
         )}
       <div className="flex justify-between mt-[14px]">
       </div>

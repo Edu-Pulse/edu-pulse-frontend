@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
+import Button from "../UI/Button";
+import Input from "../UI/Input";
 import axios from "axios";
 
 const Login = () => {
