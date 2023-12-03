@@ -6,11 +6,13 @@ import {
 } from "@heroicons/react/24/outline";
 import Sidebar from '../components/Admin/Sidebar';
 
+
 const DashboardLayout = () => {
   const navigate = useNavigate();
+
   return (
-    <body className="flex h-[100vh] w-[100vw]">
-    <aside className=" w-[20%] h-full bg-darkblue-05">
+    <main className="md:flex h-full w-full">
+    <aside className="md:block hidden w-[15%] h-screen bg-darkblue-05">
       <div className='px-5 '>
         <img
           src={logo}
@@ -37,10 +39,10 @@ const DashboardLayout = () => {
         />
       </div>
     </aside>
-    <main className=" w-[100vw] ">
-      <section className=" flex px-[65px] h-20 gap-x-32 bg-darkblue-06">
-      <div className="h-full w-[50%] pt-6 grid place-content-start font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05">Hi, Admin!</div>
-        <div className="flex items-center w-[300px]">
+    <main className="md:w-[85%]">
+      <section className="md:w-[100%] sm:w-[100%] w-[100%] flex sm:px-[65px] px-3 h-20 sm:gap-x-32 bg-darkblue-06">
+      <div className="h-full md:w-[50%] w-full pt-6 font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05">Hi, Admin!</div>
+        <div className="flex items-center sm:w-[300px] w-full">
             <input
               type="text"
               className="py-3 px-4 rounded-2xl w-full outline-none"
@@ -51,8 +53,8 @@ const DashboardLayout = () => {
             </span>
           </div>
       </section>
-      <section className=" h-[19%] px-20 pt-[13px]  flex justify-between gap-x-6">
-        <div className="flex gap-5 w-2/4 h-24 rounded-2xl bg-darkblue-03 ps-9 py-2">
+      <section className="md:w-[100%] sm:w-[100%] w-[100%] md:h-[19%] h-[44%] sm:px-20 px-2 pt-[13px] md:flex justify-between gap-x-6">
+        <div className="flex gap-5 md:w-2/4 mt-5 h-24 rounded-2xl bg-darkblue-03 ps-9 py-2">
           <img
             src={Icon}
             alt="icon-dashboard"
@@ -64,7 +66,7 @@ const DashboardLayout = () => {
             <div className="font-inter font-bold text-white text-xl p-0 m-0">Active Users</div>
           </div>
         </div>
-        <div className="flex gap-5 w-2/4 h-24 rounded-2xl bg-alert-success ps-9 py-2">
+        <div className="flex gap-5 md:w-2/4 mt-5 h-24 rounded-2xl bg-alert-success ps-9 py-2">
           <img
             src={Icon}
             alt="icon-dashboard"
@@ -76,7 +78,7 @@ const DashboardLayout = () => {
             <div className="font-inter font-bold text-white text-xl p-0 m-0">Active Class</div>
           </div>
         </div>
-        <div className="flex gap-5 w-2/4 h-24 rounded-2xl bg-darkblue-05 ps-9 py-2">
+        <div className="flex gap-5 md:w-2/4 mt-5 h-24 rounded-2xl bg-darkblue-05 ps-9 py-2">
           <img
             src={Icon}
             alt="icon-dashboard"
@@ -91,7 +93,7 @@ const DashboardLayout = () => {
       </section>
         <Outlet />
     </main>
-    </body>
+    </main>
   )
 }
 

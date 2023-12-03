@@ -1,12 +1,12 @@
-import logo from '../assets/svg/Logo-Belajar.svg';
+import logo from '../../assets/svg/Logo-Belajar.svg';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
-import userData from "../json/users.json";
+import Button from "../UI/Button";
+import Input from "../UI/Input";
+import userData from "../../json/users.json";
 
 
-function Admin() {
+function LoginAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [users, setUsers] = useState([]);
@@ -67,4 +67,4 @@ function Admin() {
   )
 }
 
-export default Admin
+export default LoginAdmin
