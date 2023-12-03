@@ -60,17 +60,9 @@ const Otp = () => {
     e.preventDefault();
 
     try {
-      let data = JSON.stringify({
-        tipe,
-      });
-
       let config = {
         method: "PUT",
-        url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
+        url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}&code=${tipe}`,
       };
 
       await axios.request(config);
