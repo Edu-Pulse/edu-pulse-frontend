@@ -13,7 +13,8 @@ const Otp = () => {
   const [otpValues, setOTPValues] = useState(['', '', '', '']);
 
   const hasilKode = otpValues.join('');
-  console.log(hasilKode);
+  const tipe = Number(hasilKode);
+  console.log(tipe);
   
   useEffect(() => {
     OTPinputs.current[0].focus();
