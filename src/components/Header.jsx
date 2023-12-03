@@ -9,10 +9,12 @@ import {
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,6 +22,31 @@ const Header = () => {
     if (token) {
       setIsLoggedIn(true);
     }
+  }, []);
+
+  useEffect(() => {
+    const getMe = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `https://pragos-academy-api-production.up.railway.app/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = response.data.data;
+
+        console.log(data);
+        setUser(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getMe();
   }, []);
 
   return (
@@ -60,6 +87,7 @@ const Header = () => {
                 icon={<UserIcon className="w-5 h-5" />}
                 name="Akun"
               />
+              <h3>Hai, {user?.name}</h3>
             </div>
           ) : (
             <Button

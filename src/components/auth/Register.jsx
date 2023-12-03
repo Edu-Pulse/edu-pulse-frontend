@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
+import Button from "../../components/UI/Button";
+import Input from "../../components/UI/Input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [noTlp, setNoTlp] = useState("");
+  const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
+  const [city, setcity] = useState("");
+  const [country, setcountry] = useState("");
   const [isErrorName, setIsErrorName] = useState(false);
   const [isErrorEmail, setIsErrorEmail] = useState(false);
   const [isErrorTlp, setIsErrorTlp] = useState(false);
@@ -38,8 +41,8 @@ function Register() {
     }
   };
 
-  const handleNoTlp = () => {
-    if (noTlp.length >= 9) {
+  const handlephone = () => {
+    if (phone.length >= 9) {
       setCheckTlp(true);
       setIsErrorTlp(false);
     } else {
@@ -53,6 +56,36 @@ function Register() {
       setIsErrorPassword(false);
     } else {
       setIsErrorPassword(true);
+    }
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let data = JSON.stringify({
+        name,
+        email,
+        phone,
+        password,
+        city,
+        country,
+      });
+
+      let config = {
+        method: "post",
+        url: `https://pragos-academy-api-production.up.railway.app/register`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      await axios.request(config);
+
+      navigate(`/auth/otp/${email}`);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -128,10 +161,10 @@ function Register() {
         type="text"
         label="Nomor Telepon"
         name="Nomor Telepon"
-        value={noTlp}
+        value={phone}
         onChange={(e) => {
-          handleNoTlp();
-          setNoTlp(e.target.value);
+          handlephone();
+          setphone(e.target.value);
         }}
         isError={isErrorTlp}
       />
@@ -164,8 +197,36 @@ function Register() {
         }}
         isError={isErrorPassword}
       />
+      <div className="">
+        <Input
+          placeholder="Asal city"
+          type="text"
+          label="Asal city"
+          name="Asal city"
+          value={city}
+          onChange={(e) => {
+            handleName();
+            setcity(e.target.value);
+          }}
+          isError={isErrorName}
+        />
+      </div>
+      <div className="">
+        <Input
+          placeholder="Asal country"
+          type="text"
+          label="Asal country"
+          name="Asal country"
+          value={country}
+          onChange={(e) => {
+            handleName();
+            setcountry(e.target.value);
+          }}
+          isError={isErrorName}
+        />
+      </div>
       <div className="flex justify-center mt-[24px]">
-        <Button onClick={() => navigate("/auth/otp")} className="w-[452px]">
+        <Button onClick={onSubmit} className="w-[452px]">
           Daftar
         </Button>
       </div>
