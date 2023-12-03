@@ -76,7 +76,7 @@ const App = () => {
           element: <Reset />,
         },
         {
-          path: "otp",
+          path: "otp/:email",
           element: <Otp />,
         },
       ],
