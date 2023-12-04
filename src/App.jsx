@@ -1,120 +1,122 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomeLayout from "./layouts/HomeLayout";
-import Home from "./pages/Home";
-import UIElements from "./pages/UIElements";
-import AuthLayout from "./layouts/AuthLayout";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Detail from "./pages/Detail";
-import User from "./pages/User";
-import Notification from "./pages/Notification";
-import Reset from "./components/auth/ResetPassword";
-import LoginAdmin from "./components/Admin/LoginAdmin";
-import Dashboard from "./components/Admin/Dashboard";
-import KelolaKelas from "./components/Admin/KelolaKelas";
-import MyClass from "./pages/MyClass";
-import ClassTopic from "./pages/ClassTopic";
-import PaymentDetail from "./pages/PaymentDetail";
-import PaymentDetailSuccess from "./pages/PaymentDetailSuccess";
-import DashboardLayout from "./layouts/DashboardLayout";
-import Otp from "./components/auth/OTP";
+import HomeLayout from "@/layouts/HomeLayout";
+import Home from "@/pages/Home";
+import { Toaster } from "react-hot-toast";
+
+// Auth Flow
+import AuthLayout from "@/layouts/AuthLayout";
+import Login from "@/pages/AuthFlow/Login";
+import Register from "@/pages/AuthFlow/Register";
+import Otp from "@/pages/AuthFlow/OTP";
+import Reset from "@/pages/AuthFlow/ResetPassword";
+
+// User Flow
+import User from "@/pages/UserFlow/User";
+import Notification from "@/pages/UserFlow/Notification";
+
+// Class Flow
+import Detail from "@/pages/ClassFlow/Detail";
+import MyClass from "@/pages/ClassFlow/MyClass";
+import ClassTopic from "@/pages/ClassFlow/ClassTopic";
+
+// Admin Flow
+import DashboardLayout from "@/layouts/DashboardLayout";
+import LoginAdmin from "@/pages/AdminFlow/LoginAdmin";
+import Dashboard from "@/pages/AdminFlow/Dashboard";
+import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
+
+// Payment Flow
+import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
+import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const App = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomeLayout />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/my-class",
-          element: <MyClass />,
-        },
-        {
-          path: "/class-topic",
-          element: <ClassTopic />,
-        },
-        {
-          path: "/payment-pending",
-          element: <PaymentDetail />,
-        },
-        {
-          path: "/payment-success",
-          element: <PaymentDetailSuccess />,
-        },
-        {
-          path: "/detail",
-          element: <Detail />,
-        },
-        {
-          path: "/notifikasi",
-          element: <Notification />,
-        },
-        {
-          path: "/user",
-          element: <User />,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "reset",
-          element: <Reset />,
-        },
-        {
-          path: "otp/:email",
-          element: <Otp />,
-        },
-      ],
-    },
-    {
-      path: "/dashboard",
-      element: <DashboardLayout />,
-      children: [
-        {
-          index: true,
-          element: <Dashboard />,
-        },
-        {
-          path: "kelolakelas",
-          element: <KelolaKelas />,
-        },
-      ],
-    },
-    {
-      path: "/dashboard",
-      element: <DashboardLayout />,
-      children: [
-        {
-          index: true,
-          element: <Dashboard />,
-        },
-      ],
-    },
-    {
-      path: "/admin",
-      element: <LoginAdmin />,
-    },
-    {
-      path: "/ui-elements",
-      element: <UIElements />,
-    },
-  ]);
-  return <RouterProvider router={routes} />;
+	const routes = createBrowserRouter([
+		{
+			path: "/",
+			element: <HomeLayout />,
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+				{
+					path: "/my-class",
+					element: <MyClass />,
+				},
+				{
+					path: "/class-topic",
+					element: <ClassTopic />,
+				},
+				{
+					path: "/payment-pending",
+					element: <PaymentDetail />,
+				},
+				{
+					path: "/payment-success",
+					element: <PaymentDetailSuccess />,
+				},
+				{
+					path: "/detail",
+					element: <Detail />,
+				},
+				{
+					path: "/notifikasi",
+					element: <Notification />,
+				},
+				{
+					path: "/user",
+					element: <User />,
+				},
+			],
+		},
+		{
+			path: "/auth",
+			element: <AuthLayout />,
+			children: [
+				{
+					path: "login",
+					element: <Login />,
+				},
+				{
+					path: "register",
+					element: <Register />,
+				},
+				{
+					path: "reset",
+					element: <Reset />,
+				},
+				{
+					path: "otp/:email",
+					element: <Otp />,
+				},
+			],
+		},
+		{
+			path: "/dashboard",
+			element: <DashboardLayout />,
+			children: [
+				{
+					index: true,
+					element: <Dashboard />,
+				},
+				{
+					path: "kelolakelas",
+					element: <KelolaKelas />,
+				},
+			],
+		},
+		{
+			path: "/admin",
+			element: <LoginAdmin />,
+		},
+	]);
+	return (
+		<AuthContextProvider>
+			<Toaster position="bottom-center" reverseOrder={false} />
+			<RouterProvider router={routes} />
+		</AuthContextProvider>
+	);
 };
 
 export default App;
