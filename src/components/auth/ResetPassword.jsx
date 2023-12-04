@@ -1,9 +1,9 @@
 import {  useState } from "react";
-import Button from "../components/UI/Button";
-import Input from "../components/UI/Input";
+import Button from "../UI/Button";
+import Input from "../UI/Input";
 import { useNavigate } from 'react-router-dom';
 
-function Reset() {
+function ResetPassword() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
@@ -18,7 +18,7 @@ function Reset() {
   };
 
   return (
-    <div className="w-[452px] h-[348px] ">
+    <div className="sm:w-[452px] w-[352px] h-[348px] ">
       <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">Reset Password</h1>
         <Input 
           placeholder="********" 
@@ -50,4 +50,4 @@ function Reset() {
   )
 }
 
-export default Reset
+export default ResetPassword

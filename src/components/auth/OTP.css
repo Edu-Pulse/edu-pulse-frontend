@@ -1,0 +1,99 @@
+.layerpertama{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layerkedua {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.bungkus {
+  width: 300px;
+  height: auto;
+  padding: 40px 30px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  transform: scale(1.5);
+}
+
+.bungkus .tag-atas {
+  font-size: 20px;
+  color: #121212;
+  font-family: sans-serif;
+}
+
+.bungkus .formulir {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.formulir .input_fields {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+.input_fields .isi {
+  max-width: 15%;
+  height: 60px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #6148FF;
+  background-color: #f0f0f0;
+  font-size: 25px;
+}
+
+.input_fields .isi::-webkit-inner-spin-button,
+.input_fields .isi::-webkit-outer-spin-button {
+  display: none;
+}
+
+.input_fields .isi:focus {
+  outline: 3px solid #6148FF;
+  outline-offset: 2px;
+}
+
+.tombol {
+  margin-left: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 92%;
+  color: #525252;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10
+}
+
+.tombol.active {
+  background-color: #6148FF;
+  color: white;
+  cursor: pointer;
+}
+
+.tombol:disabled {
+  background-color: #A9A9A9;
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.tombol:disabled:hover {
+  background-color: #A9A9A9;
+  color: #808080;
+  cursor: not-allowed;
+}
