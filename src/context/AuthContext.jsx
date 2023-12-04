@@ -8,13 +8,13 @@ export const AuthContextProvider = ({ children }) => {
 			return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(type);
 		};
 		console.log(isEmail(email));
-		if (isEmail(email)) {
+		if (!isEmail(email)) {
 			setState((current) => {
-				return { ...current, isEmailError: false };
+				return { ...current, isEmailError: true };
 			});
 		} else {
 			setState((current) => {
-				return { ...current, isEmailError: true };
+				return { ...current, isEmailError: false };
 			});
 		}
 	};
@@ -34,9 +34,38 @@ export const AuthContextProvider = ({ children }) => {
 		}
 	};
 
+	const handleNameValidation = (name, setState) => {
+		if (name.length <= 2) {
+			setState((current) => {
+				return { ...current, isNameError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isNameError: false };
+			});
+		}
+	};
+
+	const handlePhoneValidation = (phone, setState) => {
+		if (phone.length < 10 || phone.length > 14) {
+			setState((current) => {
+				return { ...current, isPhoneError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isPhoneError: false };
+			});
+		}
+	};
+
 	return (
 		<AuthContext.Provider
-			value={{ handleEmailValidation, handlePasswordValidation }}
+			value={{
+				handleEmailValidation,
+				handlePasswordValidation,
+				handleNameValidation,
+				handlePhoneValidation,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>
