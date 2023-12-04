@@ -9,6 +9,7 @@ const Input = ({
 	type,
 	value,
 	onChange,
+	onBlur,
 	placeholder,
 	className,
 	isError = false,
@@ -47,6 +48,7 @@ const Input = ({
 					type={inputType}
 					value={value}
 					onChange={onChange}
+					onBlur={onBlur}
 				/>
 				{type === "password" && (
 					<span
@@ -74,6 +76,7 @@ Input.propTypes = {
 	placeholder: PropTypes.string,
 	className: PropTypes.string,
 	isError: PropTypes.bool,
+	onBlur: PropTypes.func,
 };
 
 export default Input;
