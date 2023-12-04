@@ -56,24 +56,53 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const handlePasswordValidation = (password, setState) => {
-    if (
-      (password.length < 8 && password.length !== 0) ||
-      password.length > 20
-    ) {
-      setState((current) => {
-        return { ...current, isPasswordError: true };
-      });
-    } else {
-      setState((current) => {
-        return { ...current, isPasswordError: false };
-      });
-    }
-  };
+	const handlePasswordValidation = (password, setState) => {
+		if (
+			(password.length < 8 && password.length !== 0) ||
+			password.length > 20
+		) {
+			setState((current) => {
+				return { ...current, isPasswordError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isPasswordError: false };
+			});
+		}
+	};
+
+	const handleNameValidation = (name, setState) => {
+		if (name.length <= 2) {
+			setState((current) => {
+				return { ...current, isNameError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isNameError: false };
+			});
+		}
+	};
+
+	const handlePhoneValidation = (phone, setState) => {
+		if (phone.length < 10 || phone.length > 14) {
+			setState((current) => {
+				return { ...current, isPhoneError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isPhoneError: false };
+			});
+		}
+	};
 
   return (
     <AuthContext.Provider
-      value={{ handleEmailValidation, handlePasswordValidation, user, token }}
+      value={{
+				handleEmailValidation,
+				handlePasswordValidation, user, token,
+				handleNameValidation,
+				handlePhoneValidation,
+			}}
     >
       {children}
     </AuthContext.Provider>

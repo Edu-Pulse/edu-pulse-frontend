@@ -2,62 +2,30 @@ import { Link } from "react-router-dom";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { AuthContext } from "@/context/AuthContext";
 
 function Register() {
+	const {
+		handleNameValidation,
+		handleEmailValidation,
+		handlePhoneValidation,
+		handlePasswordValidation,
+	} = useContext(AuthContext);
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setphone] = useState("");
 	const [password, setPassword] = useState("");
 	const [city, setcity] = useState("");
 	const [country, setcountry] = useState("");
-	const [isErrorName, setIsErrorName] = useState(false);
-	const [isErrorEmail, setIsErrorEmail] = useState(false);
-	const [isErrorTlp, setIsErrorTlp] = useState(false);
-	const [isErrorPassword, setIsErrorPassword] = useState(false);
-	const [checkName, setCheckName] = useState(false);
-	const [checkEmail, setCheckEmail] = useState(false);
-	const [checkTlp, setCheckTlp] = useState(false);
+	const [error, setError] = useState({
+		isEmailError: false,
+		isNameError: false,
+		isPhoneError: false,
+		isPasswordError: false,
+	});
 	const navigate = useNavigate();
-
-	const handleName = () => {
-		if (name.length >= 2) {
-			setCheckName(true);
-			setIsErrorName(false);
-		} else {
-			setCheckName(false);
-			setIsErrorName(true);
-		}
-		return;
-	};
-
-	const handleEmail = () => {
-		if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			setCheckEmail(true);
-			setIsErrorEmail(false);
-		} else {
-			setIsErrorEmail(true);
-		}
-	};
-
-	const handlephone = () => {
-		if (phone.length >= 9) {
-			setCheckTlp(true);
-			setIsErrorTlp(false);
-		} else {
-			setCheckTlp(false);
-			setIsErrorTlp(true);
-		}
-	};
-
-	const handlePassword = () => {
-		if (password.length >= 8) {
-			setIsErrorPassword(false);
-		} else {
-			setIsErrorPassword(true);
-		}
-	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -102,12 +70,12 @@ function Register() {
 					name="Nama Lengkap"
 					value={name}
 					onChange={(e) => {
-						handleName();
 						setName(e.target.value);
 					}}
-					isError={isErrorName}
+					onBlur={() => handleNameValidation(name, setError)}
+					isError={error && error.isNameError}
 				/>
-				{checkName && (
+				{!error && !error.isNameError && (
 					<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -133,12 +101,12 @@ function Register() {
 					className="w-full"
 					value={email}
 					onChange={(e) => {
-						handleEmail();
 						setEmail(e.target.value);
 					}}
-					isError={isErrorEmail}
+					onBlur={() => handleEmailValidation(email, setError)}
+					isError={error && error.isEmailError}
 				/>
-				{checkEmail && (
+				{error && error.isEmailError && (
 					<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[2.2rem]">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -163,12 +131,12 @@ function Register() {
 				name="Nomor Telepon"
 				value={phone}
 				onChange={(e) => {
-					handlephone();
 					setphone(e.target.value);
 				}}
-				isError={isErrorTlp}
+				onBlur={() => handlePhoneValidation(phone, setError)}
+				isError={error && error.isPhoneError}
 			/>
-			{checkTlp && (
+			{error && error.isPhoneError && (
 				<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -192,37 +160,33 @@ function Register() {
 				name="Buat Password"
 				value={password}
 				onChange={(e) => {
-					handlePassword();
 					setPassword(e.target.value);
 				}}
-				isError={isErrorPassword}
+				onBlur={() => handlePasswordValidation(password, setError)}
+				isError={error && error.isPasswordError}
 			/>
 			<div className="">
 				<Input
-					placeholder="Asal city"
+					placeholder="Jakarta"
 					type="text"
-					label="Asal city"
-					name="Asal city"
+					label="Asal kota"
+					name="Asal kota"
 					value={city}
 					onChange={(e) => {
-						handleName();
 						setcity(e.target.value);
 					}}
-					isError={isErrorName}
 				/>
 			</div>
 			<div className="">
 				<Input
-					placeholder="Asal country"
+					placeholder="Indonesia"
 					type="text"
-					label="Asal country"
-					name="Asal country"
+					label="Asal negara"
+					name="Asal negara"
 					value={country}
 					onChange={(e) => {
-						handleName();
 						setcountry(e.target.value);
 					}}
-					isError={isErrorName}
 				/>
 			</div>
 			<div className="flex justify-center mt-[24px]">
