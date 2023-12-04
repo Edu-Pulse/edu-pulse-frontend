@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
-import Button from "@/components/UI/Button";
+import Button from "../UI/Button";
 import "./OTP.css";
 import axios from "axios";
 
@@ -12,9 +12,9 @@ const Otp = () => {
   const [otpValues, setOTPValues] = useState(["", "", "", ""]);
   const { email } = useParams();
 
-  const hasilKode = otpValues.join("");
-  const tipe = Number(hasilKode);
-  console.log(tipe);
+  const kode = otpValues.join("");
+  const hasilKode = Number(kode);
+  console.log(hasilKode);
 
   useEffect(() => {
     OTPinputs.current[0].focus();
@@ -42,7 +42,7 @@ const Otp = () => {
       setIsButtonActive(false);
     }
   };
-
+  
   const handleInputKeyUp = (index, e) => {
     if (e.key === "Backspace") {
       const currentInput = OTPinputs.current[index];
@@ -61,8 +61,8 @@ const Otp = () => {
 
     try {
       let config = {
-        method: "POST",
-        url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}&code=${tipe}`,
+        method: "PUT",
+        url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}&code=${hasilKode}`,
       };
 
       await axios.request(config);
@@ -109,7 +109,6 @@ const Otp = () => {
       <p className="font-poppins text-center text-[14px] mt-[24px] font-normal leading-[18px] text-black">
         Masukkan Kode OTP dengan Benar!
       </p>
-      {/* <div className="flex justify-center mt-[48px]"> */}
       <Button
         className={`tombol ${isButtonActive ? "active" : ""}`}
         disabled={!isButtonActive}
@@ -117,7 +116,6 @@ const Otp = () => {
       >
         Simpan
       </Button>
-      {/* </div> */}
     </div>
   );
 };

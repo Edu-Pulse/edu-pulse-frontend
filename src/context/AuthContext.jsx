@@ -1,23 +1,60 @@
-import { createContext } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-	const handleEmailValidation = (email, setState) => {
-		const isEmail = (type) => {
-			return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(type);
-		};
-		console.log(isEmail(email));
-		if (!isEmail(email)) {
-			setState((current) => {
-				return { ...current, isEmailError: true };
-			});
-		} else {
-			setState((current) => {
-				return { ...current, isEmailError: false };
-			});
-		}
-	};
+  const [user, setUser] = useState("");
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setToken(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    const getMe = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `https://pragos-academy-api-production.up.railway.app/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = response.data.data;
+
+        console.log(data);
+        setUser(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getMe();
+  }, []);
+
+  const handleEmailValidation = (email, setState) => {
+    const isEmail = (type) => {
+      return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(type);
+    };
+    console.log(isEmail(email));
+    if (isEmail(email)) {
+      setState((current) => {
+        return { ...current, isEmailError: false };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isEmailError: true };
+      });
+    }
+  };
 
 	const handlePasswordValidation = (password, setState) => {
 		if (
@@ -58,16 +95,16 @@ export const AuthContextProvider = ({ children }) => {
 		}
 	};
 
-	return (
-		<AuthContext.Provider
-			value={{
+  return (
+    <AuthContext.Provider
+      value={{
 				handleEmailValidation,
-				handlePasswordValidation,
+				handlePasswordValidation, user, token,
 				handleNameValidation,
 				handlePhoneValidation,
 			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	);
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

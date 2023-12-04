@@ -97,3 +97,10 @@
   color: #808080;
   cursor: not-allowed;
 }
+
+.kotax::-webkit-inner-spin-button,
+.kotax::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
