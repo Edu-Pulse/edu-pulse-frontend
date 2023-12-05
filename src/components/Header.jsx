@@ -8,13 +8,13 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -22,31 +22,6 @@ const Header = () => {
     if (token) {
       setIsLoggedIn(true);
     }
-  }, []);
-
-  useEffect(() => {
-    const getMe = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/user`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = response.data.data;
-
-        console.log(data);
-        setUser(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getMe();
   }, []);
 
   return (

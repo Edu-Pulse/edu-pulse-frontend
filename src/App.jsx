@@ -8,7 +8,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 import Login from "@/pages/AuthFlow/Login";
 import Register from "@/pages/AuthFlow/Register";
 import Otp from "@/pages/AuthFlow/OTP";
-import Reset from "@/pages/AuthFlow/ResetPassword";
+import ResetPassword from "@/pages/AuthFlow/ResetPassword";
 
 // User Flow
 import User from "@/pages/UserFlow/User";
@@ -29,6 +29,8 @@ import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
 import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
+import Test from "./pages/Test";
+import { ValidationContextProvider } from "./context/ValidationContext";
 
 const App = () => {
 	const routes = createBrowserRouter([
@@ -84,7 +86,7 @@ const App = () => {
 				},
 				{
 					path: "reset",
-					element: <Reset />,
+					element: <ResetPassword />,
 				},
 				{
 					path: "otp/:email",
@@ -110,11 +112,17 @@ const App = () => {
 			path: "/admin",
 			element: <LoginAdmin />,
 		},
+		{
+			path: "/test",
+			element: <Test />,
+		},
 	]);
 	return (
 		<AuthContextProvider>
-			<Toaster position="bottom-center" reverseOrder={false} />
-			<RouterProvider router={routes} />
+			<ValidationContextProvider>
+				<Toaster position="bottom-center" reverseOrder={false} />
+				<RouterProvider router={routes} />
+			</ValidationContextProvider>
 		</AuthContextProvider>
 	);
 };
