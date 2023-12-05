@@ -36,19 +36,17 @@ const Login = () => {
 
 			const response = await axios.request(config);
 
-			if (response.data.error === true) {
-				toast.error(response.data.message);
-				return;
+			if (response.status === 200) {
+				const { token } = response.data.data;
+				localStorage.setItem("token", token);
+
+				navigate("/");
+
+				window.location.href = "/";
 			}
-
-			const { token } = response.data.data;
-			localStorage.setItem("token", token);
-
-			navigate("/");
-
-			window.location.href = "/";
+			return;
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error.response.data.message);
 			return;
 		}
 	};

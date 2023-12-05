@@ -1,189 +1,205 @@
-// import { Link } from "react-router-dom";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
-import CheckList from "../../components/UI/CheckList";
-// import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { Axios } from "axios";
 
 function Register() {
-	// const [name, setName] = useState("");
-	// const [email, setEmail] = useState("");
-	// const [phone, setphone] = useState("");
-	// const [password, setPassword] = useState("");
-	// const [city, setcity] = useState("");
-	// const [country, setcountry] = useState("");
-	// const [isErrorName, setIsErrorName] = useState(false);
-	// const [isErrorEmail, setIsErrorEmail] = useState(false);
-	// const [isErrorTlp, setIsErrorTlp] = useState(false);
-	// const [isErrorPassword, setIsErrorPassword] = useState(false);
-	// const [checkName, setCheckName] = useState(false);
-	// const [checkEmail, setCheckEmail] = useState(false);
-	// const [checkTlp, setCheckTlp] = useState(false);
-	// const navigate = useNavigate();
+  const {
+		handleNameValidation,
+		handleEmailValidation,
+		handlePhoneValidation,
+		handlePasswordValidation,
+	} = useContext(AuthContext);
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setphone] = useState("");
+	const [password, setPassword] = useState("");
+	const [city, setcity] = useState("");
+	const [country, setcountry] = useState("");
+	const [error, setError] = useState({
+		isEmailError: false,
+		isNameError: false,
+		isPhoneError: false,
+		isPasswordError: false,
+	});	
+  const navigate = useNavigate();
 
-	// const handleName = () => {
-	// 	if (name.length >= 2) {
-	// 		setCheckName(true);
-	// 		setIsErrorName(false);
-	// 	} else {
-	// 		setCheckName(false);
-	// 		setIsErrorName(true);
-	// 	}
-	// 	return;
-	// };
+	const onSubmit = async (e) => {
+		e.preventDefault();
 
-	// const handleEmail = () => {
-	// 	if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-	// 		setCheckEmail(true);
-	// 		setIsErrorEmail(false);
-	// 	} else {
-	// 		setIsErrorEmail(true);
-	// 	}
-	// };
+		try {
+			let data = JSON.stringify({
+				name,
+				email,
+				phone,
+				password,
+				city,
+				country,
+			});
 
-	// const handlephone = () => {
-	// 	if (phone.length >= 9) {
-	// 		setCheckTlp(true);
-	// 		setIsErrorTlp(false);
-	// 	} else {
-	// 		setCheckTlp(false);
-	// 		setIsErrorTlp(true);
-	// 	}
-	// };
+			let config = {
+				method: "post",
+				url: `https://pragos-academy-api-production.up.railway.app/register`,
+				headers: {
+					"Content-Type": "application/json",
+				},
+				data: data,
+			};
 
-	// const handlePassword = () => {
-	// 	if (password.length >= 8) {
-	// 		setIsErrorPassword(false);
-	// 	} else {
-	// 		setIsErrorPassword(true);
-	// 	}
-	// };
+			await Axios.request(config);
 
-	// const onSubmit = async (e) => {
-	// 	e.preventDefault();
-
-	// 	try {
-	// 		let data = JSON.stringify({
-	// 			name,
-	// 			email,
-	// 			phone,
-	// 			password,
-	// 			city,
-	// 			country,
-	// 		});
-
-	// 		let config = {
-	// 			method: "post",
-	// 			url: `https://pragos-academy-api-production.up.railway.app/register`,
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 			data: data,
-	// 		};
-
-	// 		await axios.request(config);
-
-	// 		navigate(`/auth/otp/${email}`);
-	// 	} catch (error) {
-	// 		console.log(error.message);
-	// 	}
-	// };
+			navigate(`/auth/otp/${email}`);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
 
 	return (
-		<div className="border border-black h-screen grid place-content-center items-center justify-center">
-      <div className="border border-black h-[441px] sm:w-[452px] w-[390px] sm:px-0 px-4">
-      <h1 className="border border-black font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05">
-        Daftar
-      </h1>
-        <div className="border border-black h-[4.4rem] mt-1 flex flex-row">
-          <div className="border border-black w-[50%] me-1 flex justify-between">
-          <div className="relative">
-            <Input
-              placeholder="Budi"
-              type="text"
-              label="Nama"
-              name="Nama"
-            />
-          <div className="absolute bottom-0 sm:ms-[12rem] ms-[9rem] mb-[0.9rem] ...">
-            <CheckList />
-          </div>
-          </div>
-          </div>
-          <div className="border border-black w-[50%] ms-1 flex justify-between">
-          <div className="relative">
-            <Input
-              placeholder="081823456789"
-              type="number"
-              label="Nomor Telepon"
-              name="Nomor Telepon"
-            />
-          <div className="absolute bottom-0 sm:ms-[12rem] ms-[9rem] mb-[0.9rem] ...">
-            <CheckList />
-          </div>
-          </div>
-          </div>
-        </div>
-        <div className="border border-black mt-1 h-[4.3rem]">
-        <div className="relative">
-            <Input
-              placeholder="Contoh: johndoe@gmail.com"
-              type="email"
-              label="Email"
-              name="Email"
-            />
-          <div className="absolute bottom-0 sm:ms-[26.3rem] ms-[20.5rem] mb-[0.7rem] ...">
-            <CheckList />
-          </div>
-          </div>
-        </div>
-        <div className="border border-black mt-1 h-[4.3rem]">
-        <div className="relative">
-            <Input
-              placeholder="Buat Password"
-              type="password"
-              label="Password"
-              name="Password"
-            />
-          </div>
-        </div>
-        <div className="border border-black h-[4.4rem] mt-1 flex flex-row">
-          <div className="border border-black w-[50%] me-1 flex justify-between">
-          <div className="relative">
-            <Input
-              placeholder="Jakarta"
-              type="text"
-              label="Asal Kota"
-              name="Asal Kota"
-            />
-          <div className="absolute bottom-0 sm:ms-[12rem] ms-[9rem] mb-[0.9rem] ...">
-            <CheckList />
-          </div>
-          </div>
-          </div>
-          <div className="border border-black w-[50%] ms-1 flex justify-between">
-          <div className="relative">
-            <Input
-              placeholder="Indonesia"
-              type="text"
-              label="Asal Negara"
-              name="Asal Negara"
-            />
-          <div className="absolute bottom-0 sm:ms-[12rem] ms-[9rem] mb-[0.9rem] ...">
-            <CheckList />
-          </div>
-          </div>
-          </div>
-        </div>
-        <div className="border border-black h-[3.2rem] mt-5">
-          <Button className="w-full">Daftar</Button>
-        </div>
-        <div className="border border-black mt-3 flex justify-center gap-[8px]">
-        <h3>Sudah punya akun?</h3>
-          <h3 className="text-darkblue-05 font-bold">Masuk di sini</h3>
-      </div>
-      </div>
-    </div>
+		<div className="max-w-[452px] w-full">
+			<h1 className="font-Montserrat text-2xl font-bold leading-[36px] text-darkblue-05 mb-6">
+				Daftar
+			</h1>
+			<div className="">
+				<Input
+					placeholder="Nama Lengkap"
+					type="text"
+					label="Nama"
+					name="Nama Lengkap"
+					value={name}
+					onChange={(e) => {
+						setName(e.target.value);
+					}}
+          onBlur={() => handleNameValidation(name, setError)}
+					isError={error && error.isNameError}
+				/>
+				{!error && !error.isNameError && (
+					<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 20 20"
+							fill="none"
+						>
+							<path
+								d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
+								fill="#188E55"
+							/>
+						</svg>
+					</span>
+				)}
+			</div>
+			<div className="flex justify-between mt-[14px]">
+				<Input
+					placeholder="Contoh: johndee@gmail.com"
+					type="email"
+					label="Email"
+					name="Email"
+					className="w-full"
+					value={email}
+					onChange={(e) => {
+						setEmail(e.target.value);
+					}}
+          onBlur={() => handleEmailValidation(email, setError)}
+					isError={error && error.isEmailError}
+				/>
+				{error && error.isEmailError && (
+					<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[2.2rem]">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 20 20"
+							fill="none"
+						>
+							<path
+								d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
+								fill="#188E55"
+							/>
+						</svg>
+					</span>
+				)}
+			</div>
+			<div className="flex justify-between mt-[14px]"></div>
+			<Input
+				placeholder="08xxxxxxxxx"
+				type="text"
+				label="Nomor Telepon"
+				name="Nomor Telepon"
+				value={phone}
+				onChange={(e) => {
+					setphone(e.target.value);
+				}}
+        onBlur={() => handlePhoneValidation(phone, setError)}
+				isError={error && error.isPhoneError}
+			/>
+			{error && error.isPhoneError && (
+				<span className="sm:ml-[26rem] ml-[19.5rem] h-6 absolute mt-[-1.9rem]">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="none"
+					>
+						<path
+							d="M10 0C4.5 0 0 4.5 0 10C0 15.5 4.5 20 10 20C15.5 20 20 15.5 20 10C20 4.5 15.5 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
+							fill="#188E55"
+						/>
+					</svg>
+				</span>
+			)}
+			<div className="flex justify-between mt-[14px]"></div>
+			<Input
+				placeholder="Buat Password"
+				type="password"
+				label="Buat Password"
+				name="Buat Password"
+				value={password}
+				onChange={(e) => {
+					setPassword(e.target.value);
+				}}
+				onBlur={() => handlePasswordValidation(password, setError)}
+				isError={error && error.isPasswordError}
+			/>
+			<div className="">
+				<Input
+					placeholder="Jakarta"
+					type="text"
+					label="Asal Kota"
+					name="Asal Kota"
+					value={city}
+					onChange={(e) => {
+						setcity(e.target.value);
+					}}
+				/>
+			</div>
+			<div className="">
+				<Input
+					placeholder="Asal Indonesia"
+					type="text"
+					label="Asal negara"
+					name="Asal negara"
+					value={country}
+					onChange={(e) => {
+						setcountry(e.target.value);
+					}}
+				/>
+			</div>
+			<div className="flex justify-center mt-[24px]">
+				<Button onClick={onSubmit} className="w-[452px]">
+					Daftar
+				</Button>
+			</div>
+			<div className="flex justify-center mt-[40px] gap-[8px]">
+				<h3>Sudah punya akun?</h3>
+					<h3 className="text-darkblue-05 font-bold">
+						Masuk di sini
+					</h3>
+			</div>
+		</div>
 	);
 }
 

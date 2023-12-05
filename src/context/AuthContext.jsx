@@ -72,32 +72,28 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const handleNameValidation = (name, setState) => {
-    if (
-      (name.length === 0)
-    ) {
-      setState((current) => {
-        return { ...current, isNameError: true };
-      });
-    } else {
-      setState((current) => {
-        return { ...current, isNameError: false };
-      });
-    }
-  };
+		if (name.length <= 2) {
+			setState((current) => {
+				return { ...current, isNameError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isNameError: false };
+			});
+		}
+	};
 
   const handlePhoneValidation = (phone, setState) => {
-    if (
-      (phone.length === 0)
-    ) {
-      setState((current) => {
-        return { ...current, isPhoneError: true };
-      });
-    } else {
-      setState((current) => {
-        return { ...current, isPhoneError: false };
-      });
-    }
-  };
+		if (phone.length < 10 || phone.length > 14) {
+			setState((current) => {
+				return { ...current, isPhoneError: true };
+			});
+		} else {
+			setState((current) => {
+				return { ...current, isPhoneError: false };
+			});
+		}
+	};
 
   const handleCityValidation = (city, setState) => {
     if (
