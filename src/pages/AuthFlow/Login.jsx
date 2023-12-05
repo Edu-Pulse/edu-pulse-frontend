@@ -4,11 +4,11 @@ import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { AuthContext } from "@/context/AuthContext";
+import { ValidationContext } from "@/context/ValidationContext";
 
 const Login = () => {
 	const { handleEmailValidation, handlePasswordValidation } =
-		useContext(AuthContext);
+		useContext(ValidationContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState({
