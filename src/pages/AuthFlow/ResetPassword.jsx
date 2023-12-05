@@ -1,56 +1,68 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
-import { useNavigate } from "react-router-dom";
+import { ValidationContext } from "../../context/ValidationContext";
 
 function ResetPassword() {
-	const [email, setEmail] = useState("");
+	const { handlePasswordValidation } = useContext(ValidationContext);
 	const [password, setPassword] = useState("");
-	const [isError, setIsError] = useState(false);
-	const navigate = useNavigate();
+	const [repeatPassword, setRepeatPassword] = useState("");
+	const [error, setError] = useState({
+		isPasswordError: false,
+		isPasswordSimilar: true,
+	});
 
-	const handleLogin = () => {
-		if (password.length >= 8) {
-			navigate("/auth/login");
-		} else {
-			setIsError(true);
-		}
-	};
-
+	const handleResetPassword = () => {};
 	return (
-		<div className="sm:w-[452px] w-[352px] h-[348px] ">
-			<h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px]">
+		<div className="max-w-[452px] w-full">
+			<h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
 				Reset Password
 			</h1>
-			<Input
-				placeholder="********"
-				type="password"
-				label="Masukkan Password Baru"
-				name="password"
-				value={email}
-				onChange={(e) => setEmail(e.target.value)}
-				isError={isError}
-			/>
-			<div className="flex justify-between mt-[16px]"></div>
+			<div className="mb-4">
+				<Input
+					placeholder="********"
+					type="password"
+					label="Masukkan Password Baru"
+					name="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					onBlur={() => handlePasswordValidation(password, setError)}
+					isError={error && error.isPasswordError}
+				/>
+				{error && error.isPasswordError && (
+					<label
+						htmlFor="password"
+						className="text-xs text-alert-warning"
+					>
+						Password tidak boleh kurang dari 8 atau lebih dari 20
+						karakter
+					</label>
+				)}
+			</div>
+
 			<Input
 				placeholder="********"
 				type="password"
 				label="Ulangi Password Baru"
-				name="password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				isError={isError}
+				name="newpassword"
+				value={repeatPassword}
+				onChange={(e) => {
+					setRepeatPassword(e.target.value);
+				}}
+				isError={password !== repeatPassword}
 			/>
-			<div className="flex justify-center mt-[24px]">
-				<Button className="w-[452px]" onClick={handleLogin}>
+			{password !== repeatPassword && (
+				<label
+					htmlFor="newpassword"
+					className="text-xs text-alert-warning"
+				>
+					Password tidak sama
+				</label>
+			)}
+			<div className="flex justify-center mt-6">
+				<Button className="w-full" onClick={handleResetPassword}>
 					Simpan
 				</Button>
-			</div>
-			<div
-				style={isError ? { display: "block" } : { display: "none" }}
-				className="mt-[80px] text-center py-[12px] px-[24px] rounded-lg bg-alert-warning text-white scale-y-1 origin-bottom transition-transform duration-300"
-			>
-				Password min 8 karakter!
 			</div>
 		</div>
 	);
