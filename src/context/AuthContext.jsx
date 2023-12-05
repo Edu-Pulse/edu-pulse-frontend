@@ -56,22 +56,22 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-	const handlePasswordValidation = (password, setState) => {
-		if (
-			(password.length < 8 && password.length !== 0) ||
-			password.length > 20
-		) {
-			setState((current) => {
-				return { ...current, isPasswordError: true };
-			});
-		} else {
-			setState((current) => {
-				return { ...current, isPasswordError: false };
-			});
-		}
-	};
+  const handlePasswordValidation = (password, setState) => {
+    if (
+      (password.length < 8 && password.length !== 0) ||
+      password.length > 20
+    ) {
+      setState((current) => {
+        return { ...current, isPasswordError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isPasswordError: false };
+      });
+    }
+  };
 
-	const handleNameValidation = (name, setState) => {
+  const handleNameValidation = (name, setState) => {
 		if (name.length <= 2) {
 			setState((current) => {
 				return { ...current, isNameError: true };
@@ -83,7 +83,7 @@ export const AuthContextProvider = ({ children }) => {
 		}
 	};
 
-	const handlePhoneValidation = (phone, setState) => {
+  const handlePhoneValidation = (phone, setState) => {
 		if (phone.length < 10 || phone.length > 14) {
 			setState((current) => {
 				return { ...current, isPhoneError: true };
@@ -95,14 +95,37 @@ export const AuthContextProvider = ({ children }) => {
 		}
 	};
 
+  const handleCityValidation = (city, setState) => {
+    if (
+      (city.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isCityError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isCityError: false };
+      });
+    }
+  };
+
+  const handleCountryValidation = (country, setState) => {
+    if (
+      (country.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isCountryError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isCountryError: false };
+      });
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{
-				handleEmailValidation,
-				handlePasswordValidation, user, token,
-				handleNameValidation,
-				handlePhoneValidation,
-			}}
+      value={{ handleEmailValidation, handlePasswordValidation, handleNameValidation, handlePhoneValidation, handleCityValidation, handleCountryValidation, user, token }}
     >
       {children}
     </AuthContext.Provider>
