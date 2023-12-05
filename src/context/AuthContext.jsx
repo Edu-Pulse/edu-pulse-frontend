@@ -71,9 +71,65 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const handleNameValidation = (name, setState) => {
+    if (
+      (name.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isNameError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isNameError: false };
+      });
+    }
+  };
+
+  const handlePhoneValidation = (phone, setState) => {
+    if (
+      (phone.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isPhoneError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isPhoneError: false };
+      });
+    }
+  };
+
+  const handleCityValidation = (city, setState) => {
+    if (
+      (city.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isCityError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isCityError: false };
+      });
+    }
+  };
+
+  const handleCountryValidation = (country, setState) => {
+    if (
+      (country.length === 0)
+    ) {
+      setState((current) => {
+        return { ...current, isCountryError: true };
+      });
+    } else {
+      setState((current) => {
+        return { ...current, isCountryError: false };
+      });
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ handleEmailValidation, handlePasswordValidation, user, token }}
+      value={{ handleEmailValidation, handlePasswordValidation, handleNameValidation, handlePhoneValidation, handleCityValidation, handleCountryValidation, user, token }}
     >
       {children}
     </AuthContext.Provider>

@@ -58,7 +58,7 @@ const Login = () => {
 			<h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
 				Masuk
 			</h1>
-			<div>
+			<div className="">
 				<Input
 					placeholder="Contoh: johndoe@gmail.com"
 					type="email"
@@ -87,7 +87,7 @@ const Login = () => {
 					</label>
 				</Link>
 			</div>
-			<div>
+			<div className="">
 				<Input
 					placeholder="Masukkan password"
 					type="password"

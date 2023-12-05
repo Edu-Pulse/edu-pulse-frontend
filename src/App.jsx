@@ -29,6 +29,7 @@ import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
 import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
+import Test from "./pages/Test";
 
 const App = () => {
 	const routes = createBrowserRouter([
@@ -109,6 +110,10 @@ const App = () => {
 		{
 			path: "/admin",
 			element: <LoginAdmin />,
+		},
+		{
+			path: "/test",
+			element: <Test />,
 		},
 	]);
 	return (
