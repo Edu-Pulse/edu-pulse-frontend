@@ -56,6 +56,22 @@ const Otp = () => {
     }
   };
 
+  const handleReplaceCharacters = (mail) => {
+    const index = mail.indexOf("@");
+    if (index === -1) {
+      return mail;
+    }
+
+    const mailProvider = mail.split("@")[1];
+    const mailAddress = mail.split("@")[0];
+    return (
+      mailAddress.substring(0, 2) +
+      mailAddress.substring(2, mailAddress.length).replace(/./g, "*") +
+      "@" +
+      mailProvider
+    );
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,7 +80,6 @@ const Otp = () => {
         method: "POST",
         url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}&code=${tipe}`,
       };
-
       await axios.request(config);
 
       navigate("/");
@@ -74,15 +89,15 @@ const Otp = () => {
   };
 
   return (
-    <div className="sm:w-[452px] w-[352px] h-[458px]">
+    <div className="max-w-[452px] w-full]">
       <button onClick={() => navigate("/auth/register")} className="h-10">
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
-      <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 mb-[24px] mt-4">
+      <h1 className="font-Montserrat text-2xl font-bold leading-[36px] text-darkblue-05 mb-6 mt-4">
         Masukkan OTP
       </h1>
-      <p className="font-poppins text-center text-[14px] mb-1 font-bold leading-[18px] text-black">
-        Ketik 4 digit kode yang dikirimkan ke J*****@gmail.com
+      <p className="font-poppins text-center text-sm mb-1 font-bold leading-[18px] text-black">
+        Ketik 4 digit kode yang dikirimkan ke {handleReplaceCharacters(email)}
       </p>
       <form action="#" className="formulir">
         <div className="input_fields">
@@ -106,7 +121,7 @@ const Otp = () => {
           ))}
         </div>
       </form>
-      <p className="font-poppins text-center text-[14px] mt-[24px] font-normal leading-[18px] text-black">
+      <p className="font-poppins text-center text-sm mt-6 font-normal leading-[18px] text-black">
         Masukkan Kode OTP dengan Benar!
       </p>
       {/* <div className="flex justify-center mt-[48px]"> */}

@@ -1,9 +1,3 @@
-import uiux from "../assets/UIUX_Categories.png";
-import pm from "../assets/PM_Categories.png";
-import web from "../assets/WebDev_Categories.png";
-import android from "../assets/Android_Categories.png";
-import ios from "../assets/IOS_Categories.png";
-import dataScience from "../assets/DataScience_Categories.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";

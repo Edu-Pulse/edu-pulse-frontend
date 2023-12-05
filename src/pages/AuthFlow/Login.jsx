@@ -4,11 +4,11 @@ import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { AuthContext } from "@/context/AuthContext";
+import { ValidationContext } from "@/context/ValidationContext";
 
 const Login = () => {
 	const { handleEmailValidation, handlePasswordValidation } =
-		useContext(AuthContext);
+		useContext(ValidationContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState({
@@ -36,19 +36,17 @@ const Login = () => {
 
 			const response = await axios.request(config);
 
-			if (response.data.error === true) {
-				toast.error(response.data.message);
-				return;
+			if (response.status === 200) {
+				const { token } = response.data.data;
+				localStorage.setItem("token", token);
+
+				navigate("/");
+
+				window.location.href = "/";
 			}
-
-			const { token } = response.data.data;
-			localStorage.setItem("token", token);
-
-			navigate("/");
-
-			window.location.href = "/";
+			return;
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error.response.data.message);
 			return;
 		}
 	};
@@ -58,7 +56,7 @@ const Login = () => {
 			<h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
 				Masuk
 			</h1>
-			<div>
+			<div className="">
 				<Input
 					placeholder="Contoh: johndoe@gmail.com"
 					type="email"
@@ -87,7 +85,7 @@ const Login = () => {
 					</label>
 				</Link>
 			</div>
-			<div>
+			<div className="">
 				<Input
 					placeholder="Masukkan password"
 					type="password"
