@@ -10,8 +10,9 @@ import {
 import Button from "./Button";
 import kursusImage from "../../assets/image.png";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const CourseCard = () => {
+const CourseCard = ({ category, name, lecturer, level, rating }) => {
   return (
     <Link to={"/detail"}>
       <div className="bg-white rounded-2xl shadow-xl">
@@ -19,21 +20,19 @@ const CourseCard = () => {
         <div className="p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-darkblue-05 text-sm font-semibold">
-              UI/UX Design
+              {category}
             </h5>
             <span className="flex">
               <StarIcon className="h-5 w-5 text-yellow-500" />
-              <p className="text-sm">4.7</p>
+              <p className="text-sm">{rating}</p>
             </span>
           </div>
-          <h5 className="font-semibold mt-1">
-            Belajar Web Designer dengan Figma
-          </h5>
-          <p className="text-sm">by Angela Doe</p>
+          <h5 className="font-semibold mt-1">{name}</h5>
+          <p className="text-sm">by {lecturer}</p>
           <div className="flex justify-between text-sm mb-2">
             <span className="flex my-2 gap-1">
               <ShieldCheckIcon className="h-5 w-5 text-green-500" />
-              <p>Intermediate Level</p>
+              <p>{level} Level</p>
             </span>
             <span className="flex my-2 gap-1">
               <RectangleStackIcon className="h-5 w-5 text-green-500" />
@@ -58,4 +57,11 @@ const CourseCard = () => {
   );
 };
 
+CourseCard.propTypes = {
+  category: PropTypes.string,
+  name: PropTypes.string,
+  lecturer: PropTypes.string,
+  level: PropTypes.string,
+  rating: PropTypes.number,
+};
 export default CourseCard;
