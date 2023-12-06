@@ -1,9 +1,3 @@
-import uiux from "../assets/UIUX_Categories.png";
-import pm from "../assets/PM_Categories.png";
-import web from "../assets/WebDev_Categories.png";
-import android from "../assets/Android_Categories.png";
-import ios from "../assets/IOS_Categories.png";
-import dataScience from "../assets/DataScience_Categories.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -15,13 +9,12 @@ const StudyCategories = () => {
     const getClassCategories = async () => {
       try {
         const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/categories`
+          `https://pragos-academy-api-production.up.railway.app/category/all`
         );
 
         const data = response.data.data;
 
         setCategory(data);
-        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -41,6 +34,7 @@ const StudyCategories = () => {
       <div className="grid md:grid-cols-6 grid-cols-2 gap-5">
         {category.map((kelas) => {
           return (
+            // eslint-disable-next-line react/jsx-key
             <div className="font-semibold text-sm hover:cursor-pointer">
               <div key={kelas.id}>
                 <div className="rounded-[25px] overflow-hidden">
