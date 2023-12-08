@@ -9,7 +9,7 @@ const StudyCategories = () => {
     const getClassCategories = async () => {
       try {
         const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/categories`
+          `https://pragos-academy-api-production.up.railway.app/category/all`
         );
 
         const data = response.data.data;
