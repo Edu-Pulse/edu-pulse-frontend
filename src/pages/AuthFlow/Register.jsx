@@ -6,7 +6,6 @@ import { ValidationContext } from "@/context/ValidationContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import toast from "react-hot-toast";
 function Register() {
   const {
     handleNameValidation,
