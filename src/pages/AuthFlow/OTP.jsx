@@ -6,55 +6,55 @@ import "./OTP.css";
 import axios from "axios";
 
 const Otp = () => {
-  const navigate = useNavigate();
-  const OTPinputs = useRef([]);
-  const [isButtonActive, setIsButtonActive] = useState(false);
-  const [otpValues, setOTPValues] = useState(["", "", "", ""]);
-  const { email } = useParams();
+	const navigate = useNavigate();
+	const OTPinputs = useRef([]);
+	const [isButtonActive, setIsButtonActive] = useState(false);
+	const [otpValues, setOTPValues] = useState(["", "", "", ""]);
+	const { email } = useParams();
 
-  const hasilKode = otpValues.join("");
-  const tipe = Number(hasilKode);
-  console.log(tipe);
+	const hasilKode = otpValues.join("");
+	const tipe = Number(hasilKode);
+	console.log(tipe);
 
-  useEffect(() => {
-    OTPinputs.current[0].focus();
-  }, []);
+	useEffect(() => {
+		OTPinputs.current[0].focus();
+	}, []);
 
-  const handleInputChange = (index, value) => {
-    const currentInput = OTPinputs.current[index];
-    const nextInput = OTPinputs.current[index + 1];
+	const handleInputChange = (index, value) => {
+		const currentInput = OTPinputs.current[index];
+		const nextInput = OTPinputs.current[index + 1];
 
-    if (value.length > 1 && value.length === 2) {
-      currentInput.value = "";
-    }
+		if (value.length > 1 && value.length === 2) {
+			currentInput.value = "";
+		}
 
-    if (nextInput && value !== "") {
-      nextInput.removeAttribute("disabled");
-      nextInput.focus();
-    }
+		if (nextInput && value !== "") {
+			nextInput.removeAttribute("disabled");
+			nextInput.focus();
+		}
 
-    if (
-      !OTPinputs.current[3].hasAttribute("disabled") &&
-      OTPinputs.current[3].value !== ""
-    ) {
-      setIsButtonActive(true);
-    } else {
-      setIsButtonActive(false);
-    }
-  };
+		if (
+			!OTPinputs.current[3].hasAttribute("disabled") &&
+			OTPinputs.current[3].value !== ""
+		) {
+			setIsButtonActive(true);
+		} else {
+			setIsButtonActive(false);
+		}
+	};
 
-  const handleInputKeyUp = (index, e) => {
-    if (e.key === "Backspace") {
-      const currentInput = OTPinputs.current[index];
-      const previousInput = OTPinputs.current[index - 1];
+	const handleInputKeyUp = (index, e) => {
+		if (e.key === "Backspace") {
+			const currentInput = OTPinputs.current[index];
+			const previousInput = OTPinputs.current[index - 1];
 
-      if (previousInput !== undefined) {
-        currentInput.value = "";
-        currentInput.setAttribute("disabled", true);
-        previousInput.focus();
-      }
-    }
-  };
+			if (previousInput !== undefined) {
+				currentInput.value = "";
+				currentInput.setAttribute("disabled", true);
+				previousInput.focus();
+			}
+		}
+	};
 
 	const handleReplaceCharacters = (mail) => {
 		const index = mail.indexOf("@");
@@ -72,21 +72,21 @@ const Otp = () => {
 		);
 	};
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+	const onSubmit = async (e) => {
+		e.preventDefault();
 
-    try {
-      let config = {
-        method: "POST",
-        url: `https://pragos-academy-api-production.up.railway.app/verification?email=${email}&code=${tipe}`,
-      };
-      await axios.request(config);
-
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+		try {
+			let config = {
+				method: "POST",
+				url: `https://pragos-academy-api-production.up.railway.app/verification-email?email=${email}&code=${tipe}`,
+			};
+			const response = await axios.request(config);
+			console.log(response);
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<div className="max-w-[452px] w-full]">
