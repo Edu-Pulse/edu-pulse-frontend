@@ -15,6 +15,7 @@ const Header = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(user);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
