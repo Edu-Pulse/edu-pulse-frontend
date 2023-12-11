@@ -29,7 +29,6 @@ import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
 import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
-import Test from "./pages/Test";
 import { ValidationContextProvider } from "./context/ValidationContext";
 
 const App = () => {
@@ -59,7 +58,7 @@ const App = () => {
           element: <PaymentDetailSuccess />,
         },
         {
-          path: "/detail/:id",
+          path: "/detail/:code",
           element: <Detail />,
         },
         {
@@ -111,10 +110,6 @@ const App = () => {
     {
       path: "/admin",
       element: <LoginAdmin />,
-    },
-    {
-      path: "/test",
-      element: <Test />,
     },
   ]);
   return (

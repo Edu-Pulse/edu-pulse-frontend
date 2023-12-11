@@ -15,7 +15,6 @@ const StudyCategories = () => {
         const data = response.data.data;
 
         setCategory(data);
-        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -35,6 +34,7 @@ const StudyCategories = () => {
       <div className="grid md:grid-cols-6 grid-cols-2 gap-5">
         {category.map((kelas) => {
           return (
+            // eslint-disable-next-line react/jsx-key
             <div className="font-semibold text-sm hover:cursor-pointer">
               <div key={kelas.id}>
                 <div className="rounded-[25px] overflow-hidden">

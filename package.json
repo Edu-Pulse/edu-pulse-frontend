@@ -12,8 +12,11 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "axios": "^1.6.2",
+    "js-cookie": "^3.0.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-cookie": "^6.1.1",
+    "react-cookies": "^0.1.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-loading-skeleton": "^3.3.1",

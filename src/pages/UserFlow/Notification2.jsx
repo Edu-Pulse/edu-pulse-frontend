@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { BellIcon } from "@heroicons/react/24/solid";
 
-const Notification = () => {
+const Notification2 = () => {
   return (
     <main className="container flex flex-col min-h-screen md:justify-center">
       <div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">
@@ -93,4 +93,4 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default Notification2;
