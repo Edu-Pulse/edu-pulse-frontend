@@ -1,6 +1,8 @@
 import { useState, lazy } from "react";
 import clsx from "clsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import {
 	ArrowLeftIcon,
@@ -10,6 +12,7 @@ import {
 	PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
+import { BASE_URL } from "../../lib/baseUrl";
 
 const PurchaseHistory = lazy(() =>
 	import("../../components/UserPage/PurchaseHistory")
@@ -21,7 +24,21 @@ const UserProfile = lazy(() => import("../../components/UserPage/UserProfile"));
 
 const User = () => {
 	const [menuSelect, setMenuSelect] = useState("my-profile");
-	const navigate = useNavigate();
+
+	const handleLogout = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await axios.post(`${BASE_URL}/logout`);
+			console.log(response);
+			if (response.status === 200) {
+				window.location.href = "/";
+			} else {
+				toast.error("Something went wrong!");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
 
 	return (
 		<main className="container flex flex-col min-h-screen mb-4 md:my-16 bg-darkblue-06 md:bg-white">
@@ -82,10 +99,7 @@ const User = () => {
 								menuSelect === "log-out" &&
 									"font-bold text-darkblue-05"
 							)}
-							onClick={() => {
-								localStorage.removeItem("token");
-								return window.location.reload(navigate("/"));
-							}}
+							onClick={handleLogout}
 						>
 							<PowerIcon className="w-6 h-6 text-darkblue-05" />
 							<p className="text-medium">Keluar</p>
