@@ -1,6 +1,8 @@
 import { useState, lazy } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import {
   ArrowLeftIcon,
@@ -10,8 +12,7 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-import app from "../AuthFlow/axiosConfig";
-import toast from "react-hot-toast";
+import { BASE_URL } from "../../lib/baseUrl";
 
 const PurchaseHistory = lazy(() =>
   import("../../components/UserPage/PurchaseHistory")
@@ -23,29 +24,19 @@ const UserProfile = lazy(() => import("../../components/UserPage/UserProfile"));
 
 const User = () => {
   const [menuSelect, setMenuSelect] = useState("my-profile");
-  //   const navigate = useNavigate();
 
-  const onSubmit = async (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await app.post("logout", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-      });
-
+      const response = await axios.post(`${BASE_URL}/logout`);
+      console.log(response);
       if (response.status === 200) {
-        // navigate("/");
-
-        // window.location.href = "/";
-        console.log(response.data);
+        window.location.href = "/";
+      } else {
+        toast.error("Something went wrong!");
       }
-      return;
     } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
-      return;
+      toast.error(error.message);
     }
   };
 
@@ -103,15 +94,10 @@ const User = () => {
                 "flex gap-4 py-3 px-4 hover:cursor-pointer hover:bg-gray-50",
                 menuSelect === "log-out" && "font-bold text-darkblue-05"
               )}
-              //   onClick={() => {
-              //     localStorage.removeItem("token");
-              //     return window.location.reload(navigate("/"));
-              //   }}
+              onClick={handleLogout}
             >
               <PowerIcon className="w-6 h-6 text-darkblue-05" />
-              <p className="text-medium" onClick={onSubmit}>
-                Keluar
-              </p>
+              <p className="text-medium">Keluar</p>
             </div>
           </aside>
           <article className="md:w-3/5">

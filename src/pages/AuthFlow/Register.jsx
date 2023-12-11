@@ -6,6 +6,7 @@ import { ValidationContext } from "@/context/ValidationContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+import toast from "react-hot-toast";
 function Register() {
   const {
     handleNameValidation,
@@ -56,7 +57,9 @@ function Register() {
       };
 
       const response = await axios.request(config);
-      if (response.data.error == true) {
+
+      console.log(response);
+      if (response.data.error === true) {
         toast.error(response.data.data);
       } else {
         navigate(`/auth/otp/${email}`);
