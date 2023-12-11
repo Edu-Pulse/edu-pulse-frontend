@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import app from "../pages/AuthFlow/axiosConfig";
 
 export const AuthContext = createContext();
 
@@ -20,10 +20,9 @@ export const AuthContextProvider = ({ children }) => {
       try {
         // const token = localStorage.getItem("token");
 
-        const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/user`
+        const response = await app.get(
+          `user`
         );
-
         const data = response.data.data;
 
         console.log(data);

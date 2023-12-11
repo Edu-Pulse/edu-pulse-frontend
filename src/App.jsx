@@ -32,94 +32,94 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
 
 const App = () => {
-	const routes = createBrowserRouter([
-		{
-			path: "/",
-			element: <HomeLayout />,
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: "/my-class",
-					element: <MyClass />,
-				},
-				{
-					path: "/class-topic",
-					element: <ClassTopic />,
-				},
-				{
-					path: "/payment-pending",
-					element: <PaymentDetail />,
-				},
-				{
-					path: "/payment-success",
-					element: <PaymentDetailSuccess />,
-				},
-				{
-					path: "/detail",
-					element: <Detail />,
-				},
-				{
-					path: "/notifikasi",
-					element: <Notification />,
-				},
-				{
-					path: "/user",
-					element: <User />,
-				},
-			],
-		},
-		{
-			path: "/auth",
-			element: <AuthLayout />,
-			children: [
-				{
-					path: "login",
-					element: <Login />,
-				},
-				{
-					path: "register",
-					element: <Register />,
-				},
-				{
-					path: "reset",
-					element: <ResetPassword />,
-				},
-				{
-					path: "otp/:email",
-					element: <Otp />,
-				},
-			],
-		},
-		{
-			path: "/dashboard",
-			element: <DashboardLayout />,
-			children: [
-				{
-					index: true,
-					element: <Dashboard />,
-				},
-				{
-					path: "kelolakelas",
-					element: <KelolaKelas />,
-				},
-			],
-		},
-		{
-			path: "/admin",
-			element: <LoginAdmin />,
-		},
-	]);
-	return (
-		<AuthContextProvider>
-			<ValidationContextProvider>
-				<Toaster position="bottom-center" reverseOrder={false} />
-				<RouterProvider router={routes} />
-			</ValidationContextProvider>
-		</AuthContextProvider>
-	);
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomeLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/my-class",
+          element: <MyClass />,
+        },
+        {
+          path: "/class-topic",
+          element: <ClassTopic />,
+        },
+        {
+          path: "/payment-pending",
+          element: <PaymentDetail />,
+        },
+        {
+          path: "/payment-success",
+          element: <PaymentDetailSuccess />,
+        },
+        {
+          path: "/detail/:code",
+          element: <Detail />,
+        },
+        {
+          path: "/notifikasi",
+          element: <Notification />,
+        },
+        {
+          path: "/user",
+          element: <User />,
+        },
+      ],
+    },
+    {
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+        {
+          path: "reset",
+          element: <ResetPassword />,
+        },
+        {
+          path: "otp/:email",
+          element: <Otp />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+        },
+        {
+          path: "kelolakelas",
+          element: <KelolaKelas />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <LoginAdmin />,
+    },
+  ]);
+  return (
+    <AuthContextProvider>
+      <ValidationContextProvider>
+        <Toaster position="bottom-center" reverseOrder={false} />
+        <RouterProvider router={routes} />
+      </ValidationContextProvider>
+    </AuthContextProvider>
+  );
 };
 
 export default App;

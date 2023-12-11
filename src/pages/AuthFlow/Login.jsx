@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
-import axios from "axios";
+import app from "./axiosConfig";
 import toast from "react-hot-toast";
 import { ValidationContext } from "@/context/ValidationContext";
+
 
 const Login = () => {
   const { handleEmailValidation, handlePasswordValidation } =
@@ -25,16 +26,12 @@ const Login = () => {
         password,
       });
 
-      let config = {
-        method: "post",
-        url: `https://pragos-academy-api-production.up.railway.app/login`,
+      const response = await app.post('login' , data, {
         headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      const response = await axios.request(config);
+          'Content-Type' : 'application/json',
+          'Accept': '*/*'
+        }
+      });
 
       if (response.status === 200) {
         const { token } = response.data.data;
