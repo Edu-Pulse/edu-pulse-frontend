@@ -1,14 +1,14 @@
 import ClassDetails from "@/components/ClassDetails";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Detail = () => {
+  const [classDetail, setClassDetail] = useState();
   const { code } = useParams();
-  const [courseDetail, setCourseDetail] = useState();
 
   useEffect(() => {
-    const getCourseDetail = async () => {
+    const getDetailClass = async () => {
       try {
         const response = await axios.get(
           `https://pragos-academy-api-production.up.railway.app/course/` + code
@@ -16,19 +16,20 @@ const Detail = () => {
 
         const data = response.data.data;
 
-        setCourseDetail(data);
+        setClassDetail(data);
+        console.log(data);
       } catch (error) {
-        console.log(error.message);
+        console.error("Error", error);
       }
     };
-    getCourseDetail();
-  }, [code]);
 
-  console.log(courseDetail);
+    getDetailClass();
+  }, [code]);
+  console.log(classDetail);
 
   return (
     <main>
-      <ClassDetails course={courseDetail} />
+      <ClassDetails details={classDetail} />
     </main>
   );
 };
