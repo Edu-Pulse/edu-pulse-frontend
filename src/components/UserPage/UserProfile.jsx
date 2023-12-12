@@ -2,48 +2,47 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import Input from "../UI/Input";
 import { useContext, useEffect, useState } from "react";
 import Button from "../UI/Button";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
+import app from "../../pages/AuthFlow/axiosConfig";
 
 const UserProfile = () => {
-  const { user, token } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [phoneNumber, setPhoneNumber] = useState(user.phone);
+  const [phone, setphone] = useState(user.phone);
   const [country, setCountry] = useState(user.country);
   const [city, setCity] = useState(user.city);
+  const [image, setImage] = useState(user.imageProfile);
   console.log(user);
 
   useEffect(() => {
     setName(user.name);
     setEmail(user.email);
-    setPhoneNumber(user.phone);
+    setphone(user.phone);
     setCountry(user.country);
     setCity(user.city);
+    setImage(user.imageProfile);
   }, [user]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       let data = JSON.stringify({
+        image,
         name,
         email,
-        phoneNumber,
-        country,
+        phone,
         city,
+        country,
       });
 
-      let config = {
-        method: "post",
-        url: `https://pragos-academy-api-production.up.railway.app/user/update`,
+      await app.post("user/update", data, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Accept: "*/*",
         },
-        data: data,
-      };
-      await axios.request(config);
+      });
     } catch (error) {
       toast.error(error.message);
       return;
@@ -56,6 +55,8 @@ const UserProfile = () => {
         <div className="w-24 h-24 rounded-full border-2 border-darkblue-05"></div>
         <div className="absolute right-1 bottom-1 p-1 bg-white hover:cursor-pointer hover:bg-blue-50">
           <PhotoIcon className="w-5 h-5 text-darkblue-05" />
+          <img src={`data:image/png;base64, ${image}`} alt="" value={image} />
+          <Input type="file" onChange={(e) => setImage(e.target.value)}></Input>
         </div>
       </div>
       <form className="w-full space-y-4">
@@ -80,8 +81,8 @@ const UserProfile = () => {
           label="Nomor Telepon"
           type="number"
           className="w-full"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={phone}
+          onChange={(e) => setphone(e.target.value)}
         />
         <Input
           placeholder="Masukkan negara tempat tinggal anda"

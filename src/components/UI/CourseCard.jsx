@@ -8,15 +8,22 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import Button from "./Button";
-import kursusImage from "../../assets/image.png";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CourseCard = ({ category, name, lecturer, level, rating, code }) => {
+const CourseCard = ({
+  category,
+  name,
+  lecturer,
+  level,
+  rating,
+  code,
+  image,
+}) => {
   return (
     <Link to={`/detail/${code}`}>
       <div className="bg-white rounded-2xl shadow-xl">
-        <img className="object-contain w-full" src={kursusImage} alt="" />
+        <img className="object-cover h-40 w-full" src={`${image}`} alt="" />
         <div className="p-4">
           <div className="flex justify-between items-center">
             <h5 className="text-darkblue-05 text-sm font-semibold">
@@ -29,7 +36,7 @@ const CourseCard = ({ category, name, lecturer, level, rating, code }) => {
           </div>
           <h5 className="font-semibold mt-1">{name}</h5>
           <p className="text-sm">by {lecturer}</p>
-          <p>{code}</p>
+          <p>Code: {code}</p>
           <div className="flex justify-between text-sm mb-2">
             <span className="flex my-2 gap-1">
               <ShieldCheckIcon className="h-5 w-5 text-green-500" />
@@ -64,5 +71,7 @@ CourseCard.propTypes = {
   lecturer: PropTypes.string,
   level: PropTypes.string,
   rating: PropTypes.number,
+  code: PropTypes.string,
+  image: PropTypes.string,
 };
 export default CourseCard;

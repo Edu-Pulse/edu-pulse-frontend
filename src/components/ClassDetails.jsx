@@ -5,6 +5,7 @@ import {
   LockClosedIcon,
   ChatBubbleLeftRightIcon,
   ArrowRightCircleIcon,
+  CurrencyDollarIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";
 import {
@@ -14,17 +15,12 @@ import {
   ArrowLeftIcon,
   CheckBadgeIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Modals from "./CoursePage/Modals";
-import card from "../assets/card 3.png";
-import { useEffect } from "react";
-
-// import onboarding from "../assets/Onboarding.png";
 
 const ClassDetails = ({ details }) => {
   const [open, setOpen] = useState(false);
-  console.log(details);
   return (
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
@@ -112,10 +108,57 @@ const ClassDetails = ({ details }) => {
                         </h3>
                       </div>
                     </div>
-                    <img
-                      src={card}
-                      className="w-full object-cover hover:scale-105 transition-all duration-300"
-                    />
+                    <div className="bg-white rounded-2xl shadow-xl">
+                      <img
+                        className="object-cover h-40 w-full"
+                        src={`${details?.image}`}
+                        alt=""
+                      />
+                      <div className="p-4">
+                        <div className="flex justify-between items-center">
+                          <h5 className="text-darkblue-05 text-sm font-semibold">
+                            {details?.category}
+                          </h5>
+                          <span className="flex">
+                            <StarIcon className="h-5 w-5 text-yellow-500" />
+                            <p className="text-sm">{details?.rating}</p>
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-semibold mt-1">
+                            {details?.name}
+                          </h5>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <p className="text-sm">by {details?.lecturer}</p>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <p>Code: {details?.code}</p>
+                        </div>
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="flex my-2 gap-1">
+                            <ShieldCheckIcon className="h-5 w-5 text-green-500" />
+                            <p>{details?.level} Level</p>
+                          </span>
+                          <span className="flex my-2 gap-1">
+                            <RectangleStackIcon className="h-5 w-5 text-green-500" />
+                            <p>10 Modul</p>
+                          </span>
+                          <span className="flex my-2 gap-1">
+                            <ClockIcon className="h-5 w-5 text-green-500" />
+                            <p>120 Menit</p>
+                          </span>
+                        </div>
+                        <div
+                          className="!bg-darkblue-03 whitespace-nowrap"
+                          icon={<CurrencyDollarIcon className="h-5 w-5" />}
+                          iconPosition="left"
+                          size="sm"
+                        >
+                          Beli Rp 249.000
+                        </div>
+                      </div>
+                    </div>
                     <div className="flex flex-row justify-center gap-4 mt-4">
                       <Link to={"/payment-pending"}>
                         {" "}

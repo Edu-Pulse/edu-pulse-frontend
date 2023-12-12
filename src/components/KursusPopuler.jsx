@@ -67,14 +67,24 @@ const KursusPopuler = () => {
           UI/UX Design
         </Button>
         <Button
-          className="text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          className={
+            selectedNumber === 3
+              ? "whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          }
           size="xs"
+          onClick={() => setSelectedNumber(3)}
         >
           Android Development
         </Button>
         <Button
-          className="text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          className={
+            selectedNumber === 4
+              ? "whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          }
           size="xs"
+          onClick={() => setSelectedNumber(4)}
         >
           Web Development
         </Button>
@@ -107,6 +117,7 @@ const KursusPopuler = () => {
               level={course[selectedNumber]?.level}
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
+              image={course[selectedNumber]?.image}
             />
             <CourseCard
               category={course[selectedNumber]?.category}
@@ -115,6 +126,7 @@ const KursusPopuler = () => {
               level={course[selectedNumber]?.level}
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
+              image={course[selectedNumber]?.image}
             />
             <CourseCard
               category={course[selectedNumber]?.category}
@@ -123,6 +135,7 @@ const KursusPopuler = () => {
               level={course[selectedNumber]?.level}
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
+              image={course[selectedNumber]?.image}
             />
           </>
         ) : (
@@ -134,6 +147,7 @@ const KursusPopuler = () => {
               level={course[0]?.level}
               rating={course[0]?.rating}
               code={course[0]?.code}
+              image={course[0]?.image}
             />
             <CourseCard
               category={course[1]?.category}
@@ -141,7 +155,8 @@ const KursusPopuler = () => {
               lecturer={course[1]?.lecturer}
               level={course[1]?.level}
               rating={course[1]?.rating}
-              code={course[0]?.code}
+              code={course[1]?.code}
+              image={course[1]?.image}
             />
             <CourseCard
               category={course[2]?.category}
@@ -149,7 +164,8 @@ const KursusPopuler = () => {
               lecturer={course[2]?.lecturer}
               level={course[2]?.level}
               rating={course[2]?.rating}
-              code={course[0]?.code}
+              code={course[2]?.code}
+              image={course[2]?.image}
             />
           </>
         )}
