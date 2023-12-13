@@ -11,7 +11,15 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CourseCard = ({ category, name, lecturer, level, rating, code, image }) => {
+const CourseCard = ({
+  category,
+  name,
+  lecturer,
+  level,
+  rating,
+  code,
+  image,
+}) => {
   return (
     <Link to={`/detail/${code}`}>
       <div className="bg-white rounded-2xl shadow-xl">
@@ -64,6 +72,6 @@ CourseCard.propTypes = {
   level: PropTypes.string,
   rating: PropTypes.number,
   code: PropTypes.string,
-  image: PropTypes.string
+  image: PropTypes.string,
 };
 export default CourseCard;
