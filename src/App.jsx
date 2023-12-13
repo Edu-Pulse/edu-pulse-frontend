@@ -46,7 +46,7 @@ const App = () => {
           element: <MyClass />,
         },
         {
-          path: "/class-topic",
+          path: "/class-topic/:input",
           element: <ClassTopic />,
         },
         {

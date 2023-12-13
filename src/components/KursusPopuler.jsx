@@ -46,12 +46,12 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 2
+            selectedNumber === 1
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
-          onClick={() => setSelectedNumber(2)}
+          onClick={() => setSelectedNumber(1)}
         >
           Data Science
         </Button>
@@ -68,7 +68,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 3
+            selectedNumber === 5
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
@@ -90,7 +90,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 4
+            selectedNumber === 6
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
@@ -101,7 +101,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 1
+            selectedNumber === 7
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
