@@ -1,7 +1,6 @@
 import { useState, lazy } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
 
 import {
@@ -12,7 +11,8 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-import { BASE_URL } from "../../lib/baseUrl";
+// import { BASE_URL } from "../../lib/baseUrl";
+import app from "../AuthFlow/axiosConfig";
 
 const PurchaseHistory = lazy(() =>
   import("../../components/UserPage/PurchaseHistory")
@@ -28,10 +28,13 @@ const User = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}/logout`);
+      const response = await app.get(`user/logout`);
       console.log(response);
       if (response.status === 200) {
-        window.location.href = "/";
+        toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1500);
       } else {
         toast.error("Something went wrong!");
       }

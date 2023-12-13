@@ -15,10 +15,29 @@ function ResetPassword() {
     isPasswordError: false,
     isPasswordSimilar: true,
   });
-
   const navigate = useNavigate();
+  console.log(email);
 
-  const onSubmit = async (e) => {
+  const handleEmail = async (e) => {
+    e.preventDefault();
+
+    try {
+      let config = {
+        method: "GET",
+        url:
+          `https://pragos-academy-api-production.up.railway.app/forgot-password/` +
+          email,
+      };
+      const response = await axios.request(config);
+      if (response.data == true) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleReset = async (e) => {
     e.preventDefault();
 
     try {
@@ -30,20 +49,34 @@ function ResetPassword() {
       if (response.data.error == true) {
         toast.error(response.data.data);
       } else {
-        navigate(`/`);
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigate(`/auth/login`);
+        }, 2000);
       }
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  //   const handleResetPassword = () => {};
   return (
     <div className="max-w-[452px] w-full">
       <h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
         Reset Password
       </h1>
       <div className="mb-4">
+        <Input
+          placeholder="Email"
+          type="text"
+          label="Masukkan Email"
+          name="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        ></Input>
+        <div className="flex justify-center mt-6">
+          <Button className="w-full" onClick={handleEmail}>
+            Send Reset Code
+          </Button>
+        </div>
         <Input
           placeholder="********"
           type="password"
@@ -61,14 +94,6 @@ function ResetPassword() {
         )}
       </div>
       <Input
-        placeholder="Email"
-        type="text"
-        label="Masukkan Email"
-        name="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      ></Input>
-
-      <Input
         type="number"
         label="Masukkan Kode"
         name="newpassword"
@@ -76,7 +101,7 @@ function ResetPassword() {
         onChange={(e) => setKode(e.target.value)}
       />
       <div className="flex justify-center mt-6">
-        <Button className="w-full" onClick={onSubmit}>
+        <Button className="w-full" onClick={handleReset}>
           Simpan
         </Button>
       </div>

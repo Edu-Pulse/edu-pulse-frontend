@@ -42,7 +42,12 @@ const UserProfile = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-
+      if (response.status == 200) {
+        toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
       console.log(response.data);
     } catch (error) {
       toast.error(error.response.message);
@@ -60,9 +65,10 @@ const UserProfile = () => {
         <div className="w-24 h-24 rounded-full border-2 border-darkblue-05 object-cover overflow-hidden">
           <img
             src={
-              newImage
-                ? URL.createObjectURL(newImage)
-                : `data:image/*;base64, ${image}`
+              // newImage
+              //   ? URL.createObjectURL(newImage)
+              //   : `data:image/*;base64, ${image}`
+              image
             }
             alt="User Profile Image"
             className="h-full w-full"
