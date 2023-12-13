@@ -26,6 +26,7 @@ const Detail = () => {
     getDetailClass();
   }, [code]);
   console.log(classDetail);
+  console.log(classDetail.chapters[0]?.detailChapters[0]?.video);
 
   return (
     <main>

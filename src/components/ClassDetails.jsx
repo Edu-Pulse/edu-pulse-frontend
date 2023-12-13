@@ -21,6 +21,7 @@ import Modals from "./CoursePage/Modals";
 
 const ClassDetails = ({ details }) => {
   const [open, setOpen] = useState(false);
+  console.log(details);
   return (
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
