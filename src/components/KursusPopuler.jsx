@@ -13,7 +13,7 @@ const KursusPopuler = () => {
         const response = await axios.get(
           `https://pragos-academy-api-production.up.railway.app/course/all`
         );
-          console.log(response.data.data)
+        console.log(response.data.data);
         const data = response.data.data;
 
         setCourse(data);

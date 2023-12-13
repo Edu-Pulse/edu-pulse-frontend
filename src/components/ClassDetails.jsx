@@ -21,6 +21,7 @@ import Modals from "./CoursePage/Modals";
 
 const ClassDetails = ({ details }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
@@ -239,99 +240,42 @@ const ClassDetails = ({ details }) => {
                   ></progress>
                 </div>
               </div>
-
-              <div>
-                <div className="flex justify-between w-full mt-5 mb-3">
-                  <p className="text-darkblue-05 font-bold ">
-                    Chapter 1 - Pendahuluan
-                  </p>
-                  <p className="text-darkblue-03 font-bold"> 40 Menit</p>
+              {details?.chapters.map(({ chapter, detailChapters }) => (
+                <div key={chapter}>
+                  <div>
+                    <div className="flex justify-between w-full mt-5 mb-3">
+                      <p className="text-darkblue-05 font-bold ">{chapter}</p>
+                    </div>
+                    <ol>
+                      {detailChapters.map(
+                        ({ id, name, material, isDone }, index) => (
+                          <li
+                            key={id}
+                            className="my-2 flex justify-between items-center"
+                          >
+                            <div className="flex gap-3 items-center">
+                              <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
+                                {index + 1}
+                              </span>
+                              <div>
+                                <p>{name}</p>
+                                <p>{material}</p>
+                              </div>
+                            </div>
+                            <div>
+                              <PlayCircleIcon
+                                className={`text-${
+                                  isDone ? "alert-success" : "darkblue-05"
+                                } w-10 h-full`}
+                              />
+                            </div>
+                          </li>
+                        )
+                      )}
+                    </ol>
+                  </div>
                 </div>
-                <ol>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        1
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <PlayCircleIcon className="text-alert-success w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        2
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <PlayCircleIcon className="text-alert-success w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        3
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <PlayCircleIcon className="text-alert-success w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        4
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <PlayCircleIcon className="text-darkblue-05 w-10 h-full" />
-                  </li>
-                </ol>
-              </div>
-              <div>
-                <div className="flex justify-between w-full mt-5 mb-3">
-                  <p className="text-darkblue-05 font-bold ">
-                    Chapter 2 - Materi
-                  </p>
-                  <p className="text-darkblue-03 font-bold"> 120 Menit</p>
-                </div>
-                <ol>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        1
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <LockClosedIcon className="text-gray-300 w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        2
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <LockClosedIcon className="text-gray-300 w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        3
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <LockClosedIcon className="text-gray-300 w-10 h-full" />
-                  </li>
-                  <li className="my-2 flex justify-between items-center">
-                    <p className="flex gap-3 items-center">
-                      <span className="p-4 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
-                        4
-                      </span>
-                      Anda yang ingin memahami poin penting design system
-                    </p>
-                    <LockClosedIcon className="text-gray-300 w-10 h-full" />
-                  </li>
-                </ol>
-              </div>
+              ))}
             </div>
           </div>
         </div>
