@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./UI/Button";
 import CourseCard from "./UI/CourseCard";
 import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const KursusPopuler = () => {
   const [course, setCourse] = useState([]);
@@ -15,7 +16,6 @@ const KursusPopuler = () => {
         );
           console.log(response.data.data)
         const data = response.data.data;
-
         setCourse(data);
       } catch (error) {
         console.log(error.message);
@@ -46,12 +46,12 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 2
+            selectedNumber === 1
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
-          onClick={() => setSelectedNumber(2)}
+          onClick={() => setSelectedNumber(1)}
         >
           Data Science
         </Button>
@@ -68,12 +68,12 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 3
+            selectedNumber === 5
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
-          onClick={() => setSelectedNumber(3)}
+          onClick={() => setSelectedNumber(5)}
         >
           Android Development
         </Button>
@@ -89,20 +89,25 @@ const KursusPopuler = () => {
           Web Development
         </Button>
         <Button
-          className="text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          className={
+            selectedNumber === 6
+              ? "whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          }
           size="xs"
+          onClick={() => setSelectedNumber(6)}
         >
           IOS Development
         </Button>
         <Button
           className={
-            selectedNumber === 1
+            selectedNumber === 7
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
           // onClick={filterForPM}
-          onClick={() => setSelectedNumber(1)}
+          onClick={() => setSelectedNumber(7)}
         >
           Business Intelligence
         </Button>

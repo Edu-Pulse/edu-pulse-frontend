@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import "../Progress.css";
 import {
 	PlayCircleIcon,
@@ -21,77 +22,72 @@ import Modals from "./CoursePage/Modals";
 import Button from "./UI/Button";
 
 const ClassDetails = ({ details }) => {
-	const [open, setOpen] = useState(false);
-	return (
-		<section className="mt-16 w-full h-full">
-			<div className="w-full mt-1">
-				<div>
-					<div className="font-semibold text-xl flex items-center px-[20vh] py-10">
-						<Link
-							to="/"
-							className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
-						>
-							<ArrowLeftIcon className="w-5 h-5" />
-							<p>Kelas Lainnya</p>
-						</Link>
-					</div>
-				</div>
-				<div className="container gap-20 grid md:grid-cols-5 grid-cols-1">
-					<div className="col-span-3">
-						<div className="w-full">
-							<div className="container">
-								<div className="h-full flex flex-col">
-									<div className="flex justify-between">
-										<h5 className="text-darkblue-05 font-bold pb-1 text-xl">
-											{details?.category}
-										</h5>
-										<span className="flex">
-											<StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-											<p>{details?.rating}</p>
-										</span>
-									</div>
-									<h5 className="font-bold pb-1 text-xl">
-										{details?.name}
-									</h5>
-									<p>by {details?.lecturer}</p>
-									<div className="flex gap-6">
-										<span className="flex my-2 gap-1">
-											<ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-											<p className="text-darkblue-05">
-												{details?.level} Level
-											</p>
-										</span>
-										<span className="flex my-2 gap-1">
-											<RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-											<p>
-												{details?.totalMaterial} Modul
-											</p>
-										</span>
-										<span className="flex my-2 gap-1">
-											<ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-											<p>120 Menit</p>
-										</span>
-									</div>
-									<div className="flex justify-between">
-										<button className="text-white my-5 bg-alert-success h-10 px-7 py-2 flex gap-2 items-center hover:bg-green-700 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
-											Join Grup Telegram
-											<ChatBubbleLeftRightIcon className="h-5 w-5" />
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="container">
-							<div className="relative bg-black w-full aspect-video rounded-2xl my-10 flex items-center justify-center">
-								<button
-									className="text-white my-5 bg-darkblue-05 h-10 px-6 py-10 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
-									onClick={() => {
-										setOpen(true);
-									}}
-								>
-									<PlayIcon className="h-8 w-8" />
-								</button>
-								{/* <div className="absolute bottom-0 right-8">
+  const [open, setOpen] = useState(false);
+  console.log(details);
+  return (
+    <section className="mt-16 w-full h-full">
+      <div className="w-full mt-1">
+        <div>
+          <div className="font-semibold text-xl flex items-center px-[20vh] py-10">
+            <Link
+              to="/"
+              className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+            >
+              <ArrowLeftIcon className="w-5 h-5" />
+              <p>Kelas Lainnya</p>
+            </Link>
+          </div>
+        </div>
+        <div className="container gap-20 grid md:grid-cols-5 grid-cols-1">
+          <div className="col-span-3">
+            <div className="w-full">
+              <div className="container">
+                <div className="h-full flex flex-col">
+                  <div className="flex justify-between">
+                    <h5 className="text-darkblue-05 font-bold pb-1 text-xl">
+                      {details?.category}
+                    </h5>
+                    <span className="flex">
+                      <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
+                      <p>{details?.rating}</p>
+                    </span>
+                  </div>
+                  <h5 className="font-bold pb-1 text-xl">{details?.name}</h5>
+                  <p>by {details?.lecturer}</p>
+                  <div className="flex gap-6">
+                    <span className="flex my-2 gap-1">
+                      <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
+                      <p className="text-darkblue-05">{details?.level} Level</p>
+                    </span>
+                    <span className="flex my-2 gap-1">
+                      <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
+                      <p>{details?.totalMaterial} Modul</p>
+                    </span>
+                    <span className="flex my-2 gap-1">
+                      <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
+                      <p>120 Menit</p>
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <button className="text-white my-5 bg-alert-success h-10 px-7 py-2 flex gap-2 items-center hover:bg-green-700 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
+                      Join Grup Telegram
+                      <ChatBubbleLeftRightIcon className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="container">
+              <div className="relative bg-black w-full aspect-video rounded-2xl my-10 flex items-center justify-center">
+                <button
+                  className="text-white my-5 bg-darkblue-05 h-10 px-6 py-10 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  <PlayIcon className="h-8 w-8" />
+                </button>
+                {/* <div className="absolute bottom-0 right-8">
                   <div className="h-16 flex gap-6">
                     <button className="text-darkblue-03 font-semibold bg-darkblue-06 h-8 px-6 py-1 flex gap-4 items-center hover:bg-gray-300 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
                       Kelas Lainnya
