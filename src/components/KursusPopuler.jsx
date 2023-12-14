@@ -11,7 +11,7 @@ const KursusPopuler = () => {
     const getAllCourse = async () => {
       try {
         const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/course/all`
+          `https://pragosacademy.et.r.appspot.com//course/all`
         );
           console.log(response.data.data)
         const data = response.data.data;

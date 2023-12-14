@@ -47,7 +47,7 @@ function Register() {
 
 			let config = {
 				method: "post",
-				url: `https://pragos-academy-api-production.up.railway.app/register`,
+				url: `https://pragosacademy.et.r.appspot.com/register`,
 				headers: {
 					"Content-Type": "application/json",
 				},

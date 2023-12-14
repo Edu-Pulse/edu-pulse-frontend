@@ -4,34 +4,47 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import CourseCard from "@/components/UI/CourseCard";
 import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
-import Checkbox from "@/components/UI/Checkbox";
+import { Link } from "react-router-dom";
+import CourseCardSkeleton from "../../components/UI/CourseCardSkeleton";
+import noData from "@/assets/svg/nodata.svg";
 
-import axios from "axios";
-import { BASE_URL } from "@/lib/baseUrl";
+import app from "../AuthFlow/axiosConfig";
+import toast from "react-hot-toast";
 
 const MyClass = () => {
-	const [isCollapsed, setIsCollapsed] = useState(false);
 	const [classes, setClasses] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [filter, setFilter] = useState("all");
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`${BASE_URL}/course/all`);
+				setIsLoading(true);
+				const response = await app.get(
+					`course/user/status?status=${filter}`
+				);
 				console.log(response.data);
 
 				if (response.status === 200) {
 					setClasses(response.data.data);
+				} else {
+					toast.error(
+						`Something went wrong! Status: ${response.status}`
+					);
 				}
-			} catch (error) {
-				console.log(error);
+				setIsLoading(false);
+				return;
+			} catch {
+				toast.error("Something went wrong");
+				setIsLoading(false);
 			}
 		};
 
-		return fetchData();
-	}, []);
+		return () => fetchData();
+	}, [filter]);
 
 	return (
-		<main className="container">
+		<main className="container min-h-screen">
 			<section className="md:my-20">
 				<div className="flex flex-col md:flex-row justify-between md:items-center gap-3 md:gap-0 py-5">
 					<h2 className="text-xl font-bold">Kelas Berjalan</h2>
@@ -42,148 +55,85 @@ const MyClass = () => {
 						<MagnifyingGlassCircleIcon className="h-4 w-4" />
 					</Input>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
-					<div className="md:bg-white rounded-2xl md:px-4 md:col-span-3 h-fit">
-						<button
-							id="dropdownDefaultButton"
-							onClick={() => setIsCollapsed(!isCollapsed)}
-							className="text-white md:mt-4 justify-between md:hidden bg-darkblue-05 w-full focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-							type="button"
-						>
-							<span>Filter</span>
-							<svg
-								className="w-2.5 h-2.5 ms-3"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 10 6"
+				<div className="w-full">
+					<div className="flex flex-col">
+						<div className="flex justify-around gap-2">
+							<Button
+								className={twMerge(
+									"w-full",
+									filter === "all"
+										? "!bg-darkblue-05"
+										: "!bg-darkblue-01 !text-darkblue-05"
+								)}
+								onClick={() => setFilter("all")}
+								size={window.innerWidth <= 768 ? "sm" : "lg"}
 							>
-								<path
-									stroke="currentColor"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="m1 1 4 4 4-4"
-								/>
-							</svg>
-						</button>
-						<div
-							id="dropdown"
-							className={twMerge(
-								isCollapsed ? "hidden" : "block",
-								"z-10"
-							)}
-						>
-							<ul
-								className="px-4 md:p-0 bg-white mt-4 md:m-0 md:rounded-none rounded-xl"
-								aria-labelledby="dropdownDefaultButton"
-							>
-								{/* Basic Filter */}
-								<div className="py-4 space-y-2">
-									<h2 className="font-bold">Filter</h2>
-									<Checkbox
-										label="Paling Baru"
-										id="palingbaru"
-										value=""
-									/>
-									<Checkbox
-										label="Paling Populer"
-										id="palingpopuler"
-										value=""
-									/>
-									<Checkbox
-										label="Promo"
-										id="promo"
-										value=""
-									/>
-								</div>
-								{/* Category filter */}
-								<div className="py-4 space-y-2">
-									<h2 className="font-bold">Kategori</h2>
-									<Checkbox
-										label="UI/UX Design"
-										id="uiuxdesign"
-										value=""
-									/>
-									<Checkbox
-										label="Web Development"
-										id="webdevelopment"
-										value=""
-									/>
-									<Checkbox
-										label="Android Development"
-										id="androiddevelopment"
-										value=""
-									/>
-									<Checkbox
-										label="Data Science"
-										id="datascience"
-										value=""
-									/>
-									<Checkbox
-										label="Business Intelligence"
-										id="businessintelligence"
-										value=""
-									/>
-								</div>
-
-								<div className="py-4 space-y-2">
-									<h2 className="font-bold">
-										Level Kesulitan
-									</h2>
-									<Checkbox
-										label="Semua Level"
-										id="semualevel"
-										value=""
-									/>
-									<Checkbox
-										label="Beginner Level"
-										id="beginnerlevel"
-										value=""
-									/>
-									<Checkbox
-										label="Intermediate Level"
-										id="intermediatelevel"
-										value=""
-									/>
-									<Checkbox
-										label="Advanced Level"
-										id="advancedlevel"
-										value=""
-									/>
-								</div>
-								<Button className="bg-white !text-red-500 hover:bg-gray-500 justify-self-center">
-									Hapus Filter
-								</Button>
-							</ul>
-						</div>
-					</div>
-					<div className="flex flex-col md:col-span-9">
-						<div className="flex justify-around md:gap-2">
-							<Button className="bg-white !text-black hover:bg-darkblue-05 w-1/3">
 								All
 							</Button>
-							<Button className="bg-darkblue-01 !text-white hover:bg-darkblue-05 !px-10 whitespace-nowrap w-1/3">
+							<Button
+								className={twMerge(
+									"w-full",
+									filter === "in_progress"
+										? "!bg-darkblue-05"
+										: "!bg-darkblue-01 !text-darkblue-05"
+								)}
+								onClick={() => setFilter("in_progress")}
+								size={window.innerWidth <= 768 ? "sm" : "lg"}
+							>
 								In Progess
 							</Button>
-							<Button className="bg-white !text-black whitespace-nowrap w-1/3">
+							<Button
+								className={twMerge(
+									"w-full",
+									filter === "selesai"
+										? "!bg-darkblue-05"
+										: "!bg-darkblue-01 !text-darkblue-05"
+								)}
+								onClick={() => setFilter("selesai")}
+								size={window.innerWidth <= 768 ? "sm" : "lg"}
+							>
 								Selesai
 							</Button>
 						</div>
-						<div className="grid sm:grid-cols-2 gap-6 my-10">
-							{classes.map((classItem, index) => (
-								<CourseCard
-									key={index}
-									category={classItem.category}
-									name={classItem.name}
-									lecturer={classItem.lecturer}
-									level={classItem.level}
-									rating={classItem.rating}
-									code={classItem.code}
-									image={classItem.image}
+						{isLoading ? (
+							<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 my-10">
+								{Array.from({ length: 3 }).map((_, index) => {
+									return <CourseCardSkeleton key={index} />;
+								})}
+							</div>
+						) : classes.length === 0 ? (
+							<div className="w-full h-full grid place-content-center mt-32 sm:mt-12">
+								<img
+									src={noData}
+									alt="No Data"
+									className="w-full"
 								/>
-							))}
-						</div>
+								<p className="text-gray-700 text-center">
+									Kamu belum mengikuti kelas,{" "}
+									<Link
+										to="/class-topic"
+										className="text-blue-900 font-semibold hover:cursor-pointer hover:underline underline-offset-2"
+									>
+										yuk ikut sekarang
+									</Link>
+								</p>
+							</div>
+						) : (
+							<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 my-10">
+								{classes.map((classItem, index) => (
+									<CourseCard
+										key={index}
+										category={classItem.category}
+										name={classItem.name}
+										lecturer={classItem.lecturer}
+										level={classItem.level}
+										rating={classItem.rating}
+										code={classItem.code}
+										image={classItem.image}
+									/>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</section>

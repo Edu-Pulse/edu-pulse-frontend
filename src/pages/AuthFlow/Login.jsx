@@ -25,16 +25,12 @@ const Login = () => {
 				password,
 			};
 
-			const response = await app.post(
-				"https://pragos-academy-api-production.up.railway.app/login",
-				data,
-				{
-					headers: {
-						"Content-Type": "application/json",
-						Accept: "*/*",
-					},
-				}
-			);
+			const response = await app.post("login", data, {
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "*/*",
+				},
+			});
 
 			console.log("Ini data");
 			console.log(response);
