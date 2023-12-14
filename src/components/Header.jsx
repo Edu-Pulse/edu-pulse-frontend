@@ -14,7 +14,7 @@ import { AuthContext } from "@/context/AuthContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
   console.log(input);
   const navigate = useNavigate();
 
