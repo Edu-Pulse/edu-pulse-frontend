@@ -8,6 +8,7 @@ import Checkbox from "@/components/UI/Checkbox";
 
 const ClassTopic = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <main className="container">
       <section className="md:my-20">

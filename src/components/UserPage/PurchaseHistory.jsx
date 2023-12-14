@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CourseCard from "../UI/CourseCard";
 import app from "../../pages/AuthFlow/axiosConfig";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const PurchaseHistory = () => {
   const [history, setHistory] = useState();
@@ -8,9 +9,7 @@ const PurchaseHistory = () => {
   useEffect(() => {
     const getPaymentHistory = async () => {
       try {
-        const response = await app.get(
-          `https://pragos-academy-api-production.up.railway.app/payment/user?page=0`
-        );
+        const response = await app.get(`${BASE_URL}/payment/user?page=0`);
 
         const data = response.data.data.content;
 

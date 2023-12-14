@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { ValidationContext } from "@/context/ValidationContext";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "@/lib/baseUrl";
 
 function Register() {
   const {
@@ -47,7 +48,7 @@ function Register() {
 
       let config = {
         method: "post",
-        url: `https://pragos-academy-api-production.up.railway.app/register`,
+        url: `${BASE_URL}/register`,
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",

@@ -5,6 +5,7 @@ import { ValidationContext } from "../../context/ValidationContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "@/lib/baseUrl";
 
 function ResetPassword() {
   const { handlePasswordValidation } = useContext(ValidationContext);
@@ -24,9 +25,7 @@ function ResetPassword() {
     try {
       let config = {
         method: "GET",
-        url:
-          `https://pragos-academy-api-production.up.railway.app/forgot-password/` +
-          email,
+        url: `${BASE_URL}/forgot-password/` + email,
       };
       const response = await axios.request(config);
       if (response.data == true) {
@@ -43,7 +42,7 @@ function ResetPassword() {
     try {
       let config = {
         method: "POST",
-        url: `https://pragos-academy-api-production.up.railway.app/reset-password?email=${email}&verificationCode=${kode}&newPassword=${password}`,
+        url: `${BASE_URL}/reset-password?email=${email}&verificationCode=${kode}&newPassword=${password}`,
       };
       const response = await axios.request(config);
       if (response.data.error == true) {
