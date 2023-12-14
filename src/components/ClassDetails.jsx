@@ -259,7 +259,6 @@ const ClassDetails = ({ details }) => {
                               </span>
                               <div>
                                 <p>{name}</p>
-                                <p>{material}</p>
                               </div>
                             </div>
                             <div>

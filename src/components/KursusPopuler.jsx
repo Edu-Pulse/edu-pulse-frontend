@@ -13,8 +13,8 @@ const KursusPopuler = () => {
         const response = await axios.get(
           `https://pragos-academy-api-production.up.railway.app/course/all`
         );
-        console.log(response.data.data);
-        const data = response.data.data;
+        // console.log(response.data.data.content);
+        const data = response.data.data.content;
 
         setCourse(data);
       } catch (error) {
@@ -73,7 +73,7 @@ const KursusPopuler = () => {
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
-          onClick={() => setSelectedNumber(3)}
+          onClick={() => setSelectedNumber(5)}
         >
           Android Development
         </Button>
@@ -89,8 +89,13 @@ const KursusPopuler = () => {
           Web Development
         </Button>
         <Button
-          className="text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          className={
+            selectedNumber === 4
+              ? "whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+          }
           size="xs"
+          onClick={() => setSelectedNumber(6)}
         >
           IOS Development
         </Button>
@@ -102,7 +107,7 @@ const KursusPopuler = () => {
           }
           size="xs"
           // onClick={filterForPM}
-          onClick={() => setSelectedNumber(1)}
+          onClick={() => setSelectedNumber(7)}
         >
           Business Intelligence
         </Button>

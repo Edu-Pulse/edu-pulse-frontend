@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import app from "../../pages/AuthFlow/axiosConfig";
 import toast from "react-hot-toast";
+// import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const ChangePassword = () => {
+  const { user } = useContext(AuthContext);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -18,12 +21,37 @@ const ChangePassword = () => {
         newPassword,
       });
 
-      await app.put("user/change-password", data, {
+      const response = await app.put("user/change-password", data, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
         },
       });
+      console.log(response.data);
+      if (response.data.error === true) {
+        toast.error(response.data.message);
+      } else {
+        toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      return;
+    }
+  };
+
+  const handleForgetPassword = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await app.get(`forgot-password/${user.email}`);
+      console.log(response.data);
+      if (response.data.error === true) {
+        toast.error(response.data.message);
+      } else {
+        toast.success(response.data.data);
+      }
     } catch (error) {
       toast.error(error.message);
       return;
@@ -58,6 +86,12 @@ const ChangePassword = () => {
           value={repeatPassword}
           onChange={(e) => setRepeatPassword(e.target.value)}
         />
+        <label
+          className="font-poppins text-xs font-normal leading-[18px] text-darkblue-05 mb-1 cursor-pointer"
+          onClick={handleForgetPassword}
+        >
+          Lupa Kata Sandi
+        </label>
 
         <Button size="lg" className="w-full" onClick={onSubmit}>
           Ubah Password
