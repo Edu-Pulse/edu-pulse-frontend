@@ -11,10 +11,11 @@ const KursusPopuler = () => {
   useEffect(() => {
     const getAllCourse = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/course/all`);
-        // console.log(response.data.data.content);
-        const data = response.data.data.content;
-
+        const response = await axios.get(
+          `https://pragosacademy.et.r.appspot.com//course/all`
+        );
+          console.log(response.data.data)
+        const data = response.data.data;
         setCourse(data);
       } catch (error) {
         console.log(error.message);

@@ -46,15 +46,14 @@ function Register() {
         country,
       });
 
-      let config = {
-        method: "post",
-        url: `${BASE_URL}/register`,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-        data: data,
-      };
+			let config = {
+				method: "post",
+				url: `https://pragosacademy.et.r.appspot.com/register`,
+				headers: {
+					"Content-Type": "application/json",
+				},
+				data: data,
+			};
 
       const response = await axios.request(config);
 

@@ -30,12 +30,14 @@ import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
       element: <HomeLayout />,
+      errorElement: <NotFount />,
       children: [
         {
           index: true,

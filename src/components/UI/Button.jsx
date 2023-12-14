@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import PropTypes from "prop-types";
 
 const Button = ({
@@ -14,7 +14,7 @@ const Button = ({
 	size = "lg",
 	type = "",
 }) => {
-	const buttonClasses = clsx(
+	const buttonClasses = twMerge(
 		className,
 		"text-center items-center rounded-2xl font-medium flex gap-2 justify-center items-center",
 		size === "sm"
