@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./UI/Button";
 import CourseCard from "./UI/CourseCard";
 import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const KursusPopuler = () => {
   const [course, setCourse] = useState([]);
@@ -10,9 +11,7 @@ const KursusPopuler = () => {
   useEffect(() => {
     const getAllCourse = async () => {
       try {
-        const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/course/all`
-        );
+        const response = await axios.get(`${BASE_URL}/course/all`);
         // console.log(response.data.data.content);
         const data = response.data.data.content;
 
