@@ -39,7 +39,7 @@ const App = () => {
 		{
 			path: "/",
 			element: <HomeLayout />,
-			// errorElement: <NotFound />,
+			errorElement: <NotFound />,
 			children: [
 				{
 					index: true,
