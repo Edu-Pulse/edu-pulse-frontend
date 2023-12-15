@@ -5,52 +5,49 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import app from "../../pages/AuthFlow/axiosConfig";
 
-function AdminModal({handleCloseModal}) {
-  const [courseCode, setCourseCode] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [category, setCategory] = useState("");
+function EditModal({handleCloseModal, /*courseItem*/}) {
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [intended, setIntended] = useState("");
   const [lecturer, setLecturer] = useState("");
-  const [type, setType] = useState("");
   const [level, setLevel] = useState("");
+  const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
 
-  const handleSave = async (e) => {
+  const handleSave = async (e, code) => {
     e.preventDefault();
     try {
-      let data = {
-        courseCode,
-        courseName,
-        category,
+      let data = JSON.stringify({
+        name,
         description,
-        intended,
         lecturer,
-        type,
         level,
+        type,
         price,
         discount,
-      };
+      });
 
-      const response = await app.post("course", data, {
+      const response = await app.put(`course/edit/:${code}`, data, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
         },
       });
 
-      if (response.status === 200) {
-        window.location.href = "/dashboard/kelolakelas";
+      console.log(response.data);
+      if (response.data.error === true) {
+        toast.error(response.data.message);
+      } else {
+        toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
-
       handleCloseModal();
-
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "An error occurred");
-    }
-  };
+      toast.error(error.message);
+      return;
+    }}
 
   return (
     <div
@@ -76,81 +73,60 @@ function AdminModal({handleCloseModal}) {
               </button>
             </div>
             <div className="modal-body py-1 text-center w-[465px] mx-auto">
-            <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">Tambah Kelas</h1>
+            <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">Edit Kelas</h1>
             </div>
             <div className='h-[83%] w-[465px] mx-auto'>
               <Input 
-                placeholder="courseCode" 
+                placeholder="name" 
                 type="text"  
                 label="Nama Kelas"
-                name="courseCode"
-                onChange={(e) => setCourseCode(e.target.value)}
-              />
-              <Input 
-                placeholder="courseName" 
-                type="text"  
-                label="Kategori"
-                name="courseName"
-                onChange={(e) => setCourseName(e.target.value)}
-              />
-              <Input 
-                placeholder="category" 
-                type="number"  
-                label="Kode Kelas"
-                name="category"
-                onChange={(e) => setCategory(e.target.value)}
+                name="name"
+                onChange={(e) => setName(e.target.value)}
               />
               <Input 
                 placeholder="description" 
                 type="text"  
-                label="Tipe Kelas"
+                label="Kategori"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
               <Input 
-                placeholder="intended" 
-                type="text"  
-                label="Level"
-                name="intended"
-                onChange={(e) => setIntended(e.target.value)}
-              />
-              <Input 
                 placeholder="lecturer" 
-                type="text"  
-                label="Harga"
+                type="number"  
+                label="Kode Kelas"
                 name="lecturer"
                 onChange={(e) => setLecturer(e.target.value)}
               />
-              <Input
-                placeholder="type" 
-                type="text"  
-                label="Materi"
-                name="type"
-                onChange={(e) => setType(e.target.value)}
-              />
-              <Input
+              <Input 
                 placeholder="level" 
                 type="text"  
-                label="Materi"
+                label="Tipe Kelas"
                 name="level"
                 onChange={(e) => setLevel(e.target.value)}
               />
-              <Input
+              <Input 
+                placeholder="type" 
+                type="text"  
+                label="Level"
+                name="type"
+                onChange={(e) => setType(e.target.value)}
+              />
+              <Input 
                 placeholder="price" 
-                type="number"  
-                label="Materi"
+                type="text"  
+                label="Harga"
                 name="price"
                 onChange={(e) => setPrice(e.target.value)}
               />
               <Input
                 placeholder="discount" 
-                type="number"  
+                type="text"  
                 label="Materi"
                 name="discount"
                 onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
-            <div className="flex justify-center w-[465px] mx-auto mt-48 gap-2">
+            <div className="flex justify-center w-[465px] mx-auto gap-2">
               <button
                 type="button"
                 className="bg-alert-warning text-white font-bold py-2 px-4 rounded-full cursor-pointer"
@@ -171,4 +147,4 @@ function AdminModal({handleCloseModal}) {
   )
 }
 
-export default AdminModal
+export default EditModal
