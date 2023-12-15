@@ -1,54 +1,65 @@
 /* eslint-disable react/prop-types */
 import clsx from "clsx";
 import Input from '../UI/Input';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-// import app from "../../pages/AuthFlow/axiosConfig";
+import { BASE_URL } from "@/lib/baseUrl";
 
-function EditModal({handleCloseModal, /*courseItem*/}) {
+function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [intended, setIntended] = useState("");
   const [lecturer, setLecturer] = useState("");
   const [level, setLevel] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
 
-  const handleSave = async (e, code) => {
+  useEffect(() => {
+    if (courseItem) {
+      setName(courseItem.name || "");
+      setDescription(courseItem.description || "");
+      setIntended(courseItem.intended || "");
+      setLecturer(courseItem.lecturer || "");
+      setLevel(courseItem.level || "");
+      setType(courseItem.type || "");
+      setPrice(courseItem.price || "");
+      setDiscount(courseItem.discount || "");
+    }
+  }, [courseItem]);
+
+  const handleSave = async (e) => {
     e.preventDefault();
     try {
-      let data = JSON.stringify({
+      const data = {
         name,
         description,
+        intended,
         lecturer,
         level,
         type,
         price,
         discount,
-      });
+      };
 
-      const response = await axios.put(`course/edit/:${code}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-      });
+      const response = await axios.put(
+        `${BASE_URL}course/edit/${courseItem.code}`,
+        data
+      );
 
-      console.log(response.data);
-      if (response.data.error === true) {
-        toast.error(response.data.message);
-      } else {
+      if (response.status === 200) {
         toast.success(response.data.message);
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       }
+      handleUpdate(data);
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
-      return;
-    }}
+      toast.error(error.response?.data?.message || "An error occurred");
+    }
+  };
 
   return (
     <div
@@ -91,9 +102,16 @@ function EditModal({handleCloseModal, /*courseItem*/}) {
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
+              <Input
+                placeholder="intended"
+                type="text"
+                label="Deskripsi"
+                name="intended"
+                onChange={(e) => setIntended(e.target.value)}
+              />
               <Input 
                 placeholder="lecturer" 
-                type="number"  
+                type="text"  
                 label="Kode Kelas"
                 name="lecturer"
                 onChange={(e) => setLecturer(e.target.value)}

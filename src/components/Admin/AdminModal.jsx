@@ -3,8 +3,8 @@ import clsx from "clsx";
 import Input from '../UI/Input';
 import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
-// import app from "../../pages/AuthFlow/axiosConfig";
+import app from "../../lib/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 function AdminModal({handleCloseModal}) {
   const [courseCode, setCourseCode] = useState("");
@@ -17,6 +17,7 @@ function AdminModal({handleCloseModal}) {
   const [level, setLevel] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
+  const navigate = useNavigate();
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ function AdminModal({handleCloseModal}) {
         discount,
       };
 
-      const response = await axios.post("course", data, {
+      const response = await app.post("course", data, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
@@ -42,7 +43,8 @@ function AdminModal({handleCloseModal}) {
       });
 
       if (response.status === 200) {
-        window.location.href = "/dashboard/kelolakelas";
+        toast.success(response.data.message);
+        navigate(0)
       }
 
       handleCloseModal();
