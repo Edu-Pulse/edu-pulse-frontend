@@ -3,9 +3,10 @@ import Input from "../UI/Input";
 import { useEffect, useState } from "react";
 import Button from "../UI/Button";
 import toast from "react-hot-toast";
-import app from "../../pages/AuthFlow/axiosConfig";
+import app from "../../lib/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import userImagePlaceholder from "@/assets/user-image-placeholder.jpg";
+import { getMe } from "../../lib/getMe";
 
 const UserProfile = () => {
 	const [user, setUser] = useState("");
@@ -20,17 +21,10 @@ const UserProfile = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const getMe = async () => {
-			try {
-				const response = await app.get(`user`);
-				const data = response.data.data;
-				console.log(data);
-				setUser(data);
-			} catch (error) {
-				console.log(error);
-			}
+		const fetchData = async () => {
+			await getMe(setUser);
 		};
-		return () => getMe();
+		return () => fetchData();
 	}, []);
 
 	useEffect(() => {

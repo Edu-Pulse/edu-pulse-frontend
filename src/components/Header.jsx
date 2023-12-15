@@ -7,16 +7,29 @@ import {
 	BellIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
-import { useContext, useState } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import userImagePlaceholder from "@/assets/user-image-placeholder.jpg";
 
 const Header = () => {
-	const { user } = useContext(AuthContext);
 	const [input, setInput] = useState("");
-	console.log(input);
+	const [user, setUser] = useState("");
 	const navigate = useNavigate();
+	useEffect(() => {
+		const getMe = async () => {
+			try {
+				const response = await axios.get(
+					`https://pragosacademy.et.r.appspot.com/user`
+				);
+				const data = response.data.data;
+				setUser(data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getMe();
+	}, []);
 
 	return (
 		<header className="fixed top-0 z-50 w-full py-3 bg-darkblue-05">

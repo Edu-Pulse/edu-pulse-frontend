@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CourseCardSkeleton from "../../components/UI/CourseCardSkeleton";
 import noData from "@/assets/svg/nodata.svg";
-import app from "../AuthFlow/axiosConfig";
+import app from "@/lib/axiosConfig";
 import toast from "react-hot-toast";
 
 const MyClass = () => {

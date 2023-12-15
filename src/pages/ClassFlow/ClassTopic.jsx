@@ -8,12 +8,11 @@ import { useState, useEffect } from "react";
 
 import noData from "@/assets/svg/nodata.svg";
 import "react-loading-skeleton/dist/skeleton.css";
-
-import app from "../AuthFlow/axiosConfig";
 import toast from "react-hot-toast";
-import CourseCardSkeleton from "../../components/UI/CourseCardSkeleton";
-import Filters from "../../components/CoursePage/Filters";
-import Drawer from "../../components/CoursePage/Drawer";
+import CourseCardSkeleton from "@/components/UI/CourseCardSkeleton";
+import Filters from "@/components/CoursePage/Filters";
+import Drawer from "@/components/CoursePage/Drawer";
+import app from "@/lib/axiosConfig";
 
 const ClassTopic = () => {
 	const [isLoading, setIsLoading] = useState(false);

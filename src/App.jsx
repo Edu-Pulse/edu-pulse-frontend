@@ -28,7 +28,6 @@ import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
 // Payment Flow
 import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
-import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
@@ -125,12 +124,10 @@ const App = () => {
 		},
 	]);
 	return (
-		<AuthContextProvider>
-			<ValidationContextProvider>
-				<Toaster position="bottom-center" reverseOrder={false} />
-				<RouterProvider router={routes} />
-			</ValidationContextProvider>
-		</AuthContextProvider>
+		<ValidationContextProvider>
+			<Toaster position="bottom-center" reverseOrder={false} />
+			<RouterProvider router={routes} />
+		</ValidationContextProvider>
 	);
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CourseCard from "../UI/CourseCard";
-import app from "../../pages/AuthFlow/axiosConfig";
+import app from "../../lib/axiosConfig";
 import { Link } from "react-router-dom";
 
 import noData from "@/assets/svg/nodata.svg";
