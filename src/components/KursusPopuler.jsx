@@ -3,6 +3,7 @@ import Button from "./UI/Button";
 import CourseCard from "./UI/CourseCard";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
+import { Link } from "react-router-dom";
 
 const KursusPopuler = () => {
   const [course, setCourse] = useState([]);
@@ -11,11 +12,9 @@ const KursusPopuler = () => {
   useEffect(() => {
     const getAllCourse = async () => {
       try {
-        const response = await axios.get(
-          `https://pragosacademy.et.r.appspot.com//course/all`
-        );
-          console.log(response.data.data)
-        const data = response.data.data;
+        const response = await axios.get(`${BASE_URL}/course/all`);
+        console.log(response.data.data);
+        const data = response.data.data.content;
         setCourse(data);
       } catch (error) {
         console.log(error.message);
@@ -29,7 +28,7 @@ const KursusPopuler = () => {
       <div className="flex justify-between items-center py-5">
         <h2 className="text-xl font-bold">Kursus Popular</h2>
         <span className="font-bold text-darkblue-05 py-2 px-4 rounded-full hover:bg-blue-200 hover:cursor-pointer transition-all duration-200">
-          Lihat Semua
+          <Link to={"/class-topic"}>Lihat Semua</Link>
         </span>
       </div>
       <div className="flex justify-around w-full my-8 overflow-x-auto">

@@ -31,13 +31,14 @@ import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
 import NotFound from "./pages/NotFound";
+import Search from "./pages/Search";
 
 const App = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
       element: <HomeLayout />,
-      errorElement: <NotFount />,
+      errorElement: <NotFound />,
       children: [
         {
           index: true,
@@ -48,7 +49,7 @@ const App = () => {
           element: <MyClass />,
         },
         {
-          path: "/class-topic/:input",
+          path: "/class-topic",
           element: <ClassTopic />,
         },
         {
@@ -70,6 +71,10 @@ const App = () => {
         {
           path: "/user",
           element: <User />,
+        },
+        {
+          path: "/search/:input",
+          element: <Search />,
         },
       ],
     },

@@ -31,10 +31,12 @@ const PurchaseHistory = () => {
         history.map((bebas, index) => (
           <CourseCard
             key={index}
-            name={bebas.courseName}
             category={bebas.categoryName}
-            image={null}
-            amount={bebas.amount}
+            name={bebas.courseName}
+            lecturer={bebas.lecturer}
+            level={bebas.level}
+            rating={bebas.rating}
+            image={bebas.image}
           />
         ))}
       {/* <CourseCard /> */}
