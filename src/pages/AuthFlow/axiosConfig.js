@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BASE_URL } from "@/lib/baseUrl";
 
 axios.defaults.withCredentials = true;
 
@@ -11,7 +10,18 @@ const app = axios.create({
 
 app.interceptors.response.use(
 	(response) => response,
-	(error) => Promise.reject(error.response.data.err)
+	(error) => {
+		const status = error.response?.status || 500;
+		if (status === 401) {
+			window.location =
+				window.location.protocol +
+				"//" +
+				window.location.host +
+				"/not-logged-in";
+		} else {
+			return Promise.reject(error); // Delegate error to calling side
+		}
+	}
 );
 
 export default app;

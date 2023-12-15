@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { twMerge } from "tailwind-merge";
 import PropTypes from "prop-types";
-
+import Spinner from "./Spinner";
 const Button = ({
 	children,
 	className = "",
@@ -13,6 +13,8 @@ const Button = ({
 	outline = false,
 	size = "lg",
 	type = "",
+	loading = false,
+	loadingText = "Memproses",
 }) => {
 	const buttonClasses = twMerge(
 		className,
@@ -55,7 +57,19 @@ const Button = ({
 			type={type.length !== 0 && type}
 		>
 			{icon && iconPosition === "left" && icon}
-			<span>{children}</span>
+			<span>
+				{loading ? (
+					<span className="flex gap-2">
+						<Spinner
+							color="fill-white text-neutral-300/50"
+							size="w-6 h-6"
+						/>{" "}
+						{loadingText}
+					</span>
+				) : (
+					children
+				)}
+			</span>
 			{icon && iconPosition === "right" && icon}
 		</button>
 	);
@@ -78,6 +92,8 @@ Button.propTypes = {
 	disabled: PropTypes.bool,
 	size: PropTypes.oneOf(["sm", "md", "lg"]),
 	type: PropTypes.string,
+	loading: PropTypes.bool,
+	loadingText: PropTypes.string,
 };
 
 export default Button;
