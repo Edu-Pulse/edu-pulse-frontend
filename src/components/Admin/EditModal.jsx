@@ -3,7 +3,8 @@ import clsx from "clsx";
 import Input from '../UI/Input';
 import { useState } from "react";
 import toast from "react-hot-toast";
-import app from "../../pages/AuthFlow/axiosConfig";
+import axios from "axios";
+// import app from "../../pages/AuthFlow/axiosConfig";
 
 function EditModal({handleCloseModal, /*courseItem*/}) {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ function EditModal({handleCloseModal, /*courseItem*/}) {
         discount,
       });
 
-      const response = await app.put(`course/edit/:${code}`, data, {
+      const response = await axios.put(`course/edit/:${code}`, data, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
