@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import AuthLayout from "@/layouts/AuthLayout";
 import Login from "@/pages/AuthFlow/Login";
 import Register from "@/pages/AuthFlow/Register";
-import Otp from "@/pages/AuthFlow/OTP";
+// import Otp from "@/pages/AuthFlow/OTP";
 import ResetPassword from "@/pages/AuthFlow/ResetPassword";
 
 // User Flow
@@ -30,14 +30,14 @@ import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
-import NotFound from "./pages/NotFound";
+// import NotFound from "./pages/NotFound";
 
 const App = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
       element: <HomeLayout />,
-      errorElement: <NotFount />,
+      // errorElement: <NotFount />,
       children: [
         {
           index: true,
@@ -89,10 +89,10 @@ const App = () => {
           path: "reset",
           element: <ResetPassword />,
         },
-        {
-          path: "otp/:email",
-          element: <Otp />,
-        },
+        // {
+        //   path: "otp/:email",
+        //   element: <Otp />,
+        // },
       ],
     },
     {

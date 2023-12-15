@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "@/lib/baseUrl";
+// import { BASE_URL } from "@/lib/baseUrl";
 
 axios.defaults.withCredentials = true;
 

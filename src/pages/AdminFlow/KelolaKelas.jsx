@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	PlusCircleIcon,
 	FunnelIcon,
@@ -7,9 +7,17 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import AdminModal from "@/components/Admin/AdminModal";
+import EditModal from "@/components/Admin/EditModal";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
+// import app from "../AuthFlow/axiosConfig";
+// import toast from "react-hot-toast";
 
 function KelolaKelas() {
 	const [showModal, setShowModal] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [course, setCourse] = useState([]);
+  // console.log("ini bagian course",course);
 
 	const handleOpenModal = () => {
 		setShowModal(true);
@@ -17,7 +25,37 @@ function KelolaKelas() {
 
 	const handleCloseModal = () => {
 		setShowModal(false);
+    setModalEdit(false);
 	};
+
+  useEffect(() => {
+    const getAllCourse = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/course/all`
+        );
+          console.log(response.data.data)
+        const data = response.data.data;
+        setCourse(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getAllCourse();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`course/delete/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  const handleEdit = () => {
+    setModalEdit(true);
+  }
+  
 
 	return (
 		<>
@@ -42,13 +80,13 @@ function KelolaKelas() {
 					</div>
 				</div>
 			</section>
-
+    
 			<section className="px-5">
 				<div className="overflow-y-scroll md:h-[300px] rounded-lg shadow hidden md:block p-5 bg-gray-100">
 					<table className="w-full">
 						<thead className="bg-gray-50 border-b-2 border-gray-200">
 							<tr>
-								<th className="w-30 p-3 text-sm font-semibold tracking-wide text-left">
+								<th className="w-40 p-3 text-sm font-semibold tracking-wide text-left">
 									Kode Kelas
 								</th>
 								<th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">
@@ -57,7 +95,7 @@ function KelolaKelas() {
 								<th className="p-3 text-sm font-semibold tracking-wide text-left">
 									Nama Kelas
 								</th>
-								<th className="w-30 p-3 text-sm font-semibold tracking-wide text-left">
+								<th className="w-40 p-3 text-sm font-semibold tracking-wide text-left">
 									Tipe Kelas
 								</th>
 								<th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">
@@ -72,240 +110,66 @@ function KelolaKelas() {
 							</tr>
 						</thead>
 						<tbody className="divide-y divide-gray-100">
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										UIUX0123
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									UI/UX Design
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Belajar Web Designer dengan Figma
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-										Gratis
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Beginner
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 0
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-gray-50">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										DS0223
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Data Science
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Data Cleaning untuk pemula
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-										Gratis
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Beginner
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 0
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										DS0223
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Data Science
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Data Cleaning untuk Professional
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
-										Premium
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Advanced
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 199,000
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										PM0123
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Product Management
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Scrum dalam tim kompleks
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
-										Premium
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Intermediate
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 299,000
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										PM0123
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Product Management
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Penerapan manajemen Agile
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
-										Premium
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Advanced
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 349,000
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										AD1023
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Android Development
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Mengenal Android Studio
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-										Gratis
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Beginner
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 0
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-							<tr className="bg-white">
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<a
-										href="#"
-										className="font-bold text-blue-500 hover:underline"
-									>
-										WD1123
-									</a>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Web Development
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									CSS dan HTML dalam seminggu
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-										Gratis
-									</span>
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Beginner
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									Rp 0
-								</td>
-								<td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-									<span className="flex gap-3 justify-center">
-										<PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2" />
-										<TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2" />
-									</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+
+            {course.content && course.content.length > 0 ? (
+              course.content.map((courseItem, index) => (
+              <tr key={index} className="bg-white">
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <a href="#" className="font-bold text-blue-500 hover:underline">
+                    {courseItem.code}
+                    </a>
+                    </td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {courseItem.category}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.name}
+                        </td>
+                        <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.type === 'GRATIS' ? (
+                        <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                          {courseItem.type}
+                          </span>
+                          ) : (
+                          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
+                            {courseItem.type}
+                            </span>
+                            )}
+                            </td>
+                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            {courseItem.level}
+                            </td>
+                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                            {courseItem.price}
+                            </td>
+                            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                              <span className="flex gap-3 justify-center">
+                                <PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2"
+                                onClick={() => handleEdit(courseItem.code)}
+                                />
+                                <TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2"
+                                onClick={() => handleDelete(courseItem.code)}
+                                />
+                                </span>
+                                </td>
+                                {modalEdit && (
+                                  <EditModal handleCloseModal={handleCloseModal} /*courseItem={courseItem}*/ />
+                                )}
+                                </tr>
+                                ))
+                                ) : (
+                                <tr className="bg-white">
+                                  <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    No course data available
+                                    </td>
+                                    </tr>
+                                    )}
+                                    
+                                    </tbody>
+                                    </table>
+                                    </div>
+
+                                    
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden mt-4 pb-5">
 					<div className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
