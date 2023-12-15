@@ -75,19 +75,18 @@ const Otp = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     try {
       let config = {
         method: "POST",
-        url: `https://pragos-academy-api-production.up.railway.app/verification-email?email=${email}&code=${tipe}`,
+        url: `https://pragosacademy.et.r.appspot.com/verification-email?email=${email}&code=${tipe}`,
       };
       const response = await axios.request(config);
-      if (response.data.error == true) {
-        toast.error(response.data.data);
-      } else {
-        navigate(`/`);
+      if (response.status === 200 || response.data.error === false) {
+        navigate("/auth/login");
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error("Something went wrong!");
     }
   };
 

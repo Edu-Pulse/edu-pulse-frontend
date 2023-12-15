@@ -11,7 +11,6 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-// import { BASE_URL } from "../../lib/baseUrl";
 import app from "../AuthFlow/axiosConfig";
 
 const PurchaseHistory = lazy(() =>
@@ -24,24 +23,20 @@ const UserProfile = lazy(() => import("../../components/UserPage/UserProfile"));
 
 const User = () => {
   const [menuSelect, setMenuSelect] = useState("my-profile");
-
-  const handleLogout = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await app.get(`user/logout`);
-      console.log(response);
-      if (response.status === 200) {
-        toast.success(response.data.message);
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1500);
-      } else {
-        toast.error("Something went wrong!");
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+	const handleLogout = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await app.post(`user/logout`);
+			console.log(response);
+			if (response.status === 200) {
+				window.location.href = "/";
+			} else {
+				toast.error("Something went wrong!");
+			}
+		} catch (error) {
+			toast.error("Something went wrong!");
+		}
+	};
 
   return (
     <main className="container flex flex-col min-h-screen mb-4 md:my-16 bg-darkblue-06 md:bg-white">
