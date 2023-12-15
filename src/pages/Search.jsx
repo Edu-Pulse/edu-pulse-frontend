@@ -87,16 +87,16 @@ const Search = () => {
 						<div className="flex flex-col md:col-span-9">
 							<div className="grid sm:grid-cols-2 gap-6 my-10">
 								{filteredSearch &&
-									filteredSearch.map((bebas, index) => (
+									filteredSearch.map((searchItem, index) => (
 										<CourseCard
 											key={index}
-											category={bebas.category}
-											name={bebas.name}
-											lecturer={bebas.lecturer}
-											level={bebas.level}
-											rating={bebas.rating}
-											code={bebas.code}
-											image={bebas.image}
+											category={searchItem.category}
+											name={searchItem.name}
+											lecturer={searchItem.lecturer}
+											level={searchItem.level}
+											rating={searchItem.rating}
+											code={searchItem.code}
+											image={searchItem.image}
 										/>
 									))}
 								{/* <CourseCard />
