@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CourseCardSkeleton from "../../components/UI/CourseCardSkeleton";
 import noData from "@/assets/svg/nodata.svg";
-
-import app from "../AuthFlow/axiosConfig";
+import app from "@/lib/axiosConfig";
 import toast from "react-hot-toast";
 
 const MyClass = () => {
@@ -20,13 +19,11 @@ const MyClass = () => {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true);
-				const response = await app.get(
-					`course/user/status?status=${filter}`
-				);
+				const response = await app.get(`course/user`);
 				console.log(response.data);
 
 				if (response.status === 200) {
-					setClasses(response.data.data);
+					setClasses(response.data.data.content);
 				} else {
 					toast.error(
 						`Something went wrong! Status: ${response.status}`

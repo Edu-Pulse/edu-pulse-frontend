@@ -56,7 +56,7 @@ const Drawer = ({ isOpen, onClose, children }) => {
 			ref={drawerRef}
 			onKeyDown={handleKeyDown}
 			onClick={handleCloseDrawerOnBackdropClick}
-			className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-8 rounded-t-3xl w-full overflow-y-auto bg-white"
+			className="modal z-40 px-4 pb-8 rounded-t-3xl w-full overflow-y-auto bg-white"
 		>
 			{children}
 		</dialog>

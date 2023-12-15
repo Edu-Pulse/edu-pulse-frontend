@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import AuthLayout from "@/layouts/AuthLayout";
 import Login from "@/pages/AuthFlow/Login";
 import Register from "@/pages/AuthFlow/Register";
-// import Otp from "@/pages/AuthFlow/OTP";
+import Otp from "@/pages/AuthFlow/OTP";
 import ResetPassword from "@/pages/AuthFlow/ResetPassword";
 
 // User Flow
@@ -28,100 +28,107 @@ import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
 // Payment Flow
 import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
 import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
-import { AuthContextProvider } from "./context/AuthContext";
 import { ValidationContextProvider } from "./context/ValidationContext";
-// import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
+import Search from "./pages/Search";
+import NotLoggedIn from "./pages/NotLoggedIn";
 
 const App = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomeLayout />,
-      // errorElement: <NotFount />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/my-class",
-          element: <MyClass />,
-        },
-        {
-          path: "/class-topic/:input",
-          element: <ClassTopic />,
-        },
-        {
-          path: "/payment-pending",
-          element: <PaymentDetail />,
-        },
-        {
-          path: "/payment-success",
-          element: <PaymentDetailSuccess />,
-        },
-        {
-          path: "/detail/:code",
-          element: <Detail />,
-        },
-        {
-          path: "/notifikasi",
-          element: <Notification />,
-        },
-        {
-          path: "/user",
-          element: <User />,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "reset",
-          element: <ResetPassword />,
-        },
-        // {
-        //   path: "otp/:email",
-        //   element: <Otp />,
-        // },
-      ],
-    },
-    {
-      path: "/dashboard",
-      element: <DashboardLayout />,
-      children: [
-        {
-          index: true,
-          element: <Dashboard />,
-        },
-        {
-          path: "kelolakelas",
-          element: <KelolaKelas />,
-        },
-      ],
-    },
-    {
-      path: "/admin",
-      element: <LoginAdmin />,
-    },
-  ]);
-  return (
-    <AuthContextProvider>
-      <ValidationContextProvider>
-        <Toaster position="bottom-center" reverseOrder={false} />
-        <RouterProvider router={routes} />
-      </ValidationContextProvider>
-    </AuthContextProvider>
-  );
+	const routes = createBrowserRouter([
+		{
+			path: "/",
+			element: <HomeLayout />,
+			errorElement: <NotFound />,
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+				{
+					path: "/my-class",
+					element: <MyClass />,
+				},
+				{
+					path: "/class-topic",
+					element: <ClassTopic />,
+				},
+				{
+					path: "/payment-pending",
+					element: <PaymentDetail />,
+				},
+				{
+					path: "/payment-success",
+					element: <PaymentDetailSuccess />,
+				},
+				{
+					path: "/detail/:code",
+					element: <Detail />,
+				},
+				{
+					path: "/notifikasi",
+					element: <Notification />,
+				},
+				{
+					path: "/user",
+					element: <User />,
+				},
+				{
+					path: "/search/:input",
+					element: <Search />,
+				},
+				{
+					path: "/not-logged-in",
+					element: <NotLoggedIn />,
+				},
+			],
+		},
+		{
+			path: "/auth",
+			element: <AuthLayout />,
+			children: [
+				{
+					path: "login",
+					element: <Login />,
+				},
+				{
+					path: "register",
+					element: <Register />,
+				},
+				{
+					path: "reset",
+					element: <ResetPassword />,
+				},
+				{
+					path: "otp/:email",
+					element: <Otp />,
+				},
+			],
+		},
+		{
+			path: "/dashboard",
+			element: <DashboardLayout />,
+			children: [
+				{
+					index: true,
+					element: <Dashboard />,
+				},
+				{
+					path: "kelolakelas",
+					element: <KelolaKelas />,
+				},
+			],
+		},
+		{
+			path: "/admin",
+			element: <LoginAdmin />,
+		},
+	]);
+	return (
+		<ValidationContextProvider>
+			<Toaster position="bottom-center" reverseOrder={false} />
+			<RouterProvider router={routes} />
+		</ValidationContextProvider>
+	);
 };
 
 export default App;

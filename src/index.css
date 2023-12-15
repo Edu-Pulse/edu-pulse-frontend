@@ -8,34 +8,73 @@
 	}
 }
 
-dialog[open] {
+dialog.drawer[open] {
 	transform: translate(0%, 0%);
 }
 
-dialog {
+dialog.drawer {
 	transform: translate(0%, 100%);
 	transition: opacity 0.3s ease-out, transform 0.3s ease-out,
 		overlay 0.3s ease-out allow-discrete,
 		display 0.3s ease-out allow-discrete;
 }
 @starting-style {
-	dialog[open] {
+	dialog.drawer[open] {
 		transform: translate(0%, 100%);
 	}
 }
 
-dialog::backdrop {
+dialog.drawer::backdrop {
 	background-color: rgb(0 0 0 / 0);
 	transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
 		background-color 0.3s;
 }
 
-dialog[open]::backdrop {
+dialog.drawer[open]::backdrop {
 	background-color: rgb(0 0 0 / 0.25);
 }
 
 @starting-style {
-	dialog[open]::backdrop {
+	dialog.drawer[open]::backdrop {
+		background-color: rgb(0 0 0 / 0);
+	}
+}
+
+/* Modal Tengah */
+/* Kondisi setelah dibuka */
+dialog.modal[open] {
+	transform: translate(0%, -50%);
+	opacity: 1;
+}
+
+/* Kondisi saat ditutup */
+dialog.modal {
+	transform: translate(0%, 100%);
+	transition: opacity 0.3s ease-out, transform 0.3s ease-out,
+		overlay 0.3s ease-out allow-discrete,
+		display 0.3s ease-out allow-discrete;
+	opacity: 0;
+}
+/* Kondisi sebelum dibuka */
+@starting-style {
+	dialog.modal[open] {
+		transform: translate(0%, -100%);
+		opacity: 0;
+	}
+}
+
+dialog.modal::backdrop {
+	background-color: rgb(0 0 0 / 0);
+	transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
+		background-color 0.3s;
+}
+
+dialog.modal[open]::backdrop {
+	background-color: rgb(0 0 0 / 0.25);
+}
+
+@starting-style {
+	dialog.modal[open]::backdrop {
 		background-color: rgb(0 0 0 / 0);
 	}
 }

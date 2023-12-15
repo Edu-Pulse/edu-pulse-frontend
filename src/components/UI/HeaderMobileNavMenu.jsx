@@ -15,7 +15,7 @@ const HeaderMobileNavMenu = ({ iconActive, iconInactive, href, name }) => {
 				)}
 			>
 				{path === href ? iconActive : iconInactive}
-				<span className="text-xs -mt-2">{name}</span>
+				<span className="text-[10px] mt-1">{name}</span>
 			</Link>
 		</div>
 	);

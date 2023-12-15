@@ -8,12 +8,11 @@ import { useState, useEffect } from "react";
 
 import noData from "@/assets/svg/nodata.svg";
 import "react-loading-skeleton/dist/skeleton.css";
-
-import app from "../AuthFlow/axiosConfig";
 import toast from "react-hot-toast";
-import CourseCardSkeleton from "../../components/UI/CourseCardSkeleton";
-import Filters from "../../components/CoursePage/Filters";
-import Drawer from "../../components/CoursePage/Drawer";
+import CourseCardSkeleton from "@/components/UI/CourseCardSkeleton";
+import Filters from "@/components/CoursePage/Filters";
+import Drawer from "@/components/CoursePage/Drawer";
+import app from "@/lib/axiosConfig";
 
 const ClassTopic = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -185,7 +184,7 @@ const ClassTopic = () => {
 								</Button>
 								<Button
 									className={twMerge(
-										"w-full",
+										"w-full text-xs sm:text-sm",
 										filterByType === "all"
 											? "!bg-darkblue-05"
 											: "!bg-darkblue-01 !text-darkblue-05"
@@ -199,7 +198,7 @@ const ClassTopic = () => {
 								</Button>
 								<Button
 									className={twMerge(
-										"w-full",
+										"w-full text-xs sm:text-sm",
 										filterByType === "gratis"
 											? "!bg-darkblue-05"
 											: "!bg-darkblue-01 !text-darkblue-05"
@@ -213,7 +212,7 @@ const ClassTopic = () => {
 								</Button>
 								<Button
 									className={twMerge(
-										"w-full",
+										"w-full text-xs sm:text-sm",
 										filterByType === "premium"
 											? "!bg-darkblue-05"
 											: "!bg-darkblue-01 !text-darkblue-05"
