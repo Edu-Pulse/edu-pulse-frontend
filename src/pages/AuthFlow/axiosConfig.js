@@ -1,16 +1,17 @@
 import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 axios.defaults.withCredentials = true;
 
-const baseURL = 'https://pragos-academy-api-production.up.railway.app/'
+const baseURL = `${BASE_URL}`;
 
 const app = axios.create({
-    baseURL
-})
+  baseURL,
+});
 
 app.interceptors.response.use(
-    response => (response),
-    error => (Promise.reject(error.response.data.err))
-)
+  (response) => response,
+  (error) => Promise.reject(error.response.data.err)
+);
 
-export default app
+export default app;

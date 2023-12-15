@@ -7,13 +7,15 @@ import {
   BellIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./UI/HeaderNavMenu";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 // import userImagePlaceholder from "@/assets/user-image-placeholder.jpg";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  const [input, setInput] = useState("");
+  console.log(input);
   const navigate = useNavigate();
 
   return (
@@ -28,10 +30,13 @@ const Header = () => {
           <input
             type="search"
             className="w-full px-4 py-3 outline-none rounded-2xl"
+            onChange={(e) => setInput(e.target.value)}
           />
-          <span className="p-2 text-white -ml-11 rounded-xl bg-darkblue-05 hover:cursor-pointer">
-            <MagnifyingGlassIcon className="w-5 h-5" />
-          </span>
+          <Link to={`/class-topic/${input}`}>
+            <span className="p-2 text-white -ml-11 rounded-xl bg-darkblue-05 hover:cursor-pointer">
+              <MagnifyingGlassIcon className="w-5 h-5" />
+            </span>
+          </Link>
         </search>
         <div className="flex items-center justify-end md:w-1/3">
           {user ? (

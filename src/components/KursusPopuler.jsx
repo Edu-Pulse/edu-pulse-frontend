@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./UI/Button";
 import CourseCard from "./UI/CourseCard";
 import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const KursusPopuler = () => {
   const [course, setCourse] = useState([]);
@@ -10,9 +11,7 @@ const KursusPopuler = () => {
   useEffect(() => {
     const getAllCourse = async () => {
       try {
-        const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/course/all`
-        );
+        const response = await axios.get(`${BASE_URL}/course/all`);
         // console.log(response.data.data.content);
         const data = response.data.data.content;
 
@@ -46,12 +45,12 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 2
+            selectedNumber === 1
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
           size="xs"
-          onClick={() => setSelectedNumber(2)}
+          onClick={() => setSelectedNumber(1)}
         >
           Data Science
         </Button>
@@ -68,7 +67,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 3
+            selectedNumber === 5
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
@@ -90,7 +89,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 4
+            selectedNumber === 6
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }
@@ -101,7 +100,7 @@ const KursusPopuler = () => {
         </Button>
         <Button
           className={
-            selectedNumber === 1
+            selectedNumber === 7
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
           }

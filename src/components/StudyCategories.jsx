@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const StudyCategories = () => {
   const [category, setCategory] = useState([]);
@@ -8,9 +9,7 @@ const StudyCategories = () => {
   useEffect(() => {
     const getClassCategories = async () => {
       try {
-        const response = await axios.get(
-          `https://pragos-academy-api-production.up.railway.app/category/all`
-        );
+        const response = await axios.get(`${BASE_URL}/category/all`);
 
         const data = response.data.data;
 

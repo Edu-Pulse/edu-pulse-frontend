@@ -19,6 +19,7 @@ const CourseCard = ({
   rating,
   code,
   image,
+  amount,
 }) => {
   return (
     <Link to={`/detail/${code}`}>
@@ -57,7 +58,7 @@ const CourseCard = ({
             iconPosition="left"
             size="sm"
           >
-            Beli Rp 249.000
+            {amount ? amount : "Beli Rp 249.000"}
           </Button>
         </div>
       </div>

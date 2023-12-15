@@ -5,7 +5,6 @@ import CourseCard from "@/components/UI/CourseCard";
 import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
 import Checkbox from "@/components/UI/Checkbox";
-
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 

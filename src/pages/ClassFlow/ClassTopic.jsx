@@ -3,11 +3,35 @@ import Input from "@/components/UI/Input";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import CourseCard from "@/components/UI/CourseCard";
 import { twMerge } from "tailwind-merge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@/components/UI/Checkbox";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const ClassTopic = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [course, setCourse] = useState();
+  const { input } = useParams();
+  console.log(course);
+
+  useEffect(() => {
+    const getCourseByName = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/course/search?courseName=${input}`
+        );
+        // console.log(response.data.data.content);
+        const data = response.data.data;
+
+        setCourse(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getCourseByName();
+  }, [input]);
+
   return (
     <main className="container">
       <section className="md:my-20">
@@ -124,9 +148,22 @@ const ClassTopic = () => {
               </Button>
             </div>
             <div className="grid sm:grid-cols-2 gap-6 my-10">
+              {course &&
+                course.map((bebas, index) => (
+                  <CourseCard
+                    key={index}
+                    category={bebas.category}
+                    name={bebas.name}
+                    lecturer={bebas.lecturer}
+                    level={bebas.level}
+                    rating={bebas.rating}
+                    code={bebas.code}
+                    image={bebas.image}
+                  />
+                ))}
+              {/* <CourseCard />
               <CourseCard />
-              <CourseCard />
-              <CourseCard />
+              <CourseCard /> */}
             </div>
           </div>
         </div>
