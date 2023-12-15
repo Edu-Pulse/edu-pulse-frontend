@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
+import toast from "react-hot-toast";
 
 const Detail = () => {
 	const [classDetail, setClassDetail] = useState();
@@ -16,9 +17,8 @@ const Detail = () => {
 				const data = response.data.data;
 
 				setClassDetail(data);
-				console.log(data);
 			} catch (error) {
-				console.error("Error", error);
+				toast.error("Something went wrong!");
 			}
 		};
 
