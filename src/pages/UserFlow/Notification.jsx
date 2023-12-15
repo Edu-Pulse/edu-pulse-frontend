@@ -1,21 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { BellIcon } from "@heroicons/react/24/solid";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { getMe } from "@/lib/getMe";
 
 const Notification = () => {
-	const { user } = useContext(AuthContext);
-	const navigate = useNavigate();
+	const [user, setUser] = useState("");
 
 	useEffect(() => {
-		if (!user) {
-			navigate("/not-logged-in");
-		} else {
-			return;
-		}
-	});
+		const fetchData = async () => {
+			await getMe(setUser);
+		};
+		return () => fetchData();
+	}, []);
+
 	return (
 		<main className="container flex flex-col min-h-screen md:justify-center">
 			<div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">

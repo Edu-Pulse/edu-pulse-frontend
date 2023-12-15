@@ -1,20 +1,26 @@
-import { useContext, useState } from "react";
+import { useState, useEffect } from "react";
 
 import Input from "../UI/Input";
 import Button from "../UI/Button";
-import app from "../../pages/AuthFlow/axiosConfig";
+import app from "../../lib/axiosConfig";
 import toast from "react-hot-toast";
-// import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getMe } from "../../lib/getMe";
 
 const ChangePassword = () => {
-	const { user } = useContext(AuthContext);
+	const [user, setUser] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			await getMe(setUser);
+		};
+		return () => fetchData();
+	}, []);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();

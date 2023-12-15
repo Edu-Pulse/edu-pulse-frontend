@@ -4,7 +4,7 @@ import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import toast from "react-hot-toast";
 import { ValidationContext } from "@/context/ValidationContext";
-import app from "./axiosConfig";
+import app from "../../lib/axiosConfig";
 
 const Login = () => {
 	const { handleEmailValidation, handlePasswordValidation } =

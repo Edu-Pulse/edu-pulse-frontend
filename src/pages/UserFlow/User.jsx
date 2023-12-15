@@ -11,7 +11,7 @@ import {
 	PowerIcon,
 } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-import app from "../AuthFlow/axiosConfig";
+import app from "../../lib/axiosConfig";
 
 import PurchaseHistory from "@/components/UserPage/PurchaseHistory";
 import ChangePassword from "@/components/UserPage/ChangePassword";
