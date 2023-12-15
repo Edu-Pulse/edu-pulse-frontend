@@ -3,7 +3,8 @@ import clsx from "clsx";
 import Input from '../UI/Input';
 import { useState } from "react";
 import toast from "react-hot-toast";
-import app from "../../pages/AuthFlow/axiosConfig";
+import axios from "axios";
+// import app from "../../pages/AuthFlow/axiosConfig";
 
 function AdminModal({handleCloseModal}) {
   const [courseCode, setCourseCode] = useState("");
@@ -33,7 +34,7 @@ function AdminModal({handleCloseModal}) {
         discount,
       };
 
-      const response = await app.post("course", data, {
+      const response = await axios.post("course", data, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
