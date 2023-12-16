@@ -36,7 +36,7 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                 <li
                   key={id}
                   className="my-2 flex justify-between items-center hover:bg-gray-200 hover:cursor-pointer rounded-xl"
-                  onClick={() => handleTopicClick(name)}
+                  onClick={() => handleTopicClick(id)}
                 >
                   <div className="flex gap-3 items-center">
                     <span className="p-4 ml-2 leading-none rounded-full bg-darkblue-06 w-6 h-6 grid place-content-center">
