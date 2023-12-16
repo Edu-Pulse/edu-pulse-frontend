@@ -123,7 +123,7 @@ function KelolaKelas() {
 					<table className="w-full">
 						<thead className="bg-gray-50 border-b-2 border-gray-200">
 							<tr>
-								<th className="w-40 p-3 text-sm font-semibold tracking-wide text-left">
+								<th className="w-34 p-3 text-sm font-semibold tracking-wide text-left">
 									Kode Kelas
 								</th>
 								<th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">
@@ -149,7 +149,7 @@ function KelolaKelas() {
 						<tbody className="divide-y divide-gray-100">
 
             
-            {/* Bagian Looping Tabel dan isi Tabel */}
+          {/* Bagian Looping Tabel dan isi Tabel */}
 
           {isLoading ? (
           <tr className="bg-white">
@@ -163,50 +163,42 @@ function KelolaKelas() {
           <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
           <a href="#" className="font-bold text-blue-500 hover:underline">
             {courseItem.code}
-            </a>
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {courseItem.category}
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {courseItem.name}
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {courseItem.type === 'GRATIS' ? (
-            <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-              {courseItem.type}
-            </span>
-              ) : (
-            <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
-              {courseItem.type}
-            </span>
-              )}
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {courseItem.level}
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {courseItem.price}
-            </td>
-            <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-            <span className="flex gap-3 justify-center">
+          </a>
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.category}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.name}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.type === 'GRATIS' ? (
+          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+            {courseItem.type}
+          </span>
+            ) : (
+          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
+            {courseItem.type}
+          </span>
+            )}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.level}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.price}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+          <span className="flex gap-3 justify-center">
 
-              <PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2"
-              onClick={() => handleEdit(courseItem.code)}
-              />
+            <PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2"
+            onClick={() => handleEdit(courseItem.code)}
+            />
 
-              <TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2"
-              onClick={() => handleDelete(courseItem.code)}
-              />
-              
-              {modalEdit && (
-              <EditModal
-                handleCloseModal={handleCloseModal}
-                courseItem={selectedCourse}
-                handleUpdate={handleUpdate}
-              />
-              )}
-              
+            <TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2"
+            onClick={() => handleDelete(courseItem.code)}
+            />
+
             </span>
             </td>
             </tr>
@@ -222,7 +214,7 @@ function KelolaKelas() {
           </div>
           
 
-          {/* Untuk Responsive Tampilan Tablet dan Mobile */}
+        {/* Untuk Responsive Tampilan Tablet dan Mobile */}
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden mt-4 pb-5">
 					<div className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
@@ -460,6 +452,13 @@ function KelolaKelas() {
 				{showModal && (
 					<AdminModal handleCloseModal={handleCloseModal} />
 				)}
+        {modalEdit && (
+            <EditModal
+            handleCloseModal={handleCloseModal}
+            courseItem={selectedCourse}
+            handleUpdate={handleUpdate}
+            />
+        )}
 			</section>
 		</>
 	);

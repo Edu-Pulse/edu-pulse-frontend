@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
 import clsx from "clsx";
 import Input from '../UI/Input';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import app from "../../lib/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "@/lib/baseUrl";
+import axios from "axios";
+import Select from "../UI/Select";
 
 function AdminModal({handleCloseModal}) {
   const [courseCode, setCourseCode] = useState("");
   const [courseName, setCourseName] = useState("");
   const [category, setCategory] = useState("");
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [description, setDescription] = useState("");
   const [intended, setIntended] = useState("");
   const [lecturer, setLecturer] = useState("");
@@ -55,6 +59,38 @@ function AdminModal({handleCloseModal}) {
     }
   };
 
+  useEffect(() => {
+		const getClassCategories = async () => {
+			try {
+				const response = await axios.get(`${BASE_URL}/category/all`);
+
+				const data = response.data.data;
+
+				setCategoryOptions(data);
+			} catch (error) {
+				console.error("Error:", error);
+			}
+		};
+
+		getClassCategories();
+	}, []);
+
+  const formattedOptions = categoryOptions.map((kelas) => ({
+    value: kelas.id,
+    label: kelas.name,
+  }));
+
+  const classType = [
+    { value: "GRATIS", label: "GRATIS" },
+    { value: "PREMIUM", label: "PREMIUM" },
+  ];
+  
+  const classLevel = [
+    { value: "BEGINNER", label: "BEGINNER" },
+    { value: "INTERMEDIATE", label: "INTERMEDIATE" },
+    { value: "ADVANCED", label: "ADVANCED" },
+  ];
+
   return (
     <div
           className={clsx(
@@ -83,73 +119,73 @@ function AdminModal({handleCloseModal}) {
             </div>
             <div className='h-[83%] w-[465px] mx-auto'>
               <Input 
-                placeholder="courseCode" 
+                placeholder="UIUX0123" 
                 type="text"  
-                label="Nama Kelas"
-                name="courseCode"
+                id="courseCode"
+                label="Masukkan Kode Kelas"
                 onChange={(e) => setCourseCode(e.target.value)}
               />
               <Input 
-                placeholder="courseName" 
+                placeholder="Belajar Web Designer dengan Figma" 
                 type="text"  
-                label="Kategori"
-                name="courseName"
+                label="Masukkan Nama Kelas"
+                id="courseName"
                 onChange={(e) => setCourseName(e.target.value)}
               />
-              <Input 
-                placeholder="category" 
-                type="number"  
-                label="Kode Kelas"
-                name="category"
+              <Select 
+                id="category"
+                label="Pilih Kategori Kelas"
+                value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                options={formattedOptions}
               />
               <Input 
-                placeholder="description" 
+                placeholder="Design Merupakan..." 
                 type="text"  
-                label="Tipe Kelas"
-                name="description"
+                label="Masukkan Deskripsi Kelas"
+                id="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
               <Input 
-                placeholder="intended" 
+                placeholder="Budi" 
                 type="text"  
-                label="Level"
-                name="intended"
+                label="Nama Pelajar"
+                id="intended"
                 onChange={(e) => setIntended(e.target.value)}
               />
               <Input 
-                placeholder="lecturer" 
+                placeholder="Mr. Udin" 
                 type="text"  
-                label="Harga"
-                name="lecturer"
+                label="Nama Pengajar"
+                id="lecturer"
                 onChange={(e) => setLecturer(e.target.value)}
               />
-              <Input
-                placeholder="type" 
-                type="text"  
-                label="Materi"
-                name="type"
+              <Select 
+                id="type"
+                label="Pilih Tipe Kelas"
+                value={type}
                 onChange={(e) => setType(e.target.value)}
+                options={classType}
               />
-              <Input
-                placeholder="level" 
-                type="text"  
-                label="Materi"
-                name="level"
+              <Select 
+                id="level"
+                label="Pilih Level Kelas"
+                value={level}
                 onChange={(e) => setLevel(e.target.value)}
+                options={classLevel}
               />
               <Input
-                placeholder="price" 
+                placeholder="199000" 
                 type="number"  
-                label="Materi"
-                name="price"
+                label="Harga Kelas"
+                id="price"
                 onChange={(e) => setPrice(e.target.value)}
               />
               <Input
-                placeholder="discount" 
+                placeholder="10000" 
                 type="number"  
-                label="Materi"
-                name="discount"
+                label="Potongan Harga"
+                id="discount"
                 onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
