@@ -11,20 +11,33 @@ import {
 import { Link } from "react-router-dom";
 import ContentClass from "./ContentClass";
 import { useState } from "react";
-
 import Drawer from "@/components/CoursePage/Drawer";
 import ChapterLists from "./ChapterLists";
 import Button from "./UI/Button";
+import ChapterDetails from "./ChapterDetails";
 
 const ClassDetails = ({ details }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
   const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
-  console.log(currentTopic);
+  const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   console.log(details);
 
   const handleTopicClick = (topic) => {
     setCurrentTopic(topic);
+
+    const clickedChapter = details.chapters.find((chapter) =>
+      chapter.detailChapters.some((detailChapter) => detailChapter.id === topic)
+    );
+
+    // Jika bab ditemukan, ambil detailChapter dengan id yang sesuai
+    if (clickedChapter) {
+      const selectedDetail = clickedChapter.detailChapters.find(
+        (detailChapter) => detailChapter.id === topic
+      );
+      setSelectedChapterContent([selectedDetail]);
+    }
   };
+
   return (
     <>
       <section className="sm:mt-16 container">
@@ -99,7 +112,9 @@ const ClassDetails = ({ details }) => {
               {!currentTopic ? (
                 <ContentClass details={details} />
               ) : (
-                <ChapterDetail details={selectedChapterContent} />
+                <ChapterDetails
+                  selectedChapterContent={selectedChapterContent}
+                />
               )}
             </div>
             <div className="md:col-span-2 mb-8 w-full">
