@@ -1,56 +1,62 @@
 /* eslint-disable react/prop-types */
 import clsx from "clsx";
 import Input from '../UI/Input';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import app from "../../lib/axiosConfig";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
-function AdminModal({handleCloseModal}) {
-  const [courseCode, setCourseCode] = useState("");
-  const [courseName, setCourseName] = useState("");
-  const [category, setCategory] = useState("");
+function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [intended, setIntended] = useState("");
   const [lecturer, setLecturer] = useState("");
-  const [type, setType] = useState("");
   const [level, setLevel] = useState("");
+  const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (courseItem) {
+      setName(courseItem.name || "");
+      setDescription(courseItem.description || "");
+      setIntended(courseItem.intended || "");
+      setLecturer(courseItem.lecturer || "");
+      setLevel(courseItem.level || "");
+      setType(courseItem.type || "");
+      setPrice(courseItem.price || "");
+      setDiscount(courseItem.discount || "");
+    }
+  }, [courseItem]);
 
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      let data = {
-        courseCode,
-        courseName,
-        category,
+      const data = {
+        name,
         description,
         intended,
         lecturer,
-        type,
         level,
+        type,
         price,
         discount,
       };
 
-      const response = await app.post("course", data, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-      });
+      const response = await axios.put(
+        `${BASE_URL}course/edit/${courseItem.code}`,
+        data
+      );
 
       if (response.status === 200) {
         toast.success(response.data.message);
-        navigate(0)
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
-
+      handleUpdate(data);
       handleCloseModal();
-
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.message || "An error occurred");
     }
   };
@@ -79,81 +85,67 @@ function AdminModal({handleCloseModal}) {
               </button>
             </div>
             <div className="modal-body py-1 text-center w-[465px] mx-auto">
-            <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">Tambah Kelas</h1>
+            <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">Edit Kelas</h1>
             </div>
             <div className='h-[83%] w-[465px] mx-auto'>
               <Input 
-                placeholder="courseCode" 
+                placeholder="name" 
                 type="text"  
                 label="Nama Kelas"
-                name="courseCode"
-                onChange={(e) => setCourseCode(e.target.value)}
-              />
-              <Input 
-                placeholder="courseName" 
-                type="text"  
-                label="Kategori"
-                name="courseName"
-                onChange={(e) => setCourseName(e.target.value)}
-              />
-              <Input 
-                placeholder="category" 
-                type="number"  
-                label="Kode Kelas"
-                name="category"
-                onChange={(e) => setCategory(e.target.value)}
+                name="name"
+                onChange={(e) => setName(e.target.value)}
               />
               <Input 
                 placeholder="description" 
                 type="text"  
-                label="Tipe Kelas"
+                label="Kategori"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Input 
-                placeholder="intended" 
-                type="text"  
-                label="Level"
+              <Input
+                placeholder="intended"
+                type="text"
+                label="Deskripsi"
                 name="intended"
                 onChange={(e) => setIntended(e.target.value)}
               />
               <Input 
                 placeholder="lecturer" 
                 type="text"  
-                label="Harga"
+                label="Kode Kelas"
                 name="lecturer"
                 onChange={(e) => setLecturer(e.target.value)}
               />
-              <Input
-                placeholder="type" 
-                type="text"  
-                label="Materi"
-                name="type"
-                onChange={(e) => setType(e.target.value)}
-              />
-              <Input
+              <Input 
                 placeholder="level" 
                 type="text"  
-                label="Materi"
+                label="Tipe Kelas"
                 name="level"
                 onChange={(e) => setLevel(e.target.value)}
               />
-              <Input
+              <Input 
+                placeholder="type" 
+                type="text"  
+                label="Level"
+                name="type"
+                onChange={(e) => setType(e.target.value)}
+              />
+              <Input 
                 placeholder="price" 
-                type="number"  
-                label="Materi"
+                type="text"  
+                label="Harga"
                 name="price"
                 onChange={(e) => setPrice(e.target.value)}
               />
               <Input
                 placeholder="discount" 
-                type="number"  
+                type="text"  
                 label="Materi"
                 name="discount"
                 onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
-            <div className="flex justify-center w-[465px] mx-auto mt-48 gap-2">
+            <div className="flex justify-center w-[465px] mx-auto gap-2">
               <button
                 type="button"
                 className="bg-alert-warning text-white font-bold py-2 px-4 rounded-full cursor-pointer"
@@ -174,4 +166,4 @@ function AdminModal({handleCloseModal}) {
   )
 }
 
-export default AdminModal
+export default EditModal

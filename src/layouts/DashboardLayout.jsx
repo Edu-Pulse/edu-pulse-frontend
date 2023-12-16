@@ -61,7 +61,7 @@ const DashboardLayout = () => {
 								450
 							</div>
 							<div className="font-inter font-bold text-white text-xl p-0 m-0">
-								Active Users
+								Total Users
 							</div>
 						</div>
 					</div>
@@ -77,7 +77,7 @@ const DashboardLayout = () => {
 								25
 							</div>
 							<div className="font-inter font-bold text-white text-xl p-0 m-0">
-								Active Class
+								Free Class
 							</div>
 						</div>
 					</div>

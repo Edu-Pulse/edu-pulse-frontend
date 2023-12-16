@@ -4,8 +4,30 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 function Dashboard() {
+  const [course, setCourse] = useState([]);
+  console.log("ini bagian course",course);
+
+  useEffect(() => {
+    const getAllCourse = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/payment?page=0`
+        );
+          console.log(response.data.data)
+        const data = response.data.data;
+        setCourse(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getAllCourse();
+  }, []);
+
   return (
     <>
     <section className="md:w-[100%] sm:w-[100%] w-[100%] md:h-[10%] md:mt-3 h-[8%] md:px-20 sm:px-5 px-3 pt-[10px] ">
@@ -33,94 +55,38 @@ function Dashboard() {
                 <th className="p-3 text-sm font-semibold tracking-wide text-left">Kelas Premium</th>
                 <th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Status</th>
                 <th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Payment</th>
-                <th className="w-24 p-3 text-sm font-semibold tracking-wide text-center">Tanggal Bayar</th>
+                <th className="w-30 p-3 text-sm font-semibold tracking-wide text-center">Tanggal Bayar</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
+
+            {course.content && course.content.length > 0 ? (
+              course.content.map((courseItem, index) => (
+              <tr key={index} className="bg-white">
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  <a href="#" className="font-bold text-blue-500 hover:underline">{courseItem.userId}</a>
+                </td>
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{courseItem.categoryName}</td>
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{courseItem.courseName}</td>
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {courseItem.status ? (
+                     <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">SUDAH BAYAR</span>
+                  ) : (
+                    <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">BELUM BAYAR</span>
+                  )}
+
+                </td>
+                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{courseItem.paymentMethod}</td>
+                <td className="p-3 ps-8 text-sm text-gray-700 whitespace-nowrap">{courseItem.paymentDate}</td>
+              </tr>
+              ))
+              ) : (
               <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">johndoe123</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">UI/UX Design</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Belajar Web Designer dengan Figma</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">SUDAH BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Credit Card</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">21 Sep, 2023 at 2:00 AM</td>
-              </tr>
-              <tr className="bg-gray-50">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">supermanxx</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">UI/UX Design</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Belajar Web Designer dengan Figma</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">BELUM BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-              </tr>
-              <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">ironman99</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Web Development</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">CSS dan HTML dalam seminggu</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">SUDAH BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Credit Card</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">20 Sep, 2023 at 2:00 AM</td>
-              </tr>
-              <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">lokiMaster</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Science</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Cleaning untuk pemula</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">SUDAH BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Credit Card</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">19 Sep, 2023 at 2:00 AM</td>
-              </tr>
-              <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">siapaAjaani</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Science</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Cleaning untuk pemula</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">BELUM BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-              </tr>
-              <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">lokiMaster</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Web Development</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Membuat wordpress mudah</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">BELUM BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">-</td>
-              </tr>
-              <tr className="bg-white">
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <a href="#" className="font-bold text-blue-500 hover:underline">visionOKE</a>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Science</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Data Cleaning untuk pemula</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">SUDAH BAYAR</span>
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">Credit Card</td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">10 Sep, 2023 at 2:00 AM</td>
-              </tr>
+                <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  No course data available
+                  </td>
+                  </tr>
+                  )}
             </tbody>
           </table>
         </div>
