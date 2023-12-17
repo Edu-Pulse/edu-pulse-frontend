@@ -4,15 +4,77 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "./UI/CourseCard";
 import Button from "./UI/Button";
 import mastercard from "../assets/mastercardlogo.png";
 import visa from "../assets/visalogo.png";
 import amex from "../assets/amexlogo.png";
 import paypal from "../assets/paypallogo.png";
+import Input from "./UI/Input";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const PaymentPending = () => {
+  const [classDetail, setClassDetail] = useState();
+  const [cardNumber, setCardNumber] = useState();
+  const [cardHolderName, setCardHolderName] = useState();
+  const [cvv, setCvv] = useState();
+  const [expiryDate, setExpiryDate] = useState();
+  const { code } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getDetailCode = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/course/` + code);
+
+        const data = response.data.data;
+        if (response.status == 200) {
+          setClassDetail(data);
+        }
+      } catch (error) {
+        toast.error("Something went wrong!");
+      }
+    };
+
+    return () => getDetailCode();
+  }, [code]);
+
+  const paidEnroll = async () => {
+    try {
+      let data = {
+        cardNumber,
+        cardHolderName,
+        cvv,
+        expiryDate,
+      };
+
+      const response = await axios.post(
+        `${BASE_URL}/course/enroll-paid/${code}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "*/*",
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success(response.message);
+        setTimeout(() => {
+          navigate("/payment-success");
+        }, 1500);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
+    }
+  };
+
   return (
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
@@ -54,24 +116,40 @@ const PaymentPending = () => {
               <div className="px-32">
                 <div className="my-4">
                   <p>Card Number</p>
-                  <p className="text-gray-400">4480 0000 0000 0000</p>
-                  <div className="bg-gray-400 h-[1px] w-full"></div>
+                  <Input
+                    className="!border-b-black !rounded-none"
+                    placeholder="4480 0000 0000 0000"
+                    type="text"
+                    onChange={(e) => setCardNumber(e.target.value)}
+                  ></Input>
                 </div>
                 <div className="my-4">
                   <p>Card Holder Name</p>
-                  <p className="text-gray-400">John Doe</p>
-                  <div className="bg-gray-400 h-[1px] w-full"></div>
+                  <Input
+                    className="!border-b-black !rounded-none"
+                    placeholder="John Doe"
+                    type="text"
+                    onChange={(e) => setCardHolderName(e.target.value)}
+                  ></Input>
                 </div>
                 <div className="flex justify-between my-4">
                   <div>
                     <p>CVV</p>
-                    <p className="text-gray-400">000</p>
-                    <div className="bg-gray-400 h-[1px] w-full"></div>
+                    <Input
+                      className="!border-b-black !rounded-none"
+                      placeholder="000"
+                      type="text"
+                      onChange={(e) => setCvv(e.target.value)}
+                    ></Input>
                   </div>
                   <div>
                     <p>Expiry Date</p>
-                    <p className="text-gray-400">07/24</p>
-                    <div className="bg-gray-400 h-[1px] w-full"></div>
+                    <Input
+                      className="!border-b-black !rounded-none"
+                      placeholder="07/24"
+                      type="text"
+                      onChange={(e) => setExpiryDate(e.target.value)}
+                    ></Input>
                   </div>
                 </div>
               </div>
@@ -79,15 +157,22 @@ const PaymentPending = () => {
           </div>
           <div className="outline outline-offset-2 outline-darkblue-05 rounded-2xl p-4">
             <p className="font-bold text-lg my-4">Pembayaran Kelas</p>
-            <CourseCard />
-            <Link to={"/payment-success"}>
-              <Button
-                className="my-4 w-full bg-red-500"
-                icon={<ArrowRightCircleIcon className="w-6 h-6" />}
-              >
-                Bayar dan Ikuti Kelas Selamanya
-              </Button>
-            </Link>
+            <CourseCard
+              category={classDetail?.category}
+              name={classDetail?.courseName}
+              lecturer={classDetail?.lecturer}
+              level={classDetail?.level}
+              rating={classDetail?.rating}
+              image={classDetail?.image}
+              amount={classDetail?.price}
+            />
+            <Button
+              className="my-4 w-full bg-red-500"
+              icon={<ArrowRightCircleIcon className="w-6 h-6" />}
+              onClick={paidEnroll}
+            >
+              Bayar dan Ikuti Kelas Selamanya
+            </Button>
           </div>
         </div>
       </div>
