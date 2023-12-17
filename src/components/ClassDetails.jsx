@@ -29,7 +29,6 @@ const ClassDetails = ({ details }) => {
       chapter.detailChapters.some((detailChapter) => detailChapter.id === topic)
     );
 
-    // Jika bab ditemukan, ambil detailChapter dengan id yang sesuai
     if (clickedChapter) {
       const selectedDetail = clickedChapter.detailChapters.find(
         (detailChapter) => detailChapter.id === topic

@@ -1,6 +1,22 @@
 import { PlayCircleIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 const ChapterLists = ({ details, handleTopicClick }) => {
+  const [done, setDone] = useState([]);
+
+  const handleIsDoneClick = (id) => {
+    const updatedDone = [...done];
+    const existingIndex = done.findIndex((item) => item.id === id);
+
+    if (existingIndex !== -1) {
+      updatedDone[existingIndex].isDone = !updatedDone[existingIndex].isDone;
+    } else {
+      updatedDone.push({ id, isDone: true });
+    }
+
+    setDone(updatedDone);
+  };
+
   return (
     <>
       <div className="flex md:flex-col lg:flex-row items-center justify-center gap-2 mt-8 sm:mt-0">
@@ -46,13 +62,14 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                       <p>{name}</p>
                     </div>
                   </div>
-                  <div>
+                  <button>
                     <PlayCircleIcon
                       className={`text-${
                         isDone ? "alert-success" : "darkblue-05"
-                      } w-10 h-full mr-1`}
+                      } w-10 h-full mr-1 hover:bg-slate-500`}
+                      onClick={() => handleIsDoneClick(id)}
                     />
-                  </div>
+                  </button>
                 </li>
               ))}
             </ol>
