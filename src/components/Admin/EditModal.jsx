@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
+import Select from "../UI/Select";
 
 function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
   const [name, setName] = useState("");
@@ -61,6 +62,17 @@ function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
     }
   };
 
+  const classType = [
+    { value: "GRATIS", label: "GRATIS" },
+    { value: "PREMIUM", label: "PREMIUM" },
+  ];
+  
+  const classLevel = [
+    { value: "BEGINNER", label: "BEGINNER" },
+    { value: "INTERMEDIATE", label: "INTERMEDIATE" },
+    { value: "ADVANCED", label: "ADVANCED" },
+  ];
+
   return (
     <div
           className={clsx(
@@ -89,63 +101,69 @@ function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
             </div>
             <div className='h-[83%] w-[465px] mx-auto'>
               <Input 
-                placeholder="name" 
+                placeholder="Belajar Web Designer dengan Figma" 
                 type="text"  
                 label="Nama Kelas"
-                name="name"
+                value={name}
+                id="name"
                 onChange={(e) => setName(e.target.value)}
               />
-              <Input 
-                placeholder="description" 
-                type="text"  
-                label="Kategori"
-                name="description"
-                onChange={(e) => setDescription(e.target.value)}
+              <Select 
+                id="type"
+                label="Tipe Kelas"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                options={classType}
+              />
+              <Select 
+                id="level"
+                label="Level Kelas"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+                options={classLevel}
               />
               <Input
-                placeholder="intended"
-                type="text"
-                label="Deskripsi"
-                name="intended"
-                onChange={(e) => setIntended(e.target.value)}
-              />
-              <Input 
-                placeholder="lecturer" 
-                type="text"  
-                label="Kode Kelas"
-                name="lecturer"
-                onChange={(e) => setLecturer(e.target.value)}
-              />
-              <Input 
-                placeholder="level" 
-                type="text"  
-                label="Tipe Kelas"
-                name="level"
-                onChange={(e) => setLevel(e.target.value)}
-              />
-              <Input 
-                placeholder="type" 
-                type="text"  
-                label="Level"
-                name="type"
-                onChange={(e) => setType(e.target.value)}
-              />
-              <Input 
-                placeholder="price" 
-                type="text"  
-                label="Harga"
-                name="price"
+                placeholder="199000" 
+                type="number"  
+                label="Harga Kelas"
+                value={price}
+                id="price"
                 onChange={(e) => setPrice(e.target.value)}
               />
               <Input
-                placeholder="discount" 
-                type="text"  
-                label="Materi"
-                name="discount"
+                placeholder="10000" 
+                type="number"  
+                label="Potongan Harga"
+                value={discount}
+                id="discount"
                 onChange={(e) => setDiscount(e.target.value)}
               />
+              <Input
+                placeholder="Budi"
+                type="text"
+                label="Nama Pelajar"
+                value={intended}
+                id="intended"
+                onChange={(e) => setIntended(e.target.value)}
+              />
+              <Input 
+                placeholder="Mr. Udin" 
+                type="text"  
+                label="Nama Pengajar"
+                value={lecturer}
+                id="lecturer"
+                onChange={(e) => setLecturer(e.target.value)}
+              />
+              <Input 
+                placeholder="Design Merupakan..." 
+                type="text"  
+                label="Deskripsi Kelas"
+                value={description}
+                id="description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
-            <div className="flex justify-center w-[465px] mx-auto gap-2">
+            <div className="flex justify-center w-[465px] mt-14 mx-auto gap-2">
               <button
                 type="button"
                 className="bg-alert-warning text-white font-bold py-2 px-4 rounded-full cursor-pointer"
