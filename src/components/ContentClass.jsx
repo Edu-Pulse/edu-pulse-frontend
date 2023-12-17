@@ -12,10 +12,42 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import app from "../lib/axiosConfig";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ContentClass = ({ details }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const freeEnroll = async () => {
+    try {
+      const response = await app.post(`/course/enroll/${details.code}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+      });
+      if (response.status === 200) {
+        toast.success(response.message);
+        setTimeout(() => {
+          window.location.href = "/my-class";
+        }, 1500);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
+    }
+  };
+
+  const handleBuyCourse = () => {
+    details.type === "PREMIUM"
+      ? navigate(`/payment-pending/${details?.code}`)
+      : freeEnroll();
+  };
+
+  console.log(details);
   return (
     <div>
       <div className="relative bg-black w-full aspect-video rounded-2xl my-10 flex items-center justify-center">
@@ -94,18 +126,18 @@ const ContentClass = ({ details }) => {
                   iconPosition="left"
                   size="sm"
                 >
-                  Beli Rp 249.000
+                  {details?.price}
                 </Button>
               </div>
             </div>
             <div className="flex flex-row justify-center gap-4 mt-4">
-              <Link to={"/payment-pending"}>
-                {" "}
-                <button className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300">
-                  Beli Sekarang
-                  <ArrowRightCircleIcon className="w-6 h-6" />
-                </button>
-              </Link>
+              <button
+                className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+                onClick={handleBuyCourse}
+              >
+                Beli Sekarang
+                <ArrowRightCircleIcon className="w-6 h-6" />
+              </button>
             </div>
           </div>
         </Modals>

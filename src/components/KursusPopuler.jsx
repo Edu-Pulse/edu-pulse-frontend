@@ -122,6 +122,7 @@ const KursusPopuler = () => {
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
               image={course[selectedNumber]?.image}
+              amount={course[selectedNumber]?.price}
             />
             <CourseCard
               category={course[selectedNumber]?.category}
@@ -131,6 +132,7 @@ const KursusPopuler = () => {
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
               image={course[selectedNumber]?.image}
+              amount={course[selectedNumber]?.price}
             />
             <CourseCard
               category={course[selectedNumber]?.category}
@@ -140,6 +142,7 @@ const KursusPopuler = () => {
               rating={course[selectedNumber]?.rating}
               code={course[selectedNumber]?.code}
               image={course[selectedNumber]?.image}
+              amount={course[selectedNumber]?.price}
             />
           </>
         ) : (
@@ -152,6 +155,7 @@ const KursusPopuler = () => {
               rating={course[0]?.rating}
               code={course[0]?.code}
               image={course[0]?.image}
+              amount={course[0]?.price}
             />
             <CourseCard
               category={course[1]?.category}
@@ -161,6 +165,7 @@ const KursusPopuler = () => {
               rating={course[1]?.rating}
               code={course[1]?.code}
               image={course[1]?.image}
+              amount={course[1]?.price}
             />
             <CourseCard
               category={course[2]?.category}
@@ -170,6 +175,7 @@ const KursusPopuler = () => {
               rating={course[2]?.rating}
               code={course[2]?.code}
               image={course[2]?.image}
+              amount={course[2]?.price}
             />
           </>
         )}
