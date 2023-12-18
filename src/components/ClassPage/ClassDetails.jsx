@@ -13,7 +13,7 @@ import ContentClass from "./ContentClass";
 import { useState } from "react";
 import Drawer from "@/components/CoursePage/Drawer";
 import ChapterLists from "./ChapterLists";
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import ChapterDetails from "./ChapterDetails";
 import toast from "react-hot-toast";
 

@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import illustration from "../assets/illustration _Cart shopping list_.png";
 
 const PaymentSuccess = () => {

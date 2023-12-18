@@ -15,7 +15,7 @@ import {
 	UserIcon as UserIconSolid,
 } from "@heroicons/react/24/solid";
 
-import HeaderMobileNavMenu from "./UI/HeaderMobileNavMenu";
+import HeaderMobileNavMenu from "./HeaderMobileNavMenu";
 
 import axios from "axios";
 import { useEffect, useState } from "react";

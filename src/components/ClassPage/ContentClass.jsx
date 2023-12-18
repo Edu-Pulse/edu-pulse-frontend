@@ -1,5 +1,5 @@
-import Modals from "./CoursePage/Modals";
-import Button from "./UI/Button";
+import Modals from "../CoursePage/Modals";
+import Button from "../UI/Button";
 import {
   StarIcon,
   ArrowRightCircleIcon,
@@ -12,7 +12,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import app from "../lib/axiosConfig";
+import app from "../../lib/axiosConfig";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
