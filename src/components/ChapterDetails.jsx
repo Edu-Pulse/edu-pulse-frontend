@@ -1,4 +1,4 @@
-const ChapterDetails = ({ details, selectedChapterContent }) => {
+const ChapterDetails = ({ selectedChapterContent }) => {
   return (
     <div>
       {selectedChapterContent?.map(({ id, material, name, video }) => (

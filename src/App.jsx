@@ -119,7 +119,7 @@ const App = () => {
 					path: "kelolakelas",
 					element: <KelolaKelas />,
 				},
-				{
+        {
 					path: "kelolakelas2",
 					element: <KelolaKelas2 />,
 				},
@@ -129,7 +129,7 @@ const App = () => {
 			path: "/admin",
 			element: <LoginAdmin />,
 		},
-		{
+    {
 			path: "/test",
 			element: <Test />,
 		},
