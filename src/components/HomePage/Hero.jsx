@@ -1,5 +1,5 @@
 import illustration from "../assets/heroimage.png";
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {

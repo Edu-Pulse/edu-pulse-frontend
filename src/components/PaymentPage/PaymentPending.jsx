@@ -5,13 +5,13 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import CourseCard from "./UI/CourseCard";
-import Button from "./UI/Button";
+import CourseCard from "../UI/CourseCard";
+import Button from "../UI/Button";
 import mastercard from "../assets/mastercardlogo.png";
 import visa from "../assets/visalogo.png";
 import amex from "../assets/amexlogo.png";
 import paypal from "../assets/paypallogo.png";
-import Input from "./UI/Input";
+import Input from "../UI/Input";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import toast from "react-hot-toast";
