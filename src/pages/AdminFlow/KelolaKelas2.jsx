@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
 	PlusCircleIcon,
 	FunnelIcon,
-	MagnifyingGlassIcon,
+	// MagnifyingGlassIcon,
 	PencilSquareIcon,
 	TrashIcon,
 } from "@heroicons/react/24/outline";
@@ -15,10 +15,8 @@ import Spinner from "../../components/UI/Spinner";
 import ReactPaginate from "react-paginate";
 import DeleteModal from "../../components/Admin/DeleteModal";
 import Button from "../../components/UI/Button";
-import CourseTable from "../../components/Admin/CourseTable";
-// import DashboardLayout from "../../layouts/DashboardLayout";
 
-function KelolaKelas() {
+function KelolaKelas2() {
 	const [showModal, setShowModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -29,14 +27,10 @@ function KelolaKelas() {
   const [isRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [keyword, setKeyword] = useState("");
-  const [query, setQuery] = useState("");
-  const [searchCourse, setSearchCourse] = useState([]);
-  // const [sendProps, setSendProps] = useState(false);
-  
-	const handleOpenModal = () => {
-		setShowModal(true);
-	};
+
+	// const handleOpenModal = () => {
+	// 	setShowModal(true);
+	// };
 
 	const handleCloseModal = () => {
 		setShowModal(false);
@@ -44,18 +38,12 @@ function KelolaKelas() {
     setModalDelete(false);
 	};
 
-  // const setSendTheProps = () => {
-  //   setSendProps(true);
-
-  // }
-
   const getAllCourse = async (pageNumber) => {
     try {
       setIsLoading(true);
       const response = await axios.get(`${BASE_URL}/course/all?page=${pageNumber}`);
       const data = response.data.data;
       setPage(response.data.data.number);
-      console.log(response.data.data);
       setPages(response.data.data.totalPages);
       setRows(response.data.data.totalElements);
       if (response.status === 200) {
@@ -70,41 +58,6 @@ function KelolaKelas() {
   };
 
   useEffect(() => {
-		const getCourseByName = async () => {
-      setIsLoading(true);
-			try {
-				const response = await axios.get(
-					`${BASE_URL}/course/search?courseName=${keyword}`
-				);
-
-				const data = response.data.data;
-				if (response.status === 200 && response.data.error !== true) {
-					setSearchCourse(data);
-          setIsLoading(false);
-          console.log(data);
-				} else {
-          setIsLoading(false);
-					toast.error(
-						`Something went wrong! Status: ${response.status}`
-					);
-				}
-			} catch (error) {
-				console.log(error.message);
-			}
-		};
-		// Panggil fungsi hanya jika keyword tidak kosong
-    if (keyword.trim() !== "") {
-      getCourseByName();
-    }
-	}, [keyword]);
-
-  const searchData = (e) => {
-    e.preventDefault();
-    setPage(0);
-    setKeyword(query);
-  };
-
-  useEffect(() => {
     getAllCourse(page);
   }, [isRefresh, page]);
 
@@ -115,69 +68,45 @@ function KelolaKelas() {
   const handleEdit = (code) => {
     const selected = course.content.find((courseItem) => courseItem.code === code);
     setSelectedCourse(selected);
-    setIsLoading(true);
     setModalEdit(true);
-    setIsLoading(false);
   };
 
   const handleDeleteCode = (code) => {
-    setIsLoading(true);
     const selected = course.content.find((courseItem) => courseItem.code === code);
     console.log(selected);
-    if (selected === undefined) {
-      setIsLoading(false);
-      toast.error("Course not found");
-      return;
-    }
     setSelectedCourse(selected);
     setModalDelete(true);
-    setIsLoading(false);
   };
 
 	return (
 		<>
-			<section className="container flex justify-between px-6 my-3">
+
+    <section className="container flex justify-between px-6 my-3">
       <div className="font-Montserrat font-bold text-xl pt-1">Kelola Kelas</div>
       <div className="flex space-x-2 ">
-        <div className="flex items-center sm:w-[300px] w-full">
-        <input
-							type="text"
-							className="py-3 px-4 rounded-2xl w-full outline-none"
-							placeholder="Cari"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-						/>
-						<span className="p-2 -ml-11 text-white rounded-xl bg-darkblue-05 hover:cursor-pointer"
-            onClick={searchData}
-            >
-							<MagnifyingGlassIcon className="h-5 w-5" />
-						</span>
-        </div>
         <div>
-        <Button
-            type="button"
+        <Button 
             icon={<FunnelIcon className="h-5 w-5" />}
             iconPosition="left"
             color="success"
             size="md"
           >
             Filter
-          </Button>
+        </Button>
         </div>
         <div>
-        <Button
-            type="button"
+        <Button 
             icon={<PlusCircleIcon className="h-5 w-5" />}
             iconPosition="left"
             size="md"
-            onClick={handleOpenModal}
           >
             Tambah
-          </Button>
+        </Button>
         </div>
       </div>
     </section>
-    
+
+
 			<section className="px-5">
 				<div className="overflow-y-scroll md:h-[300px] rounded-lg shadow hidden md:block p-5 bg-gray-100">
 					<table className="w-full">
@@ -212,35 +141,63 @@ function KelolaKelas() {
           {/* Bagian Looping Tabel dan isi Tabel */}
 
           {isLoading ? (
-  <tr className="bg-white">
-    <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
-      <Spinner />
-    </td>
-  </tr>
-) : (
-  <>
-    {((keyword.trim() === "" && course.content && course.content.length > 0) ||
-      (keyword.trim() !== "" && searchCourse && searchCourse.length > 0)) ? (
-      (keyword.trim() === "" ? course.content : searchCourse).map((courseItem, index) => (
-        <CourseTable
-          key={index}
-          courseItem={courseItem}
-          handleEdit={handleEdit}
-          handleDeleteCode={handleDeleteCode}
-          isLoading={isLoading}
-        />
-      ))
-    ) : (
-      <tr className="bg-white">
-        <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
-          No course data available
-        </td>
-      </tr>
-    )}
-  </>
-)}
+          <tr className="bg-white">
+          <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            <Spinner />
+          </td>
+          </tr>
+            ) : course.content && course.content.length > 0 ? (
+                course.content.map((courseItem, index) => (
+          <tr key={index} className="bg-white">
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+          <a href="#" className="font-bold text-blue-500 hover:underline">
+            {courseItem.code}
+          </a>
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.category}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.name}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.type === 'GRATIS' ? (
+          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+            {courseItem.type}
+          </span>
+            ) : (
+          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-blue-800 bg-blue-500 rounded-lg bg-opacity-50">
+            {courseItem.type}
+          </span>
+            )}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.level}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+            {courseItem.price}
+          </td>
+          <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+          <span className="flex gap-3 justify-center">
 
+            <PencilSquareIcon className="h-5 w-5 rounded-md text-green-800 bg-green-200 cursor-pointer outline outline-offset-2 outline-2"
+            onClick={() => handleEdit(courseItem.code)}
+            />
 
+            <TrashIcon className="h-5 w-5 rounded-md text-red-800 bg-red-200 cursor-pointer outline outline-offset-2 outline-2"
+            onClick={() => handleDeleteCode(courseItem.code)}
+            />
+
+            </span>
+            </td>
+            </tr>
+            ))) : (
+            <tr className="bg-white">
+              <td colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                No course data available
+              </td>
+            </tr>
+            )}
           </tbody>
           </table>
           </div>
@@ -508,18 +465,15 @@ function KelolaKelas() {
             courseItem={selectedCourse}
             />
         )}
-        {modalDelete && selectedCourse && (
+        {modalDelete && (
           <DeleteModal 
-            handleCloseModal={handleCloseModal}
-            courseItem={selectedCourse}
+          handleCloseModal={handleCloseModal}
+          courseItem={selectedCourse}
           />
-          )}
-        {/* {sendProps && (
-          <DashboardLayout/>
-        )} */}
+        )}
 			</section>
 		</>
 	);
 }
 
-export default KelolaKelas;
+export default KelolaKelas2;
