@@ -1,21 +1,40 @@
 import { PlayCircleIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const ChapterLists = ({ details, handleTopicClick }) => {
-  const [done, setDone] = useState([]);
+  const [done, setDone] = useState();
 
-  const handleIsDoneClick = (id) => {
-    const updatedDone = [...done];
-    const existingIndex = done.findIndex((item) => item.id === id);
-
-    if (existingIndex !== -1) {
-      updatedDone[existingIndex].isDone = !updatedDone[existingIndex].isDone;
-    } else {
-      updatedDone.push({ id, isDone: true });
+  const setDoneChapter = async () => {
+    try {
+      const response = await app.post(
+        `/user/detailchapter/setdone/${details.code}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "*/*",
+          },
+        }
+      );
+      if (response.status === "Success") {
+        toast.success(response.message);
+        setTimeout(() => {
+          window.location.href = `/detail/${details.code}`;
+        }, 1500);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
     }
-
-    setDone(updatedDone);
   };
+
+  // const handleSetDone = () => {
+  //   details.chapters.map(({ detailChapters }) => (
+  //     detailChapters.isDone === false
+
+  //   )
+  // };
 
   return (
     <>
@@ -67,7 +86,7 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                       className={`text-${
                         isDone ? "alert-success" : "darkblue-05"
                       } w-10 h-full mr-1 hover:bg-slate-500`}
-                      onClick={() => handleIsDoneClick(id)}
+                      onClick={() => handleSetDone(id)}
                     />
                   </button>
                 </li>

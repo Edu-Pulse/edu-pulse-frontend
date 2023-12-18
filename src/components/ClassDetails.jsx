@@ -15,6 +15,7 @@ import Drawer from "@/components/CoursePage/Drawer";
 import ChapterLists from "./ChapterLists";
 import Button from "./UI/Button";
 import ChapterDetails from "./ChapterDetails";
+import toast from "react-hot-toast";
 
 const ClassDetails = ({ details }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
@@ -22,18 +23,32 @@ const ClassDetails = ({ details }) => {
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   console.log(details);
 
-  const handleTopicClick = (topic) => {
+  const handleTopicClick = async (topic) => {
     setCurrentTopic(topic);
 
     const clickedChapter = details.chapters.find((chapter) =>
       chapter.detailChapters.some((detailChapter) => detailChapter.id === topic)
     );
+    console.log(topic);
 
     if (clickedChapter) {
       const selectedDetail = clickedChapter.detailChapters.find(
         (detailChapter) => detailChapter.id === topic
       );
       setSelectedChapterContent([selectedDetail]);
+    }
+
+    try {
+      const response = await axios.post(
+        `/user/detailchapter/setdone/` + currentTopic
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
     }
   };
 
