@@ -32,6 +32,9 @@ import { ValidationContextProvider } from "./context/ValidationContext";
 import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
 import NotLoggedIn from "./pages/NotLoggedIn";
+import Test from "./pages/Test";
+import Test2 from "./pages/Test2";
+import KelolaKelas2 from "./pages/AdminFlow/KelolaKelas2";
 
 const App = () => {
 	const routes = createBrowserRouter([
@@ -116,11 +119,23 @@ const App = () => {
 					path: "kelolakelas",
 					element: <KelolaKelas />,
 				},
+				{
+					path: "kelolakelas2",
+					element: <KelolaKelas2 />,
+				},
 			],
 		},
 		{
 			path: "/admin",
 			element: <LoginAdmin />,
+		},
+		{
+			path: "/test",
+			element: <Test />,
+		},
+		{
+			path: "/test2",
+			element: <Test2 />,
 		},
 	]);
 	return (

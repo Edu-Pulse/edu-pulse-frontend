@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import Select from "../UI/Select";
+import { useNavigate } from "react-router-dom";
 
-function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
+function EditModal({ handleCloseModal, courseItem }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [intended, setIntended] = useState("");
@@ -16,6 +17,7 @@ function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (courseItem) {
@@ -51,14 +53,13 @@ function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
 
       if (response.status === 200) {
         toast.success(response.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
       }
-      handleUpdate(data);
       handleCloseModal();
+      setTimeout(() => {
+        navigate(0);
+      }, 1500);
     } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error(error.response.data.message || "An error occurred");
     }
   };
 
@@ -139,9 +140,9 @@ function EditModal({ handleCloseModal, courseItem, handleUpdate }) {
                 onChange={(e) => setDiscount(e.target.value)}
               />
               <Input
-                placeholder="Budi"
+                placeholder="intended"
                 type="text"
-                label="Nama Pelajar"
+                label="intended"
                 value={intended}
                 id="intended"
                 onChange={(e) => setIntended(e.target.value)}
