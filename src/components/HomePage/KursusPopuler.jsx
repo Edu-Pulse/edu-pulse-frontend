@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Button from "./UI/Button";
-import CourseCard from "./UI/CourseCard";
+import Button from "../UI/Button";
+import CourseCard from "../UI/CourseCard";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import { Link } from "react-router-dom";
