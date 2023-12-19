@@ -16,14 +16,32 @@ import ChapterLists from "./ChapterLists";
 import Button from "./UI/Button";
 import ChapterDetails from "./ChapterDetails";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { BASE_URL } from "@/lib/baseUrl";
 
 const ClassDetails = ({ details }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
   const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   console.log(details);
+  console.log(currentTopic);
 
-  const handleTopicClick = async (topic) => {
+  const handleDone = async (topic) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}user/detailchapter/setdone/${topic}`
+      );
+      if (response.status === 200) {
+        toast.success(response.data);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
+    }
+  };
+
+  const handleTopicClick = (topic) => {
     setCurrentTopic(topic);
 
     const clickedChapter = details.chapters.find((chapter) =>
@@ -37,19 +55,7 @@ const ClassDetails = ({ details }) => {
       );
       setSelectedChapterContent([selectedDetail]);
     }
-
-    try {
-      const response = await axios.post(
-        `/user/detailchapter/setdone/` + currentTopic
-      );
-      if (response.status === 200) {
-        console.log(response.data);
-      }
-      return;
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return;
-    }
+    handleDone(topic);
   };
 
   return (

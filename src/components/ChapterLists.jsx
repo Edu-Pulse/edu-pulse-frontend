@@ -36,6 +36,8 @@ const ChapterLists = ({ details, handleTopicClick }) => {
   //   )
   // };
 
+  let percentage = (details?.doneMaterial / details?.totalMaterial) * 100;
+
   return (
     <>
       <div className="flex md:flex-col lg:flex-row items-center justify-center gap-2 mt-8 sm:mt-0">
