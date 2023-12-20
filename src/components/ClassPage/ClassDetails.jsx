@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-// import "../Progress.css";
 import { StarIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import {
   RectangleStackIcon,

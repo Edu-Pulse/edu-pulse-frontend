@@ -5,11 +5,9 @@ const ChapterDetails = ({ selectedChapterContent }) => {
         <div key={id}>
           <div className="aspect-video">
             <iframe
-              width="560"
-              height="315"
+              className="w-full h-auto aspect-video"
               src={video?.replace("youtu.be", "youtube.com/embed")}
               title={name}
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
