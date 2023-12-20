@@ -1,38 +1,67 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
-const Modals = ({ open, onClose, children }) => {
+// import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useState, useEffect, useRef } from "react";
+
+const Modals = ({ isOpen, onClose, children }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(isOpen);
+  const drawerRef = useRef();
+
+  const handleCloseModal = () => {
+    if (onClose) {
+      onClose();
+    }
+    setIsDrawerOpen(false);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      handleCloseModal();
+      onClose();
+    }
+  };
+
+  const handleCloseDrawerOnBackdropClick = (event) => {
+    const rect = drawerRef.current.getBoundingClientRect();
+    const isInDialog =
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width;
+    if (!isInDialog) {
+      setIsDrawerOpen(false);
+      onClose();
+      drawerRef.current.close();
+    }
+  };
+
+  useEffect(() => {
+    setIsDrawerOpen(isOpen);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (drawerRef.current) {
+      if (isDrawerOpen) {
+        drawerRef.current.showModal();
+        console.log("Terbuka");
+      } else {
+        drawerRef.current.close();
+      }
+    }
+  }, [isDrawerOpen]);
+
   return (
-    // backdrop
-    <div
-      onClick={onClose}
-      className={`
-        fixed inset-0 flex justify-center items-center transition-colors
-        ${open ? "visible bg-black/20" : "invisible"}
-      `}
+    <dialog
+      style={{
+        maxWidth: "100vw",
+        position: "fixed",
+        marginBottom: 0,
+      }}
+      ref={drawerRef}
+      onKeyDown={handleKeyDown}
+      onClick={handleCloseDrawerOnBackdropClick}
+      className="modal z-40 px-4 pb-8 rounded-t-3xl w-full overflow-y-auto bg-white"
     >
-      {/* modal */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={`
-          bg-white rounded-2xl shadow p-8 transition-all h-[450px] w-[500px]
-          ${open ? "scale-100 w-[25rem] opacity-100" : "scale-125 opacity-0"}
-        `}
-      >
-        {/* <div
-        onClick={(e) => e.stopPropagation()}
-        className={`
-          bg-white rounded-2xl shadow p-8 transition-all h-[500px] w-[450px]
-          ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
-        `}
-      > */}
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 p-1 rounded-lg text-darkblue-05 bg-white hover:bg-gray-50 hover:text-gray-600"
-        >
-          <XMarkIcon className="w-6 h-6" />
-        </button>
-        {children}
-      </div>
-    </div>
+      {children}
+    </dialog>
   );
 };
 
