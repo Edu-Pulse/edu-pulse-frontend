@@ -1,41 +1,6 @@
 import { PlayCircleIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import toast from "react-hot-toast";
 
 const ChapterLists = ({ details, handleTopicClick }) => {
-  const [done, setDone] = useState();
-
-  const setDoneChapter = async () => {
-    try {
-      const response = await app.post(
-        `/user/detailchapter/setdone/${details.code}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-          },
-        }
-      );
-      if (response.status === "Success") {
-        toast.success(response.message);
-        setTimeout(() => {
-          window.location.href = `/detail/${details.code}`;
-        }, 1500);
-      }
-      return;
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return;
-    }
-  };
-
-  // const handleSetDone = () => {
-  //   details.chapters.map(({ detailChapters }) => (
-  //     detailChapters.isDone === false
-
-  //   )
-  // };
-
   let percentage = (details?.doneMaterial / details?.totalMaterial) * 100;
 
   return (
@@ -52,12 +17,12 @@ const ChapterLists = ({ details, handleTopicClick }) => {
             className="z-10 left-2 top-[2px] absolute text-white text-xs"
             htmlFor="progress"
           >
-            20% Progress
+            {percentage}% Progress
           </label>
           <progress
             className="rounded-full w-full"
             id="progress"
-            value="20"
+            value={percentage}
             max="100"
           ></progress>
         </div>
@@ -88,7 +53,6 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                       className={`text-${
                         isDone ? "alert-success" : "darkblue-05"
                       } w-10 h-full mr-1 hover:bg-slate-500`}
-                      onClick={() => handleSetDone(id)}
                     />
                   </button>
                 </li>
