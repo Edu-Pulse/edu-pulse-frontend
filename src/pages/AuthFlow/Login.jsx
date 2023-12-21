@@ -32,8 +32,13 @@ const Login = () => {
           Accept: "*/*",
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.data == "[ROLE_ADMIN]") {
         setIsLoading(false);
+        window.location.href = "/dashboard";
+      } else if (
+        response.status === 200 &&
+        response.data.data == "[ROLE_USER]"
+      ) {
         window.location.href = "/";
       }
       return;
