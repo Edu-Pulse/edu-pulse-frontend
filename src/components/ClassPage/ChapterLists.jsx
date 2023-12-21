@@ -53,7 +53,6 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                       className={`text-${
                         isDone ? "alert-success" : "darkblue-05"
                       } w-10 h-full mr-1 hover:bg-slate-500`}
-                      // onClick={() => handleSetDone(id)}
                     />
                   </button>
                 </li>
