@@ -23,6 +23,8 @@ const PaymentPending = () => {
   const [cardHolderName, setCardHolderName] = useState();
   const [cvv, setCvv] = useState();
   const [expiryDate, setExpiryDate] = useState();
+  const [ccAccordionOpen, setccAccordionOpen] = useState(false);
+  const [bankAccordionOpen, setBankAccordionOpen] = useState(false);
   const { code } = useParams();
   const navigate = useNavigate();
 
@@ -97,17 +99,89 @@ const PaymentPending = () => {
           </div>
         </div>
         <div className="container flex md:flex-row flex-col gap-4 my-10">
-          <div>
-            <div className="flex bg-slate-800 h-10 rounded-md my-2 justify-between p-2 content-center">
+          <div className="w-full">
+            <div
+              className="flex bg-slate-800 h-10 rounded-md my-2 justify-between p-2 content-center w-full"
+              onClick={() => setBankAccordionOpen(!bankAccordionOpen)}
+            >
               <p className="text-white">Bank Transfer</p>
-              <ChevronDownIcon className="text-white h-6 w-6" />
+              {bankAccordionOpen ? (
+                <ChevronUpIcon className="text-white h-6 w-6" />
+              ) : (
+                <ChevronDownIcon className="text-white h-6 w-6" />
+              )}
             </div>
-            <div className="flex bg-darkblue-05 h-10 rounded-md my-2 justify-between p-2 content-center">
-              <p className="text-white">Credit Card</p>
-              <ChevronUpIcon className="text-white h-6 w-6" />
-            </div>
-            <div className="bg-white rounded-b-2xl shadow-lg h-2/3">
+            <div
+              className={`bg-white rounded-b-2xl shadow-lg h-2/3 ${
+                bankAccordionOpen ? `grid-rows-[1fr] opacity-100` : `hidden`
+              }`}
+            >
               <div className="container flex justify-center my-6 gap-4">
+                <img src={mastercard} alt="" />
+                <img src={visa} alt="" />
+                <img src={amex} alt="" />
+                <img src={paypal} alt="" />
+              </div>
+              <div className="md:px-32 p-10">
+                <div className="md:my-4">
+                  <p>Card Number</p>
+                  <Input
+                    className="!border-b-black !rounded-none"
+                    placeholder="4480 0000 0000 0000"
+                    type="text"
+                    onChange={(e) => setCardNumber(e.target.value)}
+                  ></Input>
+                </div>
+                <div className="my-4">
+                  <p>Card Holder Name</p>
+                  <Input
+                    className="!border-b-black !rounded-none"
+                    placeholder="John Doe"
+                    type="text"
+                    onChange={(e) => setCardHolderName(e.target.value)}
+                  ></Input>
+                </div>
+                <div className="flex justify-between my-4">
+                  <div>
+                    <p>CVV</p>
+                    <Input
+                      className="!border-b-black !rounded-none"
+                      placeholder="000"
+                      type="text"
+                      onChange={(e) => setCvv(e.target.value)}
+                    ></Input>
+                  </div>
+                  <div>
+                    <p>Expiry Date</p>
+                    <Input
+                      className="!border-b-black !rounded-none"
+                      placeholder="07/24"
+                      type="text"
+                      onChange={(e) => setExpiryDate(e.target.value)}
+                    ></Input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="flex bg-darkblue-05 h-10 rounded-md my-2 justify-between p-2 content-center w-full"
+              onClick={() => setccAccordionOpen(!ccAccordionOpen)}
+            >
+              <p className="text-white">Credit Card</p>
+              {ccAccordionOpen ? (
+                <ChevronUpIcon className="text-white h-6 w-6" />
+              ) : (
+                <ChevronDownIcon className="text-white h-6 w-6" />
+              )}
+            </div>
+            <div
+              className={
+                ccAccordionOpen
+                  ? ` bg-white rounded-b-2xl shadow-lg h-2/3 `
+                  : `hidden`
+              }
+            >
+              <div className="flex justify-center my-6 gap-4">
                 <img src={mastercard} alt="" />
                 <img src={visa} alt="" />
                 <img src={amex} alt="" />
