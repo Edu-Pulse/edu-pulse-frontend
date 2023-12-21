@@ -5,10 +5,8 @@ import {
 import Spinner from "../UI/Spinner";
 const CourseTable = ({ courseItem, handleEdit, handleDeleteCode, isLoading }) => {
   return isLoading ? (
-    // Loading spinner or any other loading indicator
   <div><Spinner/></div>
   ) : (
-    // Rest of the modal content
     <>
     <tr className="bg-white">
   <td className="p-3 text-sm text-gray-700 whitespace-nowrap">

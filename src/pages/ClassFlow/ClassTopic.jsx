@@ -1,4 +1,4 @@
-import Button from "@/components/UI/Button";
+ import Button from "@/components/UI/Button";
 import Input from "@/components/UI/Input";
 import { FunnelIcon as FunnelIconSolid } from "@heroicons/react/24/solid";
 import { FunnelIcon } from "@heroicons/react/24/outline";

@@ -8,7 +8,7 @@ import { BASE_URL } from "@/lib/baseUrl";
 import Select from "../UI/Select";
 import { useNavigate } from "react-router-dom";
 
-function EditModal({ handleCloseModal, courseItem }) {
+function EditModal({ handleCloseModal, handleUploadVideo, courseItem }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [intended, setIntended] = useState("");
@@ -27,8 +27,8 @@ function EditModal({ handleCloseModal, courseItem }) {
       setLecturer(courseItem.lecturer || "");
       setLevel(courseItem.level || "");
       setType(courseItem.type || "");
-      setPrice(courseItem.price || "");
-      setDiscount(courseItem.discount || "");
+      setPrice(courseItem.price !== null ? courseItem.price : 0);
+    setDiscount(courseItem.discount !== null ? courseItem.discount : 0);
     }
   }, [courseItem]);
 
@@ -168,7 +168,7 @@ function EditModal({ handleCloseModal, courseItem }) {
               <button
                 type="button"
                 className="bg-alert-warning text-white font-bold py-2 px-4 rounded-full cursor-pointer"
-                onClick={handleCloseModal}
+                onClick={handleUploadVideo}
               >
                 Upload Video
               </button>

@@ -1,111 +1,83 @@
-import { useState } from "react";
-import ReactPaginate from 'react-paginate';
+import { useState } from 'react';
+import Button from '../components/UI/Button';
+import {
+	FunnelIcon,
+} from "@heroicons/react/24/outline";
 
-// Data JSON
-const data = [
-  { id: 1, name: 'John Doe', age: 25 },
-  { id: 2, name: 'Jane Doe', age: 30 },
-  { id: 3, name: 'Bob Smith', age: 28 },
-  { id: 4, name: 'Alice Johnson', age: 22 },
-  { id: 5, name: 'Charlie Brown', age: 35 },
-  { id: 6, name: 'Eva Green', age: 27 },
-  { id: 7, name: 'David Lee', age: 32 },
-  { id: 8, name: 'Grace Taylor', age: 29 },
-  { id: 9, name: 'Henry White', age: 31 },
-  { id: 10, name: 'Ivy Anderson', age: 26 },
-  { id: 11, name: 'Jack Black', age: 33 },
-  { id: 12, name: 'Kelly Davis', age: 28 },
-  { id: 13, name: 'Leo Rodriguez', age: 24 },
-  { id: 14, name: 'Mia Wilson', age: 30 },
-  { id: 15, name: 'Nick Carter', age: 29 },
-  { id: 16, name: 'Olivia Brown', age: 27 },
-  { id: 17, name: 'Paul Miller', age: 34 },
-  { id: 18, name: 'Quinn Parker', age: 26 },
-  { id: 19, name: 'Rachel Hall', age: 31 },
-  { id: 20, name: 'Samuel Turner', age: 29 },
-];
+const Dropdown = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-const itemsPerPage = 10;
+  console.log(selectedOption);
 
-const Test = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [count, setCount] = useState(0);
-  const pageCount = Math.ceil(data.length / itemsPerPage);
+  const options = [
+    { id: 1, value: 'Option 1' },
+    { id: 2, value: 'Option 2' },
+    { id: 3, value: 'Option 3' },
+    // Add more options as needed
+  ];
 
-  const displayedData = data.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
-
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
-  const handleNextClick = () => {
-    setCount(count + 1);
+  const selectOption = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
   };
 
-  const handlePreviousClick = () => {
-    setCount(count - 1);
-  };
-  
   return (
-    <div className="container mx-auto my-8">
-      <h1 className="text-3xl font-bold mb-4">React Paginate Table</h1>
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b">ID</th>
-            <th className="py-2 px-4 border-b">Name</th>
-            <th className="py-2 px-4 border-b">Age</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedData.map((item) => (
-            <tr key={item.id} className="hover:bg-gray-100">
-              <td className="py-2 px-4 border-b">{item.id}</td>
-              <td className="py-2 px-4 border-b">{item.name}</td>
-              <td className="py-2 px-4 border-b">{item.age}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <ReactPaginate
-        previousLabel={'Previous'}
-        nextLabel={'Next'}
-        breakLabel={'...'}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={'flex justify-center mt-4'}
-        subContainerClassName={'pages pagination'}
-        activeClassName={'active'}
-        previousClassName={'bg-blue-500 w-20 text-white p-2 rounded mr-2 cursor-pointer'}
-        nextClassName={'bg-blue-500 text-white p-2 rounded ml-2 cursor-pointer'}
-      />
-
-<div className="container mx-auto mt-8 text-center">
-      <h1 className="text-3xl font-bold mb-4">Counter App</h1>
-      <div className="flex items-center justify-center">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-4 rounded"
-          onClick={handlePreviousClick}
-        >
-          Previous
-        </button>
-        <p className="text-xl">Nilai: {count}</p>
-        <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 ml-4 rounded"
-          onClick={handleNextClick}
-        >
-          Next
-        </button>
+    <div className="relative text-left inline-block">
+      <div>
+        <span className="rounded-md shadow-sm">
+          <Button
+            type="button"
+            onClick={toggleDropdown}
+            icon={<FunnelIcon className="h-5 w-5" />}
+            iconPosition="left"
+            color="success"
+            size="md"
+            className="inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500"
+            id="options-menu"
+            aria-haspopup="true"
+            aria-expanded="true"
+          >
+            {selectedOption ? selectedOption.value : 'Filter'}
+            {/* <svg
+              className="-mr-1 ml-2 h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 9.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
+                clipRule="evenodd"
+              />
+            </svg> */}
+          </Button>
+        </span>
       </div>
-    </div>
-    </div>
-  )
-}
 
-export default Test
+      {isOpen && (
+        <div className="origin-top-end absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <div className="py-1" role="none">
+            {options.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => selectOption(option)}
+                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                {option.value}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Dropdown;

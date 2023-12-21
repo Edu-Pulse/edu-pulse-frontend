@@ -9,7 +9,7 @@ import { BASE_URL } from "@/lib/baseUrl";
 import axios from "axios";
 import Select from "../UI/Select";
 
-function AdminModal({handleCloseModal}) {
+function AdminModal({ handleCloseModal, handleUploadVideo }) {
   const [courseCode, setCourseCode] = useState("");
   const [courseName, setCourseName] = useState("");
   const [category, setCategory] = useState("");
@@ -48,7 +48,9 @@ function AdminModal({handleCloseModal}) {
 
       if (response.status === 200) {
         toast.success(response.data.message);
-        navigate(0)
+        setTimeout(() => {
+          navigate(0);
+        }, 2000);
       }
 
       handleCloseModal();
@@ -193,7 +195,7 @@ function AdminModal({handleCloseModal}) {
               <button
                 type="button"
                 className="bg-alert-warning text-white font-bold py-2 px-4 rounded-full cursor-pointer"
-                onClick={handleCloseModal}
+                onClick={handleUploadVideo}
               >
                 Upload Video
               </button>

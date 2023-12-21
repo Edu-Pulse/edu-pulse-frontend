@@ -35,6 +35,8 @@ import NotLoggedIn from "./pages/NotLoggedIn";
 import Test from "./pages/Test";
 import Test2 from "./pages/Test2";
 import KelolaKelas2 from "./pages/AdminFlow/KelolaKelas2";
+import Test3 from "./pages/Dropdown";
+// import CourseSelect from "./pages/Test4";
 
 const App = () => {
 	const routes = createBrowserRouter([
@@ -56,7 +58,7 @@ const App = () => {
 					element: <ClassTopic />,
 				},
 				{
-					path: "/payment-pending",
+					path: "/payment-pending/:code",
 					element: <PaymentDetail />,
 				},
 				{
@@ -137,6 +139,14 @@ const App = () => {
 			path: "/test2",
 			element: <Test2 />,
 		},
+		{
+			path: "/test3",
+			element: <Test3 />,
+		},
+		// {
+		// 	path: "/test4",
+		// 	element: <CourseSelect />,
+		// },
 	]);
 	return (
 		<ValidationContextProvider>

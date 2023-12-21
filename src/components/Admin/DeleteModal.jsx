@@ -4,8 +4,6 @@ import { BASE_URL } from "@/lib/baseUrl";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
-import Spinner from "../UI/Spinner";
-// import { useState } from "react";
 
 const DeleteModal = ({ handleCloseModal, courseItem, isLoading, setIsLoading }) => {
   const navigate = useNavigate();
@@ -35,12 +33,7 @@ const DeleteModal = ({ handleCloseModal, courseItem, isLoading, setIsLoading }) 
     }
   }
 
-  return isLoading ? (
-    // Loading spinner or any other loading indicator
-  <div><Spinner/></div>
-  ) : (
-    // Rest of the modal content
-    <>
+  return (
     <div
           className={clsx(
             'fixed z-10 inset-0 grid place-content-center',
@@ -90,7 +83,6 @@ const DeleteModal = ({ handleCloseModal, courseItem, isLoading, setIsLoading }) 
             </div>
           </div>
         </div>
-        </>
   )
 }
 
