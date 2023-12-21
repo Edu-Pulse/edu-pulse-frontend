@@ -2,6 +2,7 @@ import { PlayCircleIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 const ChapterLists = ({ details, handleTopicClick }) => {
   let percentage = (details?.doneMaterial / details?.totalMaterial) * 100;
+  let fixPercentage = percentage.toFixed(0);
 
   return (
     <>
@@ -17,7 +18,7 @@ const ChapterLists = ({ details, handleTopicClick }) => {
             className="z-10 left-2 top-[2px] absolute text-white text-xs"
             htmlFor="progress"
           >
-            {percentage}% Progress
+            {fixPercentage}% Progress
           </label>
           <progress
             className="rounded-full w-full"
@@ -52,7 +53,7 @@ const ChapterLists = ({ details, handleTopicClick }) => {
                     <PlayCircleIcon
                       className={`text-${
                         isDone ? "alert-success" : "darkblue-05"
-                      } w-10 h-full mr-1 hover:bg-slate-500`}
+                      } w-10 h-full mr-1`}
                     />
                   </button>
                 </li>
