@@ -78,7 +78,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "in_progress"
+                  filter === "PREMIUM"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
@@ -90,7 +90,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "selesai"
+                  filter === "GRATIS"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
