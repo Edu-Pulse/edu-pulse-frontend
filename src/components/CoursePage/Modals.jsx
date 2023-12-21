@@ -58,7 +58,7 @@ const Modals = ({ isOpen, onClose, children }) => {
       ref={drawerRef}
       onKeyDown={handleKeyDown}
       onClick={handleCloseDrawerOnBackdropClick}
-      className="modal z-40 px-4 pb-8 rounded-t-3xl w-full overflow-y-auto bg-white"
+      className="modal z-40 px-4 pb-8 rounded-3xl overflow-y-auto bg-white max-w-[500px]"
     >
       {children}
     </dialog>
