@@ -2,16 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "@/lib/baseUrl";
-import CourseCard from "../components/UI/CourseCard";
+import CourseCard from "@/components/UI/CourseCard";
 import toast from "react-hot-toast";
-import Button from "../components/UI/Button";
+import Button from "@/components/UI/Button";
 import { twMerge } from "tailwind-merge";
 
 const Search = () => {
   const [course, setCourse] = useState();
   const [filter, setFilter] = useState("all");
   const { input } = useParams("");
-  console.log(course);
+
   useEffect(() => {
     const getCourseByName = async () => {
       try {
@@ -32,6 +32,24 @@ const Search = () => {
     return () => getCourseByName();
   }, [input]);
 
+  useEffect(() => {
+    const getCourseById = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/category/${input}`);
+
+        const data = response.data.data;
+        if (response.status === 200 && response.data.error !== true) {
+          setCourse(data);
+        } else {
+          toast.error(`Something went wrong! Status: ${response.status}`);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    return () => getCourseById();
+  }, [input]);
+
   const filteredSearch =
     filter === "PREMIUM"
       ? course.filter((item) => item.type === "PREMIUM")
@@ -41,7 +59,7 @@ const Search = () => {
 
   return (
     <main className="container min-h-screen">
-      <section className="md:my-20">
+      <section className="sm:my-20 mt-36">
         <div className="w-full">
           <div className="flex flex-col">
             <div className="flex justify-around gap-2">
@@ -60,7 +78,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "in_progress"
+                  filter === "PREMIUM"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
@@ -72,7 +90,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "selesai"
+                  filter === "GRATIS"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}

@@ -1,4 +1,4 @@
-import PaymentPending from "@/components/PaymentPending";
+import PaymentPending from "@/components/PaymentPage/PaymentPending";
 
 const PaymentDetail = () => {
 	return (

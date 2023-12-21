@@ -2,8 +2,8 @@ import errorImage from "@/assets/svg/login.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import HeaderMobile from "@/components/HeaderMobile";
-import Header from "@/components/Header";
+import HeaderMobile from "@/components/UI/HeaderMobile";
+import Header from "@/components/UI/Header";
 
 import { ShieldExclamationIcon } from "@heroicons/react/24/outline";
 

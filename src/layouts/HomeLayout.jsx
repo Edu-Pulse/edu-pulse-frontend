@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/UI/Header";
+import Footer from "@/components/UI/Footer";
 import { useEffect, useState } from "react";
-import HeaderMobile from "@/components/HeaderMobile";
+import HeaderMobile from "@/components/UI/HeaderMobile";
 
 const HomeLayout = () => {
 	const [isMobile, setIsMobile] = useState(null);

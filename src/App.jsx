@@ -39,121 +39,117 @@ import Test3 from "./pages/Dropdown";
 // import CourseSelect from "./pages/Test4";
 
 const App = () => {
-	const routes = createBrowserRouter([
-		{
-			path: "/",
-			element: <HomeLayout />,
-			errorElement: <NotFound />,
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: "/my-class",
-					element: <MyClass />,
-				},
-				{
-					path: "/class-topic",
-					element: <ClassTopic />,
-				},
-				{
-					path: "/payment-pending/:code",
-					element: <PaymentDetail />,
-				},
-				{
-					path: "/payment-success",
-					element: <PaymentDetailSuccess />,
-				},
-				{
-					path: "/detail/:code",
-					element: <Detail />,
-				},
-				{
-					path: "/notifikasi",
-					element: <Notification />,
-				},
-				{
-					path: "/user",
-					element: <User />,
-				},
-				{
-					path: "/search/:input",
-					element: <Search />,
-				},
-				{
-					path: "/not-logged-in",
-					element: <NotLoggedIn />,
-				},
-			],
-		},
-		{
-			path: "/auth",
-			element: <AuthLayout />,
-			children: [
-				{
-					path: "login",
-					element: <Login />,
-				},
-				{
-					path: "register",
-					element: <Register />,
-				},
-				{
-					path: "reset",
-					element: <ResetPassword />,
-				},
-				{
-					path: "otp/:email",
-					element: <Otp />,
-				},
-			],
-		},
-		{
-			path: "/dashboard",
-			element: <DashboardLayout />,
-			children: [
-				{
-					index: true,
-					element: <Dashboard />,
-				},
-				{
-					path: "kelolakelas",
-					element: <KelolaKelas />,
-				},
-        {
-					path: "kelolakelas2",
-					element: <KelolaKelas2 />,
-				},
-			],
-		},
-		{
-			path: "/admin",
-			element: <LoginAdmin />,
-		},
+  const routes = createBrowserRouter([
     {
-			path: "/test",
-			element: <Test />,
-		},
-		{
-			path: "/test2",
-			element: <Test2 />,
-		},
-		{
-			path: "/test3",
-			element: <Test3 />,
-		},
-		// {
-		// 	path: "/test4",
-		// 	element: <CourseSelect />,
-		// },
-	]);
-	return (
-		<ValidationContextProvider>
-			<Toaster position="bottom-center" reverseOrder={false} />
-			<RouterProvider router={routes} />
-		</ValidationContextProvider>
-	);
+      path: "/",
+      element: <HomeLayout />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/my-class",
+          element: <MyClass />,
+        },
+        {
+          path: "/class-topic",
+          element: <ClassTopic />,
+        },
+        {
+          path: "/payment-pending/:code",
+          element: <PaymentDetail />,
+        },
+        {
+          path: "/payment-success",
+          element: <PaymentDetailSuccess />,
+        },
+        {
+          path: "/detail/:code",
+          element: <Detail />,
+        },
+        {
+          path: "/notifikasi",
+          element: <Notification />,
+        },
+        {
+          path: "/user",
+          element: <User />,
+        },
+        {
+          path: "/search/:input",
+          element: <Search />,
+        },
+        {
+          path: "/not-logged-in",
+          element: <NotLoggedIn />,
+        },
+      ],
+    },
+    {
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+        {
+          path: "reset",
+          element: <ResetPassword />,
+        },
+        {
+          path: "otp/:email",
+          element: <Otp />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+        },
+        {
+          path: "kelolakelas",
+          element: <KelolaKelas />,
+        },
+        {
+          path: "kelolakelas2",
+          element: <KelolaKelas2 />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <LoginAdmin />,
+    },
+    {
+      path: "/test",
+      element: <Test />,
+    },
+    {
+      path: "/test2",
+      element: <Test2 />,
+    },
+    {
+      path: "/test3",
+      element: <Test3 />,
+    },
+  ]);
+  return (
+    <ValidationContextProvider>
+      <Toaster position="bottom-center" reverseOrder={false} />
+      <RouterProvider router={routes} />
+    </ValidationContextProvider>
+  );
 };
 
 export default App;

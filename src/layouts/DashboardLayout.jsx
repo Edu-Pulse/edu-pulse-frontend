@@ -6,21 +6,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import toast from "react-hot-toast";
-import { getMe } from "../lib/getMe";
+import { getMe } from "@/lib/getMe";
 
 const DashboardLayout = () => {
   const [user, setUser] = useState("");
   const [course, setCourse] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-		const fetchData = async () => {
-			await getMe(setUser);
-		};
-		return () => fetchData();
-	}, []);
+    const fetchData = async () => {
+      await getMe(setUser);
+    };
+    return () => fetchData();
+  }, []);
 
   useEffect(() => {
     const getAllCourse = async () => {

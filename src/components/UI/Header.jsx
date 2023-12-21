@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./UI/Button";
+import Button from "./Button";
 import {
 	ArrowRightOnRectangleIcon,
 	MagnifyingGlassIcon,
 	QueueListIcon,
 	BellIcon,
 } from "@heroicons/react/24/outline";
-import HeaderNavMenu from "./UI/HeaderNavMenu";
+import HeaderNavMenu from "./HeaderNavMenu";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

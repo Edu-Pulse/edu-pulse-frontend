@@ -5,13 +5,13 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/24/solid";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import CourseCard from "./UI/CourseCard";
-import Button from "./UI/Button";
-import mastercard from "../assets/mastercardlogo.png";
-import visa from "../assets/visalogo.png";
-import amex from "../assets/amexlogo.png";
-import paypal from "../assets/paypallogo.png";
-import Input from "./UI/Input";
+import CourseCard from "@/components/UI/CourseCard";
+import Button from "@/components/UI/Button";
+import mastercard from "@/assets/mastercardlogo.png";
+import visa from "@/assets/visalogo.png";
+import amex from "@/assets/amexlogo.png";
+import paypal from "@/assets/paypallogo.png";
+import Input from "@/components/UI/Input";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import toast from "react-hot-toast";
@@ -79,24 +79,24 @@ const PaymentPending = () => {
     <section className="mt-16 w-full h-full">
       <div className="w-full mt-1">
         <div className="my-10">
-          <div className="font-semibold text-xl flex items-center px-[20vh] py-10">
+          <div className="font-semibold text-xl flex md:items-center md:px-[20vh] py-10">
             <Link
               to="/my-class"
-              className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+              className="px-4 py-2 flex gap-4 justify-items-start hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
             >
               <ArrowLeftIcon className="w-5 h-5" />
               <p>Kembali</p>
             </Link>
           </div>
           <div className="flex justify-center container">
-            <div className="flex justify-center self-center bg-red-500 h-12 w-3/5 rounded-2xl">
-              <p className="grid text-white content-center">
+            <div className="flex justify-center self-center bg-red-500 h-12 md:w-3/5 w-full rounded-2xl">
+              <p className="grid text-white content-center p-6 whitespace-nowrap md:text-base text-xs">
                 Selesaikan Pembayaran sampai 10 Maret 2023 12:00
               </p>
             </div>
           </div>
         </div>
-        <div className="container grid grid-cols-2 gap-4 my-10">
+        <div className="container flex md:flex-row flex-col gap-4 my-10">
           <div>
             <div className="flex bg-slate-800 h-10 rounded-md my-2 justify-between p-2 content-center">
               <p className="text-white">Bank Transfer</p>
@@ -113,8 +113,8 @@ const PaymentPending = () => {
                 <img src={amex} alt="" />
                 <img src={paypal} alt="" />
               </div>
-              <div className="px-32">
-                <div className="my-4">
+              <div className="md:px-32 p-10">
+                <div className="md:my-4">
                   <p>Card Number</p>
                   <Input
                     className="!border-b-black !rounded-none"
