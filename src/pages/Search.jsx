@@ -11,6 +11,7 @@ const Search = () => {
   const [course, setCourse] = useState();
   const [filter, setFilter] = useState("all");
   const { input } = useParams("");
+  console.log(course);
 
   useEffect(() => {
     const getCourseByName = async () => {
@@ -78,7 +79,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "in_progress"
+                  filter === "PREMIUM"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
@@ -90,7 +91,7 @@ const Search = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "selesai"
+                  filter === "GRATIS"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
