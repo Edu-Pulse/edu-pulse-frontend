@@ -35,7 +35,7 @@ const KursusPopuler = () => {
 
   const filteredCourse =
     selectedNumber === null
-      ? course.filter((item) => item.rating >= 3)
+      ? course.filter((item) => item.rating >= 4)
       : selectedNumber === 0
       ? course.filter((item) => item.category === "Data Science")
       : selectedNumber === 1
@@ -63,7 +63,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === null
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(null)}
@@ -74,7 +74,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 0
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(0)}
@@ -85,7 +85,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 1
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(1)}
@@ -96,7 +96,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 2
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(2)}
@@ -107,7 +107,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 3
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(3)}
@@ -118,7 +118,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 4
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(4)}
@@ -129,7 +129,7 @@ const KursusPopuler = () => {
           className={
             selectedNumber === 5
               ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
+              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
           size="xs"
           onClick={() => setSelectedNumber(5)}

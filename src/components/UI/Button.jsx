@@ -54,7 +54,7 @@ const Button = ({
 			onClick={onClick}
 			className={buttonClasses}
 			disabled={disabled}
-			type={type.length !== 0 && type}
+			type={type}
 		>
 			{icon && iconPosition === "left" && icon}
 			<span>
