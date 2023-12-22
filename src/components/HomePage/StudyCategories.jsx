@@ -38,7 +38,7 @@ const StudyCategories = () => {
         {category.map((kelas, index) => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <Link to={`/search/${kelas.id}`}>
+            <Link to={`/search/${kelas.id}`} key={index}>
               <div
                 className="font-semibold text-sm hover:cursor-pointer"
                 key={index}

@@ -4,184 +4,165 @@ import CourseCard from "../UI/CourseCard";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import CourseCardSkeleton from "../UI/CourseCardSkeleton";
 
 const KursusPopuler = () => {
-  const [course, setCourse] = useState([]);
-  const [selectedNumber, setSelectedNumber] = useState(null);
+	const [course, setCourse] = useState([]);
+	const [selectedNumber, setSelectedNumber] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const getAllCourse = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/course/all`);
-        console.log(response.data.data);
-        const data = response.data.data.content;
-        setCourse(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getAllCourse();
-  }, []);
+	useEffect(() => {
+		const getAllCourse = async () => {
+			try {
+				setIsLoading(true);
+				const response = await axios.get(`${BASE_URL}/course/all`);
+				const data = response.data.data.content;
+				if (response.status === 200) {
+					setCourse(data);
+				} else {
+					toast.error("Something went wrong!");
+				}
+				setIsLoading(false);
+				return;
+			} catch (error) {
+				console.log(error.message);
+				setIsLoading(false);
+			}
+		};
+		getAllCourse();
+	}, []);
 
-  return (
-    <section className="container my-4">
-      <div className="flex justify-between items-center py-5">
-        <h2 className="text-xl font-bold">Kursus Popular</h2>
-        <span className="font-bold text-darkblue-05 py-2 px-4 rounded-full hover:bg-blue-200 hover:cursor-pointer transition-all duration-200">
-          <Link to={"/class-topic"}>Lihat Semua</Link>
-        </span>
-      </div>
-      <div className="flex justify-around w-full my-8 overflow-x-auto">
-        <Button
-          className={
-            selectedNumber === null
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(null)}
-        >
-          All
-        </Button>
-        <Button
-          className={
-            selectedNumber === 1
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(1)}
-        >
-          Data Science
-        </Button>
-        <Button
-          className={
-            selectedNumber === 0
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(0)}
-        >
-          UI/UX Design
-        </Button>
-        <Button
-          className={
-            selectedNumber === 5
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(5)}
-        >
-          Android Development
-        </Button>
-        <Button
-          className={
-            selectedNumber === 4
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(4)}
-        >
-          Web Development
-        </Button>
-        <Button
-          className={
-            selectedNumber === 6
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          onClick={() => setSelectedNumber(6)}
-        >
-          IOS Development
-        </Button>
-        <Button
-          className={
-            selectedNumber === 7
-              ? "whitespace-nowrap"
-              : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 whitespace-nowrap"
-          }
-          size="xs"
-          // onClick={filterForPM}
-          onClick={() => setSelectedNumber(7)}
-        >
-          Business Intelligence
-        </Button>
-      </div>
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-6 w-full my-8">
-        {selectedNumber !== null ? (
-          <>
-            <CourseCard
-              category={course[selectedNumber]?.category}
-              name={course[selectedNumber]?.name}
-              lecturer={course[selectedNumber]?.lecturer}
-              level={course[selectedNumber]?.level}
-              rating={course[selectedNumber]?.rating}
-              code={course[selectedNumber]?.code}
-              image={course[selectedNumber]?.image}
-              amount={course[selectedNumber]?.price}
-            />
-            <CourseCard
-              category={course[selectedNumber]?.category}
-              name={course[selectedNumber]?.name}
-              lecturer={course[selectedNumber]?.lecturer}
-              level={course[selectedNumber]?.level}
-              rating={course[selectedNumber]?.rating}
-              code={course[selectedNumber]?.code}
-              image={course[selectedNumber]?.image}
-              amount={course[selectedNumber]?.price}
-            />
-            <CourseCard
-              category={course[selectedNumber]?.category}
-              name={course[selectedNumber]?.name}
-              lecturer={course[selectedNumber]?.lecturer}
-              level={course[selectedNumber]?.level}
-              rating={course[selectedNumber]?.rating}
-              code={course[selectedNumber]?.code}
-              image={course[selectedNumber]?.image}
-              amount={course[selectedNumber]?.price}
-            />
-          </>
-        ) : (
-          <>
-            <CourseCard
-              category={course[0]?.category}
-              name={course[0]?.name}
-              lecturer={course[0]?.lecturer}
-              level={course[0]?.level}
-              rating={course[0]?.rating}
-              code={course[0]?.code}
-              image={course[0]?.image}
-              amount={course[0]?.price}
-            />
-            <CourseCard
-              category={course[1]?.category}
-              name={course[1]?.name}
-              lecturer={course[1]?.lecturer}
-              level={course[1]?.level}
-              rating={course[1]?.rating}
-              code={course[1]?.code}
-              image={course[1]?.image}
-              amount={course[1]?.price}
-            />
-            <CourseCard
-              category={course[2]?.category}
-              name={course[2]?.name}
-              lecturer={course[2]?.lecturer}
-              level={course[2]?.level}
-              rating={course[2]?.rating}
-              code={course[2]?.code}
-              image={course[2]?.image}
-              amount={course[2]?.price}
-            />
-          </>
-        )}
-      </div>
-    </section>
-  );
+	const filteredCourse =
+		selectedNumber === null
+			? course.filter((item) => item.rating >= 4)
+			: selectedNumber === 0
+			? course.filter((item) => item.category === "Data Science")
+			: selectedNumber === 1
+			? course.filter((item) => item.category === "UI/UX Design")
+			: selectedNumber === 2
+			? course.filter((item) => item.category === "Android Development")
+			: selectedNumber === 3
+			? course.filter((item) => item.category === "Web Development")
+			: selectedNumber === 4
+			? course.filter((item) => item.category === "IOS Development")
+			: course;
+
+	const slice = filteredCourse.slice(0, 3);
+
+	return (
+		<section className="container my-4">
+			<div className="flex justify-between items-center py-5">
+				<h2 className="text-xl font-bold">Kursus Popular</h2>
+				<span className="font-bold text-darkblue-05 py-2 px-4 rounded-full hover:bg-blue-200 hover:cursor-pointer transition-all duration-200">
+					<Link to={"/class-topic"}>Lihat Semua</Link>
+				</span>
+			</div>
+			<div className="flex justify-around w-full my-8 overflow-x-auto">
+				<Button
+					className={
+						selectedNumber === null
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(null)}
+				>
+					All
+				</Button>
+				<Button
+					className={
+						selectedNumber === 0
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(0)}
+				>
+					Data Science
+				</Button>
+				<Button
+					className={
+						selectedNumber === 1
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(1)}
+				>
+					UI/UX Design
+				</Button>
+				<Button
+					className={
+						selectedNumber === 2
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(2)}
+				>
+					Android Development
+				</Button>
+				<Button
+					className={
+						selectedNumber === 3
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(3)}
+				>
+					Web Development
+				</Button>
+				<Button
+					className={
+						selectedNumber === 4
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(4)}
+				>
+					IOS Development
+				</Button>
+				<Button
+					className={
+						selectedNumber === 5
+							? "whitespace-nowrap"
+							: "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
+					}
+					size="xs"
+					onClick={() => setSelectedNumber(5)}
+				>
+					Business Intelligence
+				</Button>
+			</div>
+			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 w-full my-8">
+				{isLoading ? (
+					<div className="flex gap-20">
+						{Array.from({ length: 3 }).map((_, index) => {
+							return <CourseCardSkeleton key={index} />;
+						})}
+					</div>
+				) : (
+					slice &&
+					slice.map((ClassItem, index) => (
+						<CourseCard
+							key={index}
+							category={ClassItem.category}
+							name={ClassItem.name}
+							lecturer={ClassItem.lecturer}
+							level={ClassItem.level}
+							rating={ClassItem.rating}
+							code={ClassItem.code}
+							image={ClassItem.image}
+							amount={ClassItem.amount}
+						/>
+					))
+				)}
+			</div>
+		</section>
+	);
 };
 
 export default KursusPopuler;
