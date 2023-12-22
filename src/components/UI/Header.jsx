@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import {
-	ArrowRightOnRectangleIcon,
+	ArrowRightEndOnRectangleIcon,
 	MagnifyingGlassIcon,
 	QueueListIcon,
 	BellIcon,
+	AcademicCapIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./HeaderNavMenu";
 import { useEffect, useState } from "react";
@@ -35,8 +36,12 @@ const Header = () => {
 		<header className="fixed top-0 z-50 w-full py-3 bg-darkblue-05">
 			<nav className="container flex items-center justify-between">
 				<div className="md:w-1/3">
-					<Link to="/" className="text-xl font-semibold text-white">
-						EduPulse
+					<Link
+						to="/"
+						className="text-xl w-fit active:outline-none font-semibold text-white flex gap-2 items-center"
+					>
+						<AcademicCapIcon className="h-6 w-6" />
+						<span>EduPulse</span>
 					</Link>
 				</div>
 				<search className="items-center hidden md:flex md:w-1/3">
@@ -89,7 +94,7 @@ const Header = () => {
 					) : (
 						<Button
 							icon={
-								<ArrowRightOnRectangleIcon className="w-5 h-5" />
+								<ArrowRightEndOnRectangleIcon className="w-5 h-5" />
 							}
 							iconPosition="left"
 							size="md"

@@ -1,4 +1,4 @@
-import illustration from "@/assets/heroimage.png";
+import illustration from "@/assets/heroimage.webp";
 import Button from "@/components/UI/Button";
 import { useNavigate } from "react-router-dom";
 

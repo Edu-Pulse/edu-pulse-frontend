@@ -3,33 +3,21 @@ import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { BellIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { getMe } from "@/lib/getMe";
 
 import { db } from "@/lib/firebase";
 import { onValue, ref } from "firebase/database";
+import noData from "@/assets/svg/nodata.svg";
 
 const Notification = () => {
-	const [user, setUser] = useState("");
 	const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			await getMe(setUser);
-		};
-		return () => fetchData();
-	}, []);
-
-	useEffect(() => {
-		const query = ref(db, "notification");
+		const query = ref(db, "NOTIFICATION");
 		return onValue(query, (snapshot) => {
 			const data = snapshot.val();
+			console.log(data);
 			if (snapshot.exists()) {
-				Object.values(data).map((notificationItem) => {
-					setNotifications((notifications) => [
-						...notifications,
-						notificationItem,
-					]);
-				});
+				setNotifications((notifications) => [...notifications, data]);
 			}
 		});
 	}, []);
@@ -55,36 +43,49 @@ const Notification = () => {
 					</p>
 				</div>
 				<div className="my-2 space-y-2 divide-y">
-					{notifications.map((notification, index) => {
-						<div
-							className="flex gap-4 py-2 md:items-center md:px-4"
-							key={index}
-						>
-							<div className="p-1 text-white rounded-full h-fit bg-darkblue-05 w-fit">
-								<BellIcon className="w-4 h-4" />
-							</div>
-							<div className="w-full space-y-1">
-								<div className="flex justify-between w-full">
-									<p className="font-semibold text-darkblue-05">
-										Promosi
-									</p>
-									<p className="flex items-center gap-2 text-sm">
-										<span>2 Maret, 12.00</span>
-										<div className="w-3 h-3 rounded-full bg-alert-success" />
-									</p>
+					{notifications.length !== 0 ? (
+						notifications.map((notification, index) => {
+							return (
+								<div
+									className="flex gap-4 py-2 md:items-center md:px-4"
+									key={index}
+								>
+									<div className="p-1 text-white rounded-full h-fit bg-darkblue-05 w-fit">
+										<BellIcon className="w-4 h-4" />
+									</div>
+									<div className="w-full space-y-1">
+										<div className="flex justify-between w-full">
+											<p className="font-semibold text-darkblue-05">
+												{notification.sender}
+											</p>
+											<p className="flex items-center gap-2 text-sm">
+												<span>
+													{notification.dateTime}
+												</span>
+												<div className="w-3 h-3 rounded-full bg-alert-success" />
+											</p>
+										</div>
+										<div>
+											<p className="mb-1 text-sm font-semibold">
+												{notification.text}
+											</p>
+										</div>
+									</div>
 								</div>
-								<div>
-									<p className="mb-1 text-sm font-semibold">
-										Dapatkan Potongan 50% selama Bulan
-										Maret!
-									</p>
-									<p className="text-sm text-gray-500">
-										Syarat dan Ketentuan berlaku!
-									</p>
-								</div>
-							</div>
-						</div>;
-					})}
+							);
+						})
+					) : (
+						<div className="w-full h-full grid place-content-center">
+							<img
+								src={noData}
+								alt="No Data"
+								className="w-full"
+							/>
+							<p className="text-gray-700 text-center">
+								Tidak ada notifikasi
+							</p>
+						</div>
+					)}
 				</div>
 			</section>
 		</main>

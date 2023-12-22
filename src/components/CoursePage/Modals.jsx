@@ -48,21 +48,21 @@ const Modals = ({ isOpen, onClose, children }) => {
 		}
 	}, [isDrawerOpen]);
 
-  return (
-    <dialog
-      style={{
-        maxWidth: "100vw",
-        position: "fixed",
-        marginBottom: 0,
-      }}
-      ref={drawerRef}
-      onKeyDown={handleKeyDown}
-      onClick={handleCloseDrawerOnBackdropClick}
-      className="modal z-40 px-4 pb-8 rounded-3xl overflow-y-auto bg-white max-w-[500px]"
-    >
-      {children}
-    </dialog>
-  );
+	return (
+		<dialog
+			style={{
+				maxWidth: "100vw",
+				position: "fixed",
+				marginBottom: 0,
+			}}
+			ref={modalRef}
+			onKeyDown={handleKeyDown}
+			onClick={handleCloseDrawerOnBackdropClick}
+			className="modal z-40 px-4 pb-8 rounded-3xl overflow-y-auto bg-white max-w-[500px]"
+		>
+			{children}
+		</dialog>
+	);
 };
 
 export default Modals;
