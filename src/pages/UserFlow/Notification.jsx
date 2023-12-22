@@ -9,87 +9,75 @@ import { onValue, ref } from "firebase/database";
 import noData from "@/assets/svg/nodata.svg";
 
 const Notification = () => {
-	const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
-	useEffect(() => {
-		const query = ref(db, "NOTIFICATION");
-		return onValue(query, (snapshot) => {
-			const data = snapshot.val();
-			console.log(data);
-			if (snapshot.exists()) {
-				setNotifications((notifications) => [...notifications, data]);
-			}
-		});
-	}, []);
+  useEffect(() => {
+    const query = ref(db, "NOTIFICATION");
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      if (snapshot.exists()) {
+        setNotifications((notifications) => [...notifications, data]);
+      }
+    });
+  }, []);
 
-	return (
-		<main className="container flex flex-col min-h-screen md:justify-center">
-			<div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">
-				<Link
-					to="/"
-					className="flex items-center gap-4 px-4 py-2 transition-all duration-300 rounded-full hover:bg-blue-100 w-fit hover:cursor-pointer"
-				>
-					<ArrowLeftIcon className="w-5 h-5" />
-					<p className="hidden md:block">Kembali ke Beranda</p>
-					<p className="text-2xl font-bold !text-black md:hidden">
-						Notifikasi
-					</p>
-				</Link>
-			</div>
-			<section className="max-w-[768px] w-full mx-auto rounded-xl overflow-hidden md:border-2 md:border-darkblue-05">
-				<div className="hidden w-full py-4 md:block bg-darkblue-05">
-					<p className="font-semibold text-center text-white">
-						Notifikasi
-					</p>
-				</div>
-				<div className="my-2 space-y-2 divide-y">
-					{notifications.length !== 0 ? (
-						notifications.map((notification, index) => {
-							return (
-								<div
-									className="flex gap-4 py-2 md:items-center md:px-4"
-									key={index}
-								>
-									<div className="p-1 text-white rounded-full h-fit bg-darkblue-05 w-fit">
-										<BellIcon className="w-4 h-4" />
-									</div>
-									<div className="w-full space-y-1">
-										<div className="flex justify-between w-full">
-											<p className="font-semibold text-darkblue-05">
-												{notification.sender}
-											</p>
-											<p className="flex items-center gap-2 text-sm">
-												<span>
-													{notification.dateTime}
-												</span>
-												<div className="w-3 h-3 rounded-full bg-alert-success" />
-											</p>
-										</div>
-										<div>
-											<p className="mb-1 text-sm font-semibold">
-												{notification.text}
-											</p>
-										</div>
-									</div>
-								</div>
-							);
-						})
-					) : (
-						<div className="w-full h-full grid place-content-center">
-							<img
-								src={noData}
-								alt="No Data"
-								className="w-full"
-							/>
-							<p className="text-gray-700 text-center">
-								Tidak ada notifikasi
-							</p>
-						</div>
-					)}
-				</div>
-			</section>
-		</main>
-	);
+  return (
+    <main className="container flex flex-col min-h-screen md:justify-center">
+      <div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">
+        <Link
+          to="/"
+          className="flex items-center gap-4 px-4 py-2 transition-all duration-300 rounded-full hover:bg-blue-100 w-fit hover:cursor-pointer"
+        >
+          <ArrowLeftIcon className="w-5 h-5" />
+          <p className="hidden md:block">Kembali ke Beranda</p>
+          <p className="text-2xl font-bold !text-black md:hidden">Notifikasi</p>
+        </Link>
+      </div>
+      <section className="max-w-[768px] w-full mx-auto rounded-xl overflow-hidden md:border-2 md:border-darkblue-05">
+        <div className="hidden w-full py-4 md:block bg-darkblue-05">
+          <p className="font-semibold text-center text-white">Notifikasi</p>
+        </div>
+        <div className="my-2 space-y-2 divide-y">
+          {notifications.length !== 0 ? (
+            notifications.map((notification, index) => {
+              return (
+                <div
+                  className="flex gap-4 py-2 md:items-center md:px-4"
+                  key={index}
+                >
+                  <div className="p-1 text-white rounded-full h-fit bg-darkblue-05 w-fit">
+                    <BellIcon className="w-4 h-4" />
+                  </div>
+                  <div className="w-full space-y-1">
+                    <div className="flex justify-between w-full">
+                      <p className="font-semibold text-darkblue-05">
+                        {notification.sender}
+                      </p>
+                      <p className="flex items-center gap-2 text-sm">
+                        <span>{notification.dateTime}</span>
+                        <div className="w-3 h-3 rounded-full bg-alert-success" />
+                      </p>
+                    </div>
+                    <div>
+                      <p className="mb-1 text-sm font-semibold">
+                        {notification.text}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="w-full h-full grid place-content-center">
+              <img src={noData} alt="No Data" className="w-full" />
+              <p className="text-gray-700 text-center">Tidak ada notifikasi</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default Notification;

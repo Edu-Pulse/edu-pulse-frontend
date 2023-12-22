@@ -19,4 +19,7 @@ export default defineConfig({
       cert: "./ssl/localhost.pem",
     },
   },
+  preview: {
+    port: 5173,
+  },
 });
