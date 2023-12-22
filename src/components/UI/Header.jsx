@@ -36,7 +36,7 @@ const Header = () => {
 			<nav className="container flex items-center justify-between">
 				<div className="md:w-1/3">
 					<Link to="/" className="text-xl font-semibold text-white">
-						Pragos Academy
+						EduPulse
 					</Link>
 				</div>
 				<search className="items-center hidden md:flex md:w-1/3">

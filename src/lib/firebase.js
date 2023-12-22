@@ -2,16 +2,15 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const config = {
-	apiKey: "AIzaSyDdVOJdkm_w_Acy04UuosmAVnGG9C2U0HU",
-	authDomain: "pragos-academy.firebaseapp.com",
-	databaseURL:
-		"https://pragos-academy-default-rtdb.asia-southeast1.firebasedatabase.app",
-	projectId: "pragos-academy",
-	storageBucket: "pragos-academy.appspot.com",
-	messagingSenderId: "147129190798",
-	appId: "1:147129190798:web:bcafb58c4d2d4f8de5bcdf",
-	measurementId: "G-4GNFPLEK91",
+	apiKey: import.meta.env.VITE_FIREBASE_KEY,
+	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+	databaseURL: import.meta.env.VITE_FIREBASE_DB_URL,
+	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+	appId: import.meta.env.VITE_FIREBASE_APP_ID,
+	measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-export const firebaseApp = initializeApp(config);
-export const database = getDatabase(firebaseApp);
+const app = initializeApp(config);
+export const db = getDatabase(app);
