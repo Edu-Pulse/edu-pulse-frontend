@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-// import "../Progress.css";
 import { StarIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import {
   RectangleStackIcon,
@@ -18,17 +16,20 @@ import ChapterDetails from "@/components/ClassPage/ChapterDetails";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL } from "@/lib/baseUrl";
+import Modals from "@/components/CoursePage/Modals";
+import Input from "@/components/UI/Input";
 
 const ClassDetails = () => {
   const [currentTopic, setCurrentTopic] = useState(null);
   const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
-  //   console.log(details);
-  //   console.log(currentTopic);
-
+  const [openRate, setOpenRate] = useState(false);
   const [details, setDetails] = useState();
   const [isRefetch, setIsReFetch] = useState(true);
+  const [rateCourse, setRateCourse] = useState("");
   const { code } = useParams();
+  //   console.log(details);
+  //   console.log(currentTopic);
 
   const getDetailClass = useCallback(async () => {
     try {
@@ -47,7 +48,6 @@ const ClassDetails = () => {
 
   useEffect(() => {
     if (isRefetch) {
-      console.log("badruz");
       return () => getDetailClass();
     } else {
       return;
@@ -87,6 +87,23 @@ const ClassDetails = () => {
     handleDone(topic);
   };
 
+  const handleRate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/course/rating/${details.code}?rating=` + rateCourse
+      );
+      console.log(rateCourse);
+      if (response.status === 200) {
+        toast.success(response.data);
+      }
+      return;
+    } catch (error) {
+      toast.error("Something went wrong!");
+      return;
+    }
+  };
+
   return (
     <>
       <section className="sm:mt-16 container">
@@ -112,8 +129,10 @@ const ClassDetails = () => {
                         {details?.category}
                       </h5>
                       <span className="flex">
-                        <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-                        <p>{details?.rating}</p>
+                        <button onClick={() => setOpenRate(!openRate)}>
+                          <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
+                          <p>{details?.rating}</p>
+                        </button>
                       </span>
                     </div>
                     <h5 className="font-bold pb-1 text-xl">{details?.name}</h5>
@@ -184,6 +203,21 @@ const ClassDetails = () => {
       >
         <ChapterLists details={details} handleTopicClick={handleTopicClick} />
       </Drawer>
+      <Modals isOpen={openRate} onClose={() => setOpenRate(!openRate)}>
+        <Input
+          placeholder="Berikan rating..."
+          type="number"
+          label="Masukkan rating kelas"
+          value={rateCourse}
+          onChange={(e) => setRateCourse(e.target.value)}
+        />
+        <button
+          onClick={handleRate}
+          className="text-white bg-darkblue-05 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
+        >
+          Simpan Rating
+        </button>
+      </Modals>
     </>
   );
 };
