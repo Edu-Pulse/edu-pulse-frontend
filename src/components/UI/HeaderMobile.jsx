@@ -4,7 +4,7 @@ import {
 	QueueListIcon,
 	BellIcon,
 	UserIcon,
-	ArrowRightOnRectangleIcon,
+	ArrowRightEndOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
 import {
@@ -80,10 +80,10 @@ const HeaderMobile = () => {
 						name="Masuk"
 						href="/auth/login"
 						iconActive={
-							<ArrowRightOnRectangleIcon className="h-6 w-6" />
+							<ArrowRightEndOnRectangleIcon className="h-6 w-6" />
 						}
 						iconInactive={
-							<ArrowRightOnRectangleIcon className="h-6 w-6" />
+							<ArrowRightEndOnRectangleIcon className="h-6 w-6" />
 						}
 					/>
 				)}
