@@ -11,6 +11,7 @@ const Search = () => {
   const [course, setCourse] = useState();
   const [filter, setFilter] = useState("all");
   const { input } = useParams("");
+  console.log(course);
 
   useEffect(() => {
     const getCourseByName = async () => {
