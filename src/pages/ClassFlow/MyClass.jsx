@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 
 const MyClass = () => {
   const [classes, setClasses] = useState([]);
+  const [classesStatus, setClassesStatus] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("all");
 
@@ -20,7 +21,6 @@ const MyClass = () => {
       try {
         setIsLoading(true);
         const response = await app.get(`course/user`);
-        console.log(response.data);
 
         if (response.status === 200) {
           setClasses(response.data.data.content);
@@ -35,8 +35,29 @@ const MyClass = () => {
       }
     };
 
+    const fetchUserStatus = async () => {
+      try {
+        setIsLoading(true);
+        const response = await app.get(`course/user/status?status=${filter}`);
+
+        if (response.status === 200) {
+          setClassesStatus(response.data.data.content);
+        } else {
+          toast.error(`Something went wrong! Status: ${response.status}`);
+        }
+        setIsLoading(false);
+        return;
+      } catch {
+        toast.error("Something went wrong");
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserStatus();
     return () => fetchData();
   }, [filter]);
+
+  const filteredClass = filter == "all" ? classes : classesStatus;
 
   return (
     <main className="container min-h-screen">
@@ -80,11 +101,11 @@ const MyClass = () => {
               <Button
                 className={twMerge(
                   "w-full",
-                  filter === "selesai"
+                  filter === "completed"
                     ? "!bg-darkblue-05"
                     : "!bg-darkblue-01 !text-darkblue-05"
                 )}
-                onClick={() => setFilter("selesai")}
+                onClick={() => setFilter("completed")}
                 size={window.innerWidth <= 768 ? "sm" : "lg"}
               >
                 Selesai
@@ -111,19 +132,20 @@ const MyClass = () => {
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 my-10">
-                {classes.map((classItem, index) => (
-                  <CourseCard
-                    key={index}
-                    category={classItem.category}
-                    name={classItem.name}
-                    lecturer={classItem.lecturer}
-                    level={classItem.level}
-                    rating={classItem.rating}
-                    code={classItem.code}
-                    image={classItem.image}
-                    amount={classItem.price}
-                  />
-                ))}
+                {filteredClass &&
+                  filteredClass.map((classItem, index) => (
+                    <CourseCard
+                      key={index}
+                      category={classItem.category}
+                      name={classItem.name}
+                      lecturer={classItem.lecturer}
+                      level={classItem.level}
+                      rating={classItem.rating}
+                      code={classItem.code}
+                      image={classItem.image}
+                      amount={classItem.price}
+                    />
+                  ))}
               </div>
             )}
           </div>
