@@ -58,6 +58,7 @@ const MyClass = () => {
   }, [filter]);
 
   const filteredClass = filter == "all" ? classes : classesStatus;
+  console.log(filteredClass);
 
   return (
     <main className="container min-h-screen">

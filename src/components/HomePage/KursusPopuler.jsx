@@ -35,7 +35,7 @@ const KursusPopuler = () => {
 
   const filteredCourse =
     selectedNumber === null
-      ? course.filter((item) => item.rating >= 4)
+      ? course.filter((item) => item.rating >= 3)
       : selectedNumber === 0
       ? course.filter((item) => item.category === "Data Science")
       : selectedNumber === 1
