@@ -43,6 +43,7 @@ const ClassDetails = () => {
 			const response = await axios.get(`${BASE_URL}/course/` + code);
 
 			const data = response.data.data;
+			console.log("Detail", data);
 			if (response.status == 200 && response.data.error === false) {
 				setDetails(data);
 			} else {
@@ -54,11 +55,11 @@ const ClassDetails = () => {
 			console.log(details);
 			setIsReFetch(false);
 		}
-	}, [code, details]);
+	});
 
 	useEffect(() => {
 		if (isRefetch) {
-			return () => getDetailClass();
+			getDetailClass();
 		} else {
 			return;
 		}
