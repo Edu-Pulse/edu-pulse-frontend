@@ -102,8 +102,9 @@ const ClassDetails = () => {
 	const handleRate = async (e) => {
 		e.preventDefault();
 		try {
+			console.log(details.code);
 			const response = await axios.post(
-				`${BASE_URL}/course/rating/${details.code}?rating=` + rateCourse
+				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
 			);
 			console.warn(rateCourse);
 			console.log(response);
