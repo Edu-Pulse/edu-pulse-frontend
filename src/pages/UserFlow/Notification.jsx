@@ -10,7 +10,7 @@ import noData from "@/assets/svg/nodata.svg";
 import { formatDateTime } from "@/lib/dateFormatter";
 
 const Notification = () => {
-	const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
