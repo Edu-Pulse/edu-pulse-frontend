@@ -56,13 +56,13 @@ const ClassDetails = () => {
     }
   }, [code, details]);
 
-  useEffect(() => {
-    if (isRefetch) {
-      return () => getDetailClass();
-    } else {
-      return;
-    }
-  }, [code, isRefetch, getDetailClass]);
+	useEffect(() => {
+		if (isRefetch) {
+			getDetailClass();
+		} else {
+			return;
+		}
+	}, [code, isRefetch, getDetailClass]);
 
   const handleDone = async (topic) => {
     try {

@@ -21,8 +21,6 @@ const ClassDetails = ({ details }) => {
 	const [currentTopic, setCurrentTopic] = useState(null);
 	const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
 	const [selectedChapterContent, setSelectedChapterContent] = useState(null);
-	console.log(details);
-	console.log(currentTopic);
 
 	const handleCloseDrawer = () => {
 		setIsChapterDrawerOpen(false);
@@ -89,7 +87,9 @@ const ClassDetails = ({ details }) => {
 											</h5>
 											<span className="flex">
 												<StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-												<p>{details?.rating}</p>
+												<p>
+													{details?.rating.toFixed(1)}
+												</p>
 											</span>
 										</div>
 										<h5 className="font-bold pb-1 text-xl">
