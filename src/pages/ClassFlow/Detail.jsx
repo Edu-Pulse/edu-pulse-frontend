@@ -96,26 +96,27 @@ const ClassDetails = () => {
     }
     handleDone(topic);
   };
-
-  const handleRate = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/course/rating/${details.code}?rating=` + rateCourse
-      );
-      console.warn(rateCourse);
-      console.log(response);
-      if (response.status === 200 && response.data.error === false) {
-        toast.success(response.data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      handleCloseRateModal();
-    }
-  };
+  
+	const handleRate = async (e) => {
+		e.preventDefault();
+		try {
+			console.log(details.code);
+			const response = await axios.post(
+				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
+			);
+			console.warn(rateCourse);
+			console.log(response);
+			if (response.status === 200 && response.data.error === false) {
+				toast.success(response.data);
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error("Something went wrong!");
+		} finally {
+			handleCloseRateModal();
+		}
+	};
 
   return (
     <>

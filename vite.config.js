@@ -9,17 +9,17 @@ const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
-  },
-  server: {
-    https: {
-      key: "./ssl/localhost-key.pem",
-      cert: "./ssl/localhost.pem",
-    },
-  },
-  preview: {
-    port: 5173,
-  },
+	plugins: [react()],
+	resolve: {
+		alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+	},
+	server: {
+		https: {
+			key: "./ssl/localhost-key.pem",
+			cert: "./ssl/localhost.pem",
+		},
+	},
+	preview: {
+		port: 5173,
+	},
 });
