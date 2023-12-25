@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 // Internal Libraries
 import { useCallback, useEffect, useState } from "react";
 // External Libraries
@@ -42,27 +43,26 @@ const ClassDetails = () => {
     try {
       const response = await axios.get(`${BASE_URL}/course/` + code);
 
-      const data = response.data.data;
-      if (response.status == 200 && response.data.error === false) {
-        setDetails(data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      console.log(details);
-      setIsReFetch(false);
-    }
-  }, [code, details]);
-
-	useEffect(() => {
-		if (isRefetch) {
-			getDetailClass();
-		} else {
-			return;
+			const data = response.data.data;
+			if (response.status == 200 && response.data.error === false) {
+				setDetails(data);
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error("Something went wrong!");
+		} finally {
+			setIsReFetch(false);
 		}
-	}, [code, isRefetch, getDetailClass]);
+	}, [code]);
+
+  useEffect(() => {
+    if (isRefetch) {
+      getDetailClass();
+    } else {
+      return;
+    }
+  }, [code, isRefetch, getDetailClass]);
 
   const handleDone = async (topic) => {
     try {
@@ -75,7 +75,7 @@ const ClassDetails = () => {
       }
       return;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.error);
       return;
     }
   };
@@ -96,18 +96,15 @@ const ClassDetails = () => {
     }
     handleDone(topic);
   };
-  
-	const handleRate = async (e) => {
-		e.preventDefault();
+
+	const handleRate = async () => {
 		try {
-			console.log(details.code);
 			const response = await axios.post(
 				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
 			);
-			console.warn(rateCourse);
-			console.log(response);
 			if (response.status === 200 && response.data.error === false) {
-				toast.success(response.data);
+				toast.success(response.data.message);
+				setIsReFetch(true);
 			} else {
 				toast.error(response.data.message);
 			}
@@ -145,7 +142,9 @@ const ClassDetails = () => {
                       <span className="flex">
                         <button onClick={() => setOpenRate(!openRate)}>
                           <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-                          <p>{details?.rating}</p>
+                          <p>
+                            {details?.rating ? details?.rating?.toFixed(1) : 0}
+                          </p>
                         </button>
                       </span>
                     </div>

@@ -65,7 +65,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(null)}
         >
           All
@@ -76,7 +76,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(0)}
         >
           Data Science
@@ -87,7 +87,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(1)}
         >
           UI/UX Design
@@ -98,7 +98,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(2)}
         >
           Android Development
@@ -109,7 +109,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(3)}
         >
           Web Development
@@ -120,7 +120,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(4)}
         >
           IOS Development
@@ -131,7 +131,7 @@ const KursusPopuler = () => {
               ? "whitespace-nowrap"
               : "text-sm !bg-darkblue-01 !text-black hover:!bg-darkblue-05 hover:!text-white whitespace-nowrap"
           }
-          size="xs"
+          size="sm"
           onClick={() => setSelectedNumber(5)}
         >
           Business Intelligence

@@ -3,7 +3,6 @@ export const formatDateTime = (dt) => {
 	const timeString = dateObject.toLocaleTimeString("id-ID", {
 		hour: "2-digit",
 		minute: "2-digit",
-		second: "2-digit",
 	});
 
 	const dateString = dateObject.toLocaleDateString("id-ID", {
