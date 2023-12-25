@@ -1,7 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-// Internal Libraries
-import { useCallback, useEffect, useState } from "react";
-// External Libraries
 import { StarIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import {
   RectangleStackIcon,
@@ -10,73 +6,37 @@ import {
   ArrowLeftIcon,
   QueueListIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ContentClass from "./ContentClass";
+import { useState } from "react";
+import Drawer from "@/components/CoursePage/Drawer";
+import ChapterLists from "./ChapterLists";
+import Button from "../UI/Button";
+import ChapterDetails from "./ChapterDetails";
 import toast from "react-hot-toast";
 import axios from "axios";
-
-// Utilities
 import { BASE_URL } from "@/lib/baseUrl";
 
-// Core components
-import ContentClass from "@/components/ClassPage/ContentClass";
-import Drawer from "@/components/CoursePage/Drawer";
-import ChapterLists from "@/components/ClassPage/ChapterLists";
-import Button from "@/components/UI/Button";
-import ChapterDetails from "@/components/ClassPage/ChapterDetails";
-import Modals from "@/components/CoursePage/Modals";
-import Input from "@/components/UI/Input";
-
-const ClassDetails = () => {
+const ClassDetails = ({ details }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
   const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
-  const [openRate, setOpenRate] = useState(false);
-  const [details, setDetails] = useState();
-  const [isRefetch, setIsReFetch] = useState(true);
-  const [rateCourse, setRateCourse] = useState(0);
-  const { code } = useParams();
 
-  const handleCloseRateModal = () => {
-    setOpenRate(false);
+  const handleCloseDrawer = () => {
+    setIsChapterDrawerOpen(false);
   };
-  const getDetailClass = useCallback(async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/course/` + code);
-
-      const data = response.data.data;
-      if (response.status == 200 && response.data.error === false) {
-        setDetails(data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      console.log(details);
-      setIsReFetch(false);
-    }
-  }, [code, details]);
-
-  useEffect(() => {
-    if (isRefetch) {
-      getDetailClass();
-    } else {
-      return;
-    }
-  }, [code, isRefetch, getDetailClass]);
 
   const handleDone = async (topic) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}user/detailchapter/setdone/${details.code}/${topic}`
+        `${BASE_URL}user/detailchapter/setdone/${topic}`
       );
       if (response.status === 200) {
         toast.success(response.data);
-        await getDetailClass();
       }
       return;
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.message);
       return;
     }
   };
@@ -88,35 +48,15 @@ const ClassDetails = () => {
       chapter.detailChapters.some((detailChapter) => detailChapter.id === topic)
     );
     console.log(topic);
-
+    console.log(clickedChapter);
     if (clickedChapter) {
       const selectedDetail = clickedChapter.detailChapters.find(
         (detailChapter) => detailChapter.id === topic
       );
-      setSelectedChapterContent([selectedDetail]);
+      console.log(selectedDetail);
+      setSelectedChapterContent(selectedDetail[0]);
     }
     handleDone(topic);
-  };
-
-  const handleRate = async (e) => {
-    e.preventDefault();
-    try {
-      console.log(details.code);
-      const response = await axios.post(
-        `${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
-      );
-      console.warn(rateCourse);
-      console.log(response);
-      if (response.status === 200 && response.data.error === false) {
-        toast.success(response.data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      handleCloseRateModal();
-    }
   };
 
   return (
@@ -144,12 +84,8 @@ const ClassDetails = () => {
                         {details?.category}
                       </h5>
                       <span className="flex">
-                        <button onClick={() => setOpenRate(!openRate)}>
-                          <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-                          <p>
-                            {details?.rating ? details?.rating?.toFixed(1) : 0}
-                          </p>
-                        </button>
+                        <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
+                        <p>{details?.rating.toFixed(1)}</p>
                       </span>
                     </div>
                     <h5 className="font-bold pb-1 text-xl">{details?.name}</h5>
@@ -213,29 +149,9 @@ const ClassDetails = () => {
           </div>
         </div>
       </section>
-      <Drawer
-        isOpen={isChapterDrawerOpen}
-        onClose={() => setIsChapterDrawerOpen(!isChapterDrawerOpen)}
-      >
+      <Drawer isOpen={isChapterDrawerOpen} onClose={handleCloseDrawer}>
         <ChapterLists details={details} handleTopicClick={handleTopicClick} />
       </Drawer>
-
-      {/* Rating modal */}
-      <Modals isOpen={openRate} onClose={handleCloseRateModal}>
-        <Input
-          placeholder="Berikan rating..."
-          type="number"
-          label="Masukkan rating kelas"
-          value={rateCourse}
-          onChange={(e) => setRateCourse(e.target.value)}
-        />
-        <button
-          onClick={handleRate}
-          className="text-white bg-darkblue-05 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
-        >
-          Simpan Rating
-        </button>
-      </Modals>
     </>
   );
 };

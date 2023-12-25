@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const baseURL = "https://pragosacademy.et.r.appspot.com/";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const app = axios.create({
 	baseURL,
