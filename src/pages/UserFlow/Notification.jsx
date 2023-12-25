@@ -10,7 +10,7 @@ import noData from "@/assets/svg/nodata.svg";
 import { formatDateTime } from "@/lib/dateFormatter";
 
 const Notification = () => {
-  const [notifications, setNotifications] = useState([]);
+	const [notifications, setNotifications] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -32,7 +32,7 @@ const Notification = () => {
 		};
 
 		fetchData();
-	}, [notifications]);
+	}, []);
 
 	return (
 		<main className="container flex flex-col min-h-screen md:justify-center sm:my-24 mx-auto">
@@ -76,7 +76,7 @@ const Notification = () => {
 														notification.dateTime
 													)}
 												</span>
-												<div className="w-3 h-3 rounded-full bg-alert-success" />
+												<span className="w-3 h-3 rounded-full bg-alert-success" />
 											</p>
 										</div>
 										<div>
