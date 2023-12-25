@@ -105,10 +105,12 @@ const ClassDetails = () => {
       );
       console.warn(rateCourse);
       console.log(response);
-      if (response.status === 200 && response.data.error === false) {
+      if (response.status === 200 && response.error === false) {
         toast.success(response.data);
       } else {
         toast.error(response.data.message);
+        console.log(response.data.message);
+        console.log(response.data);
       }
     } catch (error) {
       toast.error("Something went wrong!");
