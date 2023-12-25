@@ -43,19 +43,18 @@ const ClassDetails = () => {
     try {
       const response = await axios.get(`${BASE_URL}/course/` + code);
 
-      const data = response.data.data;
-      if (response.status == 200 && response.data.error === false) {
-        setDetails(data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      console.log(details);
-      setIsReFetch(false);
-    }
-  }, [code, details]);
+			const data = response.data.data;
+			if (response.status == 200 && response.data.error === false) {
+				setDetails(data);
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error("Something went wrong!");
+		} finally {
+			setIsReFetch(false);
+		}
+	}, [code]);
 
   useEffect(() => {
     if (isRefetch) {
@@ -98,26 +97,23 @@ const ClassDetails = () => {
     handleDone(topic);
   };
 
-  const handleRate = async (e) => {
-    e.preventDefault();
-    try {
-      console.log(details.code);
-      const response = await axios.post(
-        `${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
-      );
-      console.warn(rateCourse);
-      console.log(response);
-      if (response.status === 200 && response.data.error === false) {
-        toast.success(response.data);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      handleCloseRateModal();
-    }
-  };
+	const handleRate = async () => {
+		try {
+			const response = await axios.post(
+				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
+			);
+			if (response.status === 200 && response.data.error === false) {
+				toast.success(response.data.message);
+				setIsReFetch(true);
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error("Something went wrong!");
+		} finally {
+			handleCloseRateModal();
+		}
+	};
 
   return (
     <>
