@@ -124,7 +124,7 @@ const ClassTopic = () => {
       }
     };
 
-    return () => fetchData();
+    fetchData();
   }, [filterByType]);
 
   return (

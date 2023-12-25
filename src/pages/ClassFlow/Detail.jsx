@@ -52,10 +52,9 @@ const ClassDetails = () => {
 		} catch (error) {
 			toast.error("Something went wrong!");
 		} finally {
-			console.log(details);
 			setIsReFetch(false);
 		}
-	}, [code, details]);
+	}, [code]);
 
 	useEffect(() => {
 		if (isRefetch) {
@@ -89,7 +88,6 @@ const ClassDetails = () => {
 				(detailChapter) => detailChapter.id === topic
 			)
 		);
-		console.log(topic);
 
 		if (clickedChapter) {
 			const selectedDetail = clickedChapter.detailChapters.find(
@@ -100,17 +98,14 @@ const ClassDetails = () => {
 		handleDone(topic);
 	};
 
-	const handleRate = async (e) => {
-		e.preventDefault();
+	const handleRate = async () => {
 		try {
-			console.log(details.code);
 			const response = await axios.post(
 				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
 			);
-			console.warn(rateCourse);
-			console.log(response);
 			if (response.status === 200 && response.data.error === false) {
-				toast.success(response.data);
+				toast.success(response.data.message);
+				setIsReFetch(true);
 			} else {
 				toast.error(response.data.message);
 			}
