@@ -35,7 +35,9 @@ import NotLoggedIn from "./pages/NotLoggedIn";
 import Test from "./pages/Test";
 import Test2 from "./pages/Test2";
 import KelolaKelas2 from "./pages/AdminFlow/KelolaKelas2";
-import Test3 from "./pages/Dropdown";
+// import Test3 from "./pages/Dropdown";
+import Test5 from "./pages/Test5";
+import Test6 from "./pages/Test6";
 // import CourseSelect from "./pages/Test4";
 
 const App = () => {
@@ -140,8 +142,12 @@ const App = () => {
       element: <Test2 />,
     },
     {
-      path: "/test3",
-      element: <Test3 />,
+      path: "/test5",
+      element: <Test5 />,
+    },
+    {
+      path: "/test6",
+      element: <Test6 />,
     },
   ]);
   return (

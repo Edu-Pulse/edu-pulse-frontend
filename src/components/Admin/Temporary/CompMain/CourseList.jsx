@@ -104,14 +104,3 @@ const CourseList = ({
 }
 
 export default CourseList
-
-// const isKeywordEmpty = keyword.trim() === "";
-// const hasCourseContent = course.content && course.content.length > 0;
-// const hasSearchCourse = searchCourse && searchCourse.length > 0;
-// const hasTypeCourse = type && type.length > 0;
-
-// { (isKeywordEmpty && hasCourseContent || hasTypeCourse) || (!isKeywordEmpty && hasSearchCourse || hasTypeCourse) ? (
-//   (isKeywordEmpty ? course.content : searchCourse, hasTypeCourse ? type : course.content).map((courseItem, index) => (
-//     // Isi dari map
-//   ))
-// ) : null }
