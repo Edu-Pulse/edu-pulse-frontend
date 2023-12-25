@@ -4,7 +4,6 @@ import KursusPopuler from "@/components/HomePage/KursusPopuler";
 import WhyUs from "@/components/HomePage/WhyUs";
 
 const Home = () => {
-	// TODO: Tambah fitur sesuai dengan figma
 	return (
 		<main>
 			<Hero />
