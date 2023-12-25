@@ -76,7 +76,7 @@ const ClassDetails = () => {
 			}
 			return;
 		} catch (error) {
-			toast.error(error.response.data.message);
+			toast.error(error.response.data.error);
 			return;
 		}
 	};
