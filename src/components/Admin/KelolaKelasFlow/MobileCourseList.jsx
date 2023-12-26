@@ -1,27 +1,39 @@
-import {
-	PencilSquareIcon,
-	TrashIcon,
-} from "@heroicons/react/24/outline";
-import Spinner from "../../../UI/Spinner";
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Spinner from '../../UI/Spinner';
 
-const MobileCourseList = ({ isLoading, course, searchCourse, handleEdit, handleDeleteCode, keyword }) => {
+const MobileCourseList = ({
+  isLoading,
+  handleEdit,
+  handleDeleteCode,
+  filteredData,
+  selectedType,
+}) => {
   return (
     <>
       {isLoading ? (
         <div className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
-          <div colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
+          <div
+            colSpan="7"
+            className="p-3 text-sm text-gray-700 whitespace-nowrap">
             <Spinner />
           </div>
         </div>
       ) : (
         <>
-          {((keyword.trim() === "" && course.content && course.content.length > 0) ||
-            (keyword.trim() !== "" && searchCourse && searchCourse.length > 0)) ? (
-            (keyword.trim() === "" ? course.content : searchCourse).map((courseItem, index) => (
-              <div key={index} className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
+          {filteredData
+            .filter(
+              (courseItem) =>
+                selectedType === 'ALL' || courseItem.type === selectedType
+            )
+            .map((courseItem, index) => (
+              <div
+                key={index}
+                className="bg-gray-100 space-y-3 p-4 rounded-lg shadow-lg">
                 <div className="flex items-center space-x-2 text-sm">
                   <div>
-                    <a href="#" className="text-blue-500 font-bold hover:underline">
+                    <a
+                      href="#"
+                      className="text-blue-500 font-bold hover:underline">
                       {courseItem.code}
                     </a>
                   </div>
@@ -41,9 +53,7 @@ const MobileCourseList = ({ isLoading, course, searchCourse, handleEdit, handleD
                 <div className="text-sm text-gray-700">
                   {courseItem.category}
                 </div>
-                <div className="text-sm text-gray-700">
-                  {courseItem.name}
-                </div>
+                <div className="text-sm text-gray-700">{courseItem.name}</div>
                 <div className="text-sm font-medium text-black">
                   {courseItem.price}
                 </div>
@@ -61,14 +71,7 @@ const MobileCourseList = ({ isLoading, course, searchCourse, handleEdit, handleD
                   </span>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
-              <div colSpan="7" className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                No course data available
-              </div>
-            </div>
-          )}
+            ))}
         </>
       )}
     </>

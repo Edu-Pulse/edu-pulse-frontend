@@ -1,150 +1,82 @@
-import { useCallback, useEffect, useState } from "react";
-import AdminModal from "@/components/Admin/AdminModal";
-import EditModal from "@/components/Admin/EditModal";
-import axios from "axios";
-import { BASE_URL } from "@/lib/baseUrl";
-import toast from "react-hot-toast";
-import DeleteModal from "../../components/Admin/DeleteModal";
-import KelolaKelasHeader from "../../components/Admin/Temporary/CompMain/KelolaKelasHeader";
-import CourseList from "../../components/Admin/Temporary/CompMain/CourseList";
-import MobileCourseList from "../../components/Admin/Temporary/CompMain/MobileCourseList";
-import UploadVideoModal from "../../components/Admin/UploadVideoModal";
-// import CourseSelect from "../Test4";
+import { useEffect, useState } from 'react';
+import AddModal from '@/components/Admin/ModalFlow/AddModal';
+import EditModal from '@/components/Admin/ModalFlow/EditModal';
+import axios from 'axios';
+import { BASE_URL } from '@/lib/baseUrl';
+import toast from 'react-hot-toast';
+import DeleteModal from '@/components/Admin/ModalFlow/DeleteModal';
+import KelolaKelasHeader from '@/components/Admin/KelolaKelasFlow/KelolaKelasHeader';
+import CourseList from '@/components/Admin/KelolaKelasFlow/CourseList';
+import MobileCourseList from '@/components/Admin/KelolaKelasFlow/MobileCourseList';
+import UploadVideoModal from '@/components/Admin/ModalFlow/UploadVideoModal';
 
 function KelolaKelas() {
-	const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalUploadVideo, setModalUploadVideo] = useState(false);
   const [course, setCourse] = useState([]);
   const [page, setPage] = useState(0);
-  const [pages, setPages] = useState(0);
-  const [rows, setRows] = useState(0);
-  const [isRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [keyword, setKeyword] = useState("");
-  const [query, setQuery] = useState("");
-  const [searchCourse, setSearchCourse] = useState([]);
-  const [type, setType] = useState("");
-  
-	const handleOpenModal = () => {
-		setShowModal(true);
-	};
-  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedType, setSelectedType] = useState('ALL');
+  const [isRefetch, setIsReFetch] = useState(true);
+
+  console.log(course);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
   const handleUploadVideo = () => {
     setShowModal(false);
+    setModalEdit(false);
     setModalUploadVideo(true);
-  }
+  };
 
-	const handleCloseModal = () => {
-		setShowModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
     setModalEdit(false);
     setModalDelete(false);
     setModalUploadVideo(false);
-	};
-
-  const getAllData = async (url, onSuccess, onError) => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get(url);
-      const data = response.data.data;
-  
-      if (response.status === 200) {
-        onSuccess(data);
-      }
-    } catch (error) {
-      console.log(error.message);
-      setIsLoading(false);
-      onError(error);
-    }
   };
-  
-  const getAllCourse = useCallback(async (pageNumber) => {
-    const onSuccess = (data) => {
-      setPage(data.number);
-      setPages(data.totalPages);
-      setRows(data.totalElements);
-      setCourse(data);
-      setIsLoading(false);
-    };
-  
-    const onError = (error) => {
-      toast.error(error.response.data.message);
-    };
-  
-    getAllData(`${BASE_URL}/course/all?page=${pageNumber}`, onSuccess, onError);
-  }, []);
-  
 
   useEffect(() => {
-		const getCourseByName = async () => {
+    const getAllCourse = async () => {
       setIsLoading(true);
-			try {
-				const response = await axios.get(
-					`${BASE_URL}/course/search?courseName=${keyword}`
-				);
-
-				const data = response.data.data;
-				if (response.status === 200 && response.data.error !== true) {
-					setSearchCourse(data);
-          setIsLoading(false);
-          console.log(data);
-				} else {
-          setIsLoading(false);
-					toast.error(
-						`Something went wrong! Status: ${response.status}`
-					);
-				}
-			} catch (error) {
-				console.log(error.message);
-			}
-		};
-		
-    if (keyword.trim() !== "") {
-      getCourseByName();
-    }
-	}, [keyword]);
-
-  useEffect(() => {
-		const getFilterByType = async () => {
-      setIsLoading(true);
-			try {
-				const response = await axios.get(
-					`${BASE_URL}/course/type?type=${type}`
-				);
-
-				const data = response.data.data;
-				if (response.status === 200 && response.data.error !== true) {
-          setCourse(data);
-          setIsLoading(false);
-          console.log(data);
-				} 
-			} catch (error) {
+      try {
+        const response = await axios.get(`${BASE_URL}/course/all?page=${page}`);
+        const data = response.data.data.content;
+        setCourse(data);
         setIsLoading(false);
+      } catch (error) {
         console.log(error.message);
-        toast.error(error.response.data.message);
-			}
-		};
-      getFilterByType();
-	}, [type]);
+        setIsLoading(false);
+      } finally {
+        setIsReFetch(false);
+      }
+    };
+    if (isRefetch) {
+      getAllCourse();
+    } else {
+      return;
+    }
+  }, [page, isRefetch]);
 
-  const searchData = (e) => {
-    e.preventDefault();
-    setPage(0);
-    setKeyword(query);
-  };
+  const MaxPage = course.length < 10;
 
-  useEffect(() => {
-    getAllCourse(page);
-  }, [isRefresh, page, getAllCourse]);
+  const filteredData = course.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const changePage = ({ selected }) => {
-    setPage(selected);
-  };
-  
+  console.log('ini filter', filteredData);
+
+  const typeOptions = [...new Set(course.map((item) => item.type))];
+  typeOptions.unshift('ALL');
+
   const handleEdit = (code) => {
-    const selected = course.content.find((courseItem) => courseItem.code === code);
+    const selected = course.find((courseItem) => courseItem.code === code);
     setSelectedCourse(selected);
     setIsLoading(true);
     setModalEdit(true);
@@ -152,96 +84,110 @@ function KelolaKelas() {
   };
 
   const handleDeleteCode = (code) => {
-    const selected = course.content.find((courseItem) => courseItem.code === code);
+    const selected = course.find((courseItem) => courseItem.code === code);
     if (selected === undefined) {
-      toast.error("Course not found");
+      toast.error('Course not found');
       return;
     }
     setSelectedCourse(selected);
     setModalDelete(true);
   };
 
-  
-
-	return (
-		<>
-			<KelolaKelasHeader
-        query={query}
-        setQuery={setQuery}
-        searchData={searchData}
+  return (
+    <>
+      <KelolaKelasHeader
         handleOpenModal={handleOpenModal}
-        type={type}
-        setType={setType}
-        course={course}
-      />
-    
-			<section className="px-5">
-      <CourseList
-        isLoading={isLoading}
-        course={course}
-        searchCourse={searchCourse}
-        handleEdit={handleEdit}
-        handleDeleteCode={handleDeleteCode}
-        changePage={changePage}
-        pages={pages}
-        page={page}
-        rows={rows}
-        keyword={keyword}
-        type={type}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        selectedType={selectedType}
+        setSelectedType={setSelectedType}
+        typeOptions={typeOptions}
       />
 
-      {/* start Responsive Tablet and Mobile */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden mt-4 pb-5">
-      <MobileCourseList
-        isLoading={isLoading}
-        course={course}
-        searchCourse={searchCourse}
-        handleEdit={handleEdit}
-        handleDeleteCode={handleDeleteCode}
-        keyword={keyword}
-      />
-			</div>
-      {/* end Responsive Tablet and Mobile */}
-
-
-			{showModal && (
-        <AdminModal 
-          handleCloseModal={handleCloseModal} 
-          handleUploadVideo={handleUploadVideo} 
-        />
-			)}
-
-      {modalEdit && (
-        <EditModal
-          handleCloseModal={handleCloseModal}
-          handleUploadVideo={handleUploadVideo}
-          courseItem={selectedCourse}
-        />
-      )}
-
-      {modalDelete && selectedCourse && (
-        <DeleteModal 
-          handleCloseModal={handleCloseModal}
-          courseItem={selectedCourse}
-          setIsLoading={setIsLoading}
+      <section className="px-5">
+        <CourseList
           isLoading={isLoading}
+          handleEdit={handleEdit}
+          handleDeleteCode={handleDeleteCode}
+          filteredData={filteredData}
+          selectedType={selectedType}
         />
-      )}
 
-      {modalUploadVideo && (
-        <UploadVideoModal 
-          handleCloseModal={handleCloseModal}
-          setModalUploadVideo={setModalUploadVideo}
-          setShowModal={setShowModal}
-          course={course}
-        />
-      )}
+        {/* start Responsive Tablet and Mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden mt-4 pb-5">
+          <MobileCourseList
+            isLoading={isLoading}
+            filteredData={filteredData}
+            selectedType={selectedType}
+            handleEdit={handleEdit}
+            handleDeleteCode={handleDeleteCode}
+          />
+        </div>
+        {/* end Responsive Tablet and Mobile */}
 
-      {/* <CourseSelect course={course}   /> */}
+        <div className="md:mb-0 md:mt-2 mb-5 flex justify-center gap-3">
+          <button
+            onClick={() => {
+              setPage(page - 1);
+              setIsReFetch(true);
+            }}
+            disabled={page === 0}
+            className={`${
+              page === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-darkblue-05'
+            } text-white px-2 py-2 rounded`}>
+            {'<'} Previous
+          </button>
+          <button
+            onClick={() => {
+              setPage(page + 1);
+              setIsReFetch(true);
+            }}
+            disabled={MaxPage}
+            className={`${
+              MaxPage ? 'bg-gray-300 cursor-not-allowed' : 'bg-darkblue-05'
+            } text-white px-4 py-2 rounded`}>
+            Next {'>'}
+          </button>
+        </div>
 
-			</section>
-		</>
-	);
+        {showModal && (
+          <AddModal
+            handleCloseModal={handleCloseModal}
+            handleUploadVideo={handleUploadVideo}
+            setIsReFetch={setIsReFetch}
+          />
+        )}
+
+        {modalEdit && (
+          <EditModal
+            handleCloseModal={handleCloseModal}
+            handleUploadVideo={handleUploadVideo}
+            courseItem={selectedCourse}
+            setIsReFetch={setIsReFetch}
+          />
+        )}
+
+        {modalDelete && selectedCourse && (
+          <DeleteModal
+            handleCloseModal={handleCloseModal}
+            courseItem={selectedCourse}
+            setIsLoading={setIsLoading}
+            isLoading={isLoading}
+            setIsReFetch={setIsReFetch}
+          />
+        )}
+
+        {modalUploadVideo && (
+          <UploadVideoModal
+            handleCloseModal={handleCloseModal}
+            setModalUploadVideo={setModalUploadVideo}
+            setShowModal={setShowModal}
+            course={course}
+          />
+        )}
+      </section>
+    </>
+  );
 }
 
 export default KelolaKelas;
