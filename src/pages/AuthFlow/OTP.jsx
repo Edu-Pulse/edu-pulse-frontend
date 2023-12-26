@@ -5,6 +5,7 @@ import Button from "@/components/UI/Button";
 import "./OTP.css";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../lib/baseUrl";
 
 const Otp = () => {
   const navigate = useNavigate();
@@ -73,13 +74,13 @@ const Otp = () => {
     );
   };
 
-  const onSubmit = async (e) => {
+  const handleVerificationOtp = async (e) => {
     e.preventDefault();
 
     try {
       let config = {
         method: "POST",
-        url: `https://pragosacademy.et.r.appspot.com/verification-email?email=${email}&code=${tipe}`,
+        url: `${BASE_URL}/verification-email?email=${email}&code=${tipe}`,
       };
       const response = await axios.request(config);
       if (response.status === 200 || response.data.error === false) {
@@ -90,8 +91,24 @@ const Otp = () => {
     }
   };
 
+  const handleGenerateOtp = async (e) => {
+    e.preventDefault();
+
+    try {
+      let config = {
+        method: "GET",
+        url: `${BASE_URL}/generate-verification-code?email=${email}`,
+      };
+      const response = await axios.request(config);
+      if (response.status === 200 || response.data.error === false) {
+        toast.success("Kode OTP Terkirim!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
   return (
-    <div className="max-w-[452px] w-full]">
+    <div className="max-w-[452px] w-full">
       <button onClick={() => navigate("/auth/register")} className="h-10">
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
@@ -101,6 +118,12 @@ const Otp = () => {
       <p className="font-poppins text-center text-sm mb-1 font-bold leading-[18px] text-black">
         Ketik 4 digit kode yang dikirimkan ke {handleReplaceCharacters(email)}
       </p>
+      <label
+        className="font-poppins text-center text-xs font-normal leading-[18px] text-darkblue-05 cursor-pointer block mt-6"
+        onClick={handleGenerateOtp}
+      >
+        Kirim lagi kode OTP
+      </label>
       <form action="#" className="formulir">
         <div className="input_fields">
           {[0, 1, 2, 3].map((index) => (
@@ -126,14 +149,14 @@ const Otp = () => {
       <p className="font-poppins text-center text-sm mt-6 font-normal leading-[18px] text-black">
         Masukkan Kode OTP dengan Benar!
       </p>
-      {/* <div className="flex justify-center mt-[48px]"> */}
       <Button
         className={`tombol ${isButtonActive ? "active" : ""}`}
         disabled={!isButtonActive}
-        onClick={onSubmit}
+        onClick={handleVerificationOtp}
       >
         Simpan
       </Button>
+
       {/* </div> */}
     </div>
   );
