@@ -37,15 +37,25 @@ const KursusPopuler = () => {
     selectedNumber === null
       ? course.filter((item) => item.rating >= 4)
       : selectedNumber === 0
-      ? course.filter((item) => item.category === "Data Science")
+      ? course.filter(
+          (item) => item.category === "Data Science" && item.rating >= 4
+        )
       : selectedNumber === 1
-      ? course.filter((item) => item.category === "UI/UX Design")
+      ? course.filter(
+          (item) => item.category === "UI/UX Design" && item.rating >= 4
+        )
       : selectedNumber === 2
-      ? course.filter((item) => item.category === "Android Development")
+      ? course.filter(
+          (item) => item.category === "Android Development" && item.rating >= 4
+        )
       : selectedNumber === 3
-      ? course.filter((item) => item.category === "Web Development")
+      ? course.filter(
+          (item) => item.category === "Web Development" && item.rating >= 4
+        )
       : selectedNumber === 4
-      ? course.filter((item) => item.category === "IOS Development")
+      ? course.filter(
+          (item) => item.category === "IOS Development" && item.rating >= 4
+        )
       : course;
 
   const slice = filteredCourse.slice(0, 3);
