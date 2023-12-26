@@ -1,8 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // Internal Libraries
 import { useCallback, useEffect, useState } from "react";
+import app from "@/lib/axiosConfig";
 // External Libraries
-import { StarIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import {
   RectangleStackIcon,
   ShieldCheckIcon,
@@ -10,9 +10,16 @@ import {
   ArrowLeftIcon,
   QueueListIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useParams } from "react-router-dom";
+import {
+  StarIcon,
+  ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
+  ArrowRightCircleIcon,
+} from "@heroicons/react/24/solid";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { FaStar } from "react-icons/fa";
 
 // Utilities
 import { BASE_URL } from "@/lib/baseUrl";
@@ -34,27 +41,29 @@ const ClassDetails = () => {
   const [details, setDetails] = useState();
   const [isRefetch, setIsReFetch] = useState(true);
   const [rateCourse, setRateCourse] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0);
   const { code } = useParams();
+  const navigate = useNavigate();
 
-  const handleCloseRateModal = () => {
-    setOpenRate(false);
-  };
   const getDetailClass = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/course/` + code);
 
-			const data = response.data.data;
-			if (response.status == 200 && response.data.error === false) {
-				setDetails(data);
-			} else {
-				toast.error(response.data.message);
-			}
-		} catch (error) {
-			toast.error("Something went wrong!");
-		} finally {
-			setIsReFetch(false);
-		}
-	}, [code]);
+      const data = response.data.data;
+      if (response.status == 200 && response.data.error === false) {
+        setDetails(data);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setIsReFetch(false);
+    }
+  }, [code]);
 
   useEffect(() => {
     if (isRefetch) {
@@ -63,6 +72,8 @@ const ClassDetails = () => {
       return;
     }
   }, [code, isRefetch, getDetailClass]);
+
+  // Chapter
 
   const handleDone = async (topic) => {
     try {
@@ -97,23 +108,74 @@ const ClassDetails = () => {
     handleDone(topic);
   };
 
-	const handleRate = async () => {
-		try {
-			const response = await axios.post(
-				`${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
-			);
-			if (response.status === 200 && response.data.error === false) {
-				toast.success(response.data.message);
-				setIsReFetch(true);
-			} else {
-				toast.error(response.data.message);
-			}
-		} catch (error) {
-			toast.error("Something went wrong!");
-		} finally {
-			handleCloseRateModal();
-		}
-	};
+  // Buy Course
+
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const freeEnroll = async () => {
+    try {
+      const response = await app.post(`/course/enroll/${details.code}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+      });
+      if (response.status === 200) {
+        toast.success(response.message);
+        setTimeout(() => {
+          window.location.href = "/my-class";
+        }, 1500);
+      }
+      return;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return;
+    }
+  };
+
+  const handleBuyCourse = () => {
+    details.type === "PREMIUM"
+      ? navigate(`/payment-pending/${details?.code}`)
+      : freeEnroll();
+  };
+
+  // Add Rating
+  const handleRate = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
+      );
+      if (response.status === 200 && response.data.error === false) {
+        toast.success(response.data.message);
+        setIsReFetch(true);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      handleCloseRateModal();
+    }
+  };
+
+  const handleCloseRateModal = () => {
+    setOpenRate(false);
+  };
+
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    setRateCourse(value);
+  };
+
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
 
   return (
     <>
@@ -166,14 +228,25 @@ const ClassDetails = () => {
                         <p>120 Menit</p>
                       </span>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                       <Button
                         icon={<ChatBubbleLeftRightIcon className="h-6 w-6" />}
                         iconPosition="right"
                         size="md"
-                        className="text-white my-5 w-full !bg-alert-success hover:!bg-darkblue-05 text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                        className="text-white my-5 w-full !bg-alert-success hover:!bg-purple-800 text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
                       >
                         Join Grup Telegram
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setOpen(true);
+                        }}
+                        icon={<CurrencyDollarIcon className="h-6 w-6" />}
+                        iconPosition="right"
+                        size="md"
+                        className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                      >
+                        Beli Kelas
                       </Button>
                       <Button
                         icon={<QueueListIcon className="h-6 w-6" />}
@@ -218,22 +291,139 @@ const ClassDetails = () => {
 
       {/* Rating modal */}
       <Modals isOpen={openRate} onClose={handleCloseRateModal}>
-        <Input
-          placeholder="Berikan rating..."
-          type="number"
-          label="Masukkan rating kelas"
-          value={rateCourse}
-          onChange={(e) => setRateCourse(e.target.value)}
-        />
-        <button
-          onClick={handleRate}
-          className="text-white bg-darkblue-05 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
-        >
-          Simpan Rating
-        </button>
+        <div style={styles.container}>
+          <h2 className="my-2 font-semibold"> Rating Kelas </h2>
+          <div style={styles.stars}>
+            {stars.map((_, index) => {
+              return (
+                <FaStar
+                  key={index}
+                  size={30}
+                  onClick={() => handleClick(index + 1)}
+                  onMouseOver={() => handleMouseOver(index + 1)}
+                  onMouseLeave={handleMouseLeave}
+                  value={rateCourse}
+                  onChange={(e) => setRateCourse(e.target.value)}
+                  color={
+                    (hoverValue || currentValue) > index ? "#FFBA5A" : "#a9a9a9"
+                  }
+                  style={{
+                    marginRight: 10,
+                    cursor: "pointer",
+                  }}
+                />
+              );
+            })}
+          </div>
+          <button
+            onClick={handleRate}
+            className="text-white bg-darkblue-05 px-16 py-2 mt-3 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
+          >
+            Simpan Rating
+          </button>
+        </div>
+      </Modals>
+
+      {/* Buy Course Modal */}
+      <Modals isOpen={open} onClose={() => setOpen(!open)}>
+        <div className="text-center">
+          <div className="mx-auto w-48">
+            <div className="flex">
+              <h3 className="text-lg font-bold mb-4">
+                Selangkah Lagi menuju
+                <br />
+                <span className="text-darkblue-05">Kelas Premium</span>
+              </h3>
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl shadow-xl">
+            <img
+              className="object-cover h-40 w-full"
+              src={`${details?.image}`}
+              alt=""
+            />
+            <div className="p-4">
+              <div className="flex justify-between items-center">
+                <h5 className="text-darkblue-05 text-sm font-semibold">
+                  {details?.category}
+                </h5>
+                <span className="flex">
+                  <StarIcon className="h-5 w-5 text-yellow-500" />
+                  <p className="text-sm">{details?.rating}</p>
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <h5 className="font-semibold mt-1">{details?.name}</h5>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-sm">by {details?.lecturer}</p>
+              </div>
+              <div className="flex justify-between items-center">
+                <p>Code: {details?.code}</p>
+              </div>
+              <div className="flex justify-between text-sm mb-2">
+                <span className="flex my-2 gap-1">
+                  <ShieldCheckIcon className="h-5 w-5 text-green-500" />
+                  <p>{details?.level} Level</p>
+                </span>
+                <span className="flex my-2 gap-1">
+                  <RectangleStackIcon className="h-5 w-5 text-green-500" />
+                  <p>10 Modul</p>
+                </span>
+                <span className="flex my-2 gap-1">
+                  <ClockIcon className="h-5 w-5 text-green-500" />
+                  <p>120 Menit</p>
+                </span>
+              </div>
+              <Button
+                className="!bg-darkblue-03 whitespace-nowrap"
+                icon={<CurrencyDollarIcon className="h-5 w-5" />}
+                iconPosition="left"
+                size="sm"
+              >
+                {details?.price}
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-row justify-center gap-4 mt-4">
+            <button
+              className="text-white bg-darkblue-05 h-10 px-8 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+              onClick={handleBuyCourse}
+            >
+              Beli Sekarang
+              <ArrowRightCircleIcon className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
       </Modals>
     </>
   );
+};
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  textarea: {
+    border: "1px solid #a9a9a9",
+    borderRadius: 5,
+    padding: 10,
+    margin: "20px 0",
+    minHeight: 100,
+    width: 300,
+  },
+  button: {
+    border: "1px solid #a9a9a9",
+    borderRadius: 5,
+    width: 300,
+    padding: 10,
+  },
 };
 
 export default ClassDetails;
