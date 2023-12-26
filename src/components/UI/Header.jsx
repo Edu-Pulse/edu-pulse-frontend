@@ -44,11 +44,16 @@ const Header = () => {
 						<span>EduPulse</span>
 					</Link>
 				</div>
-				<search className="items-center hidden md:flex md:w-1/3">
+				<search
+					className="items-center hidden md:flex md:w-1/3"
+					name="search-course"
+				>
 					<input
 						type="search"
+						id="search-course"
 						className="w-full px-4 py-3 outline-none rounded-2xl"
 						onChange={(e) => setInput(e.target.value)}
+						placeholder="Cari kelas..."
 					/>
 					{/* <Link */}
 					<span className="p-2 text-white -ml-11 rounded-xl bg-darkblue-05 hover:cursor-pointer">
@@ -84,7 +89,7 @@ const Header = () => {
 													? user.imageProfile
 													: userImagePlaceholder
 											}
-											className="w-full"
+											className="w-full h-full"
 										/>
 									</div>
 								}

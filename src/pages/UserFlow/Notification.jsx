@@ -5,25 +5,37 @@ import { BellIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 
 import { db } from "@/lib/firebase";
-import { onValue, ref } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import noData from "@/assets/svg/nodata.svg";
+import { formatDateTime } from "@/lib/dateFormatter";
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const query = ref(db, "NOTIFICATION");
-    return onValue(query, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      if (snapshot.exists()) {
-        setNotifications((notifications) => [...notifications, data]);
+    const fetchData = async () => {
+      try {
+        const notificationsRef = ref(db, "NOTIFICATION");
+
+        const onNotificationsChange = (snapshot) => {
+          const data = snapshot.val();
+
+          const notificationsArray = data ? Object.values(data) : [];
+
+          setNotifications(notificationsArray);
+        };
+
+        onValue(notificationsRef, onNotificationsChange);
+      } catch (error) {
+        console.error("Error fetching notifications:", error.message);
       }
-    });
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <main className="container flex flex-col min-h-screen md:justify-center">
+    <main className="container flex flex-col min-h-screen md:justify-center sm:my-24 mx-auto">
       <div className="max-w-[768px] w-full mx-auto my-4 text-darkblue-05 font-semibold">
         <Link
           to="/"
@@ -34,8 +46,8 @@ const Notification = () => {
           <p className="text-2xl font-bold !text-black md:hidden">Notifikasi</p>
         </Link>
       </div>
-      <section className="max-w-[768px] w-full mx-auto rounded-xl overflow-hidden md:border-2 md:border-darkblue-05">
-        <div className="hidden w-full py-4 md:block bg-darkblue-05">
+      <section className="max-w-[768px] max-h-screen w-full mx-auto relative rounded-xl overflow-y-scroll no-scrollbar md:border-2 md:border-darkblue-05">
+        <div className="hidden w-full py-4 md:block bg-darkblue-05 sticky top-0 z-20">
           <p className="font-semibold text-center text-white">Notifikasi</p>
         </div>
         <div className="my-2 space-y-2 divide-y">
@@ -50,13 +62,13 @@ const Notification = () => {
                     <BellIcon className="w-4 h-4" />
                   </div>
                   <div className="w-full space-y-1">
-                    <div className="flex justify-between w-full">
+                    <div className="sm:flex justify-between w-full">
                       <p className="font-semibold text-darkblue-05">
                         {notification.sender}
                       </p>
-                      <p className="flex items-center gap-2 text-sm">
-                        <span>{notification.dateTime}</span>
-                        <div className="w-3 h-3 rounded-full bg-alert-success" />
+                      <p className="flex justify-between items-center gap-2 text-sm">
+                        <span>{formatDateTime(notification.dateTime)}</span>
+                        <span className="w-3 h-3 rounded-full bg-alert-success" />
                       </p>
                     </div>
                     <div>

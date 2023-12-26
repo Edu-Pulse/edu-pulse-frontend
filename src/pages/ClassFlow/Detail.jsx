@@ -1,12 +1,8 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 // Internal Libraries
 import { useCallback, useEffect, useState } from "react";
+import app from "@/lib/axiosConfig";
 // External Libraries
-import {
-  StarIcon,
-  ChatBubbleLeftRightIcon,
-  ArrowRightCircleIcon,
-  CurrencyDollarIcon,
-} from "@heroicons/react/24/solid";
 import {
   RectangleStackIcon,
   ShieldCheckIcon,
@@ -14,9 +10,16 @@ import {
   ArrowLeftIcon,
   QueueListIcon,
 } from "@heroicons/react/24/outline";
+import {
+  StarIcon,
+  ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
+  ArrowRightCircleIcon,
+} from "@heroicons/react/24/solid";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { FaStar } from "react-icons/fa";
 
 // Utilities
 import { BASE_URL } from "@/lib/baseUrl";
@@ -30,21 +33,21 @@ import ChapterDetails from "@/components/ClassPage/ChapterDetails";
 import Modals from "@/components/CoursePage/Modals";
 import Input from "@/components/UI/Input";
 
-const Details = () => {
+const ClassDetails = () => {
   const [currentTopic, setCurrentTopic] = useState(null);
   const [isChapterDrawerOpen, setIsChapterDrawerOpen] = useState(false);
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   const [openRate, setOpenRate] = useState(false);
   const [details, setDetails] = useState();
   const [isRefetch, setIsReFetch] = useState(true);
+  const [rateCourse, setRateCourse] = useState(0);
   const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0);
   const { code } = useParams();
   const navigate = useNavigate();
 
-  const handleCloseRateModal = () => {
-    setOpenRate(false);
-  };
   const getDetailClass = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/course/` + code);
@@ -58,18 +61,19 @@ const Details = () => {
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
-      console.log(details);
       setIsReFetch(false);
     }
-  }, [code, details]);
+  }, [code]);
 
   useEffect(() => {
     if (isRefetch) {
-      return () => getDetailClass();
+      getDetailClass();
     } else {
       return;
     }
   }, [code, isRefetch, getDetailClass]);
+
+  // Chapter
 
   const handleDone = async (topic) => {
     try {
@@ -82,7 +86,7 @@ const Details = () => {
       }
       return;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.error);
       return;
     }
   };
@@ -104,29 +108,15 @@ const Details = () => {
     handleDone(topic);
   };
 
-  const handleRate = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/course/rating/${details.code}?rating=${rating}`
-      );
-      if (response.status === 200 && response.error === false) {
-        toast.success(response.data);
-        console.log(response);
-      } else {
-        toast.error("Kamu masih salah!");
-        console.log(response);
-      }
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      handleCloseRateModal();
-    }
+  // Buy Course
+
+  const handleCloseModal = () => {
+    setOpen(false);
   };
 
   const freeEnroll = async () => {
     try {
-      const response = await app.post(`/course/enroll/${details?.code}`, {
+      const response = await app.post(`/course/enroll/${details.code}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "*/*",
@@ -138,11 +128,9 @@ const Details = () => {
           window.location.href = "/my-class";
         }, 1500);
       }
-      console.log(response);
       return;
     } catch (error) {
       toast.error(error.response.data.message);
-      console.log(error);
       return;
     }
   };
@@ -151,6 +139,42 @@ const Details = () => {
     details.type === "PREMIUM"
       ? navigate(`/payment-pending/${details?.code}`)
       : freeEnroll();
+  };
+
+  // Add Rating
+  const handleRate = async () => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/course/rating/${details.code}?rating=${rateCourse}`
+      );
+      if (response.status === 200 && response.data.error === false) {
+        toast.success(response.data.message);
+        setIsReFetch(true);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      handleCloseRateModal();
+    }
+  };
+
+  const handleCloseRateModal = () => {
+    setOpenRate(false);
+  };
+
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    setRateCourse(value);
+  };
+
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
   };
 
   return (
@@ -180,7 +204,9 @@ const Details = () => {
                       <span className="flex">
                         <button onClick={() => setOpenRate(!openRate)}>
                           <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-                          <p>{details?.rating}</p>
+                          <p>
+                            {details?.rating ? details?.rating?.toFixed(1) : 0}
+                          </p>
                         </button>
                       </span>
                     </div>
@@ -202,7 +228,7 @@ const Details = () => {
                         <p>120 Menit</p>
                       </span>
                     </div>
-                    <div className="flex gap-5">
+                    <div className="flex gap-4">
                       <Button
                         icon={<ChatBubbleLeftRightIcon className="h-6 w-6" />}
                         iconPosition="right"
@@ -264,23 +290,38 @@ const Details = () => {
       </Drawer>
 
       {/* Rating modal */}
-      <Modals isOpen={openRate} onClose={() => setOpenRate(false)}>
-        <form onClick={handleRate}>
-          <Input
-            placeholder="Berikan rating..."
-            type="number"
-            label="Masukkan rating kelas"
-            value={rating}
-            // setRating={setRating}
-            onChange={(e) => setRating(e.target.value)}
-          />
+      <Modals isOpen={openRate} onClose={handleCloseRateModal}>
+        <div style={styles.container}>
+          <h2 className="my-2 font-semibold"> Rating Kelas </h2>
+          <div style={styles.stars}>
+            {stars.map((_, index) => {
+              return (
+                <FaStar
+                  key={index}
+                  size={30}
+                  onClick={() => handleClick(index + 1)}
+                  onMouseOver={() => handleMouseOver(index + 1)}
+                  onMouseLeave={handleMouseLeave}
+                  value={rateCourse}
+                  onChange={(e) => setRateCourse(e.target.value)}
+                  color={
+                    (hoverValue || currentValue) > index ? "#FFBA5A" : "#a9a9a9"
+                  }
+                  style={{
+                    marginRight: 10,
+                    cursor: "pointer",
+                  }}
+                />
+              );
+            })}
+          </div>
           <button
-            type="submit"
-            className="text-white bg-darkblue-05 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
+            onClick={handleRate}
+            className="text-white bg-darkblue-05 px-16 py-2 mt-3 flex gap-4 items-center hover:bg-purple-900 rounded-full hover:cursor-pointer transition-all duration-300"
           >
             Simpan Rating
           </button>
-        </form>
+        </div>
       </Modals>
 
       {/* Buy Course Modal */}
@@ -359,4 +400,30 @@ const Details = () => {
   );
 };
 
-export default Details;
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  textarea: {
+    border: "1px solid #a9a9a9",
+    borderRadius: 5,
+    padding: 10,
+    margin: "20px 0",
+    minHeight: 100,
+    width: 300,
+  },
+  button: {
+    border: "1px solid #a9a9a9",
+    borderRadius: 5,
+    width: 300,
+    padding: 10,
+  },
+};
+
+export default ClassDetails;
