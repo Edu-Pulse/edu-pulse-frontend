@@ -1,4 +1,4 @@
-.layerpertama{
+.layerpertama {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -54,7 +54,7 @@
   height: 60px;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid #6148FF;
+  border: 1px solid #6148ff;
   background-color: #f0f0f0;
   font-size: 25px;
 }
@@ -65,7 +65,7 @@
 }
 
 .input_fields .isi:focus {
-  outline: 3px solid #6148FF;
+  outline: 3px solid #6148ff;
   outline-offset: 2px;
 }
 
@@ -77,23 +77,23 @@
   color: #525252;
   font-size: 16px;
   font-weight: 600;
-  padding: 10
+  padding: 10;
 }
 
 .tombol.active {
-  background-color: #6148FF;
+  background-color: #6148ff;
   color: white;
   cursor: pointer;
 }
 
 .tombol:disabled {
-  background-color: #A9A9A9;
+  background-color: #a9a9a9;
   color: #808080;
   cursor: not-allowed;
 }
 
 .tombol:disabled:hover {
-  background-color: #A9A9A9;
+  background-color: #a9a9a9;
   color: #808080;
   cursor: not-allowed;
 }
