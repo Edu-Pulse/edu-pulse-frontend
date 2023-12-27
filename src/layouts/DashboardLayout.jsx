@@ -26,7 +26,6 @@ import {
 const DashboardLayout = () => {
   const [user, setUser] = useState('');
   const [course, setCourse] = useState([]);
-  const [isRefresh, setIsRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -39,26 +38,24 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     const getAllCourse = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const response = await axios.get(
           `${BASE_URL}/admin/administration-data`
         );
         const data = response.data.data;
         if (response.status === 200) {
           setCourse(data);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error.message);
-        setIsLoading(false);
         toast.error(error.response.data.message);
-        return;
+        setIsLoading(false);
       }
     };
-    setIsRefresh(false);
-    return () => getAllCourse();
-  }, [isRefresh]);
+    getAllCourse();
+  }, []);
 
   const handleLogout = async (e) => {
     e.preventDefault();
