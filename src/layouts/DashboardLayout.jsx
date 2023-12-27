@@ -177,7 +177,7 @@ const DashboardLayout = () => {
             iconInactive={<TableCellsIcon className="h-6 w-6" />}
           />
           <HeaderMobileNavMenu
-            name="Kelola Kelas"
+            name="Kelola"
             href="/dashboard/kelolakelas"
             iconActive={<FolderOpenIconSolid className="h-6 w-6" />}
             iconInactive={<FolderOpenIcon className="h-6 w-6" />}
