@@ -8,7 +8,18 @@ import { BASE_URL } from '@/lib/baseUrl';
 import toast from 'react-hot-toast';
 import { getMe } from '@/lib/getMe';
 import app from '../lib/axiosConfig';
-import Navigation from '../components/Admin/ModalFlow/Navigation';
+import HeaderMobileNavMenu from '../components/UI/HeaderMobileNavMenu';
+import {
+  TableCellsIcon,
+  FolderOpenIcon,
+  ArrowRightStartOnRectangleIcon,
+} from '@heroicons/react/24/outline';
+
+import {
+  TableCellsIcon as TableCellsIconSolid,
+  FolderOpenIcon as FolderOpenIconSolid,
+  ArrowRightStartOnRectangleIcon as ArrowRightStartOnRectangleIconSolid,
+} from '@heroicons/react/24/solid';
 
 const DashboardLayout = () => {
   const [user, setUser] = useState('');
@@ -150,7 +161,32 @@ const DashboardLayout = () => {
           <Outlet />
         </main>
       </main>
-      <Navigation />
+      <nav className="md:hidden fixed bottom-0 z-50 w-full bg-white shadow-md">
+        <div className="flex justify-evenly mx-4">
+          <HeaderMobileNavMenu
+            name="Dashboard"
+            href="/dashboard"
+            iconActive={<TableCellsIconSolid className="h-6 w-6" />}
+            iconInactive={<TableCellsIcon className="h-6 w-6" />}
+          />
+          <HeaderMobileNavMenu
+            name="Kelola Kelas"
+            href="/dashboard/kelolakelas"
+            iconActive={<FolderOpenIconSolid className="h-6 w-6" />}
+            iconInactive={<FolderOpenIcon className="h-6 w-6" />}
+          />
+          <HeaderMobileNavMenu
+            name="Keluar"
+            onClick={handleLogout}
+            iconActive={
+              <ArrowRightStartOnRectangleIconSolid className="h-6 w-6" />
+            }
+            iconInactive={
+              <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
+            }
+          />
+        </div>
+      </nav>
     </>
   );
 };
