@@ -125,7 +125,7 @@ function KelolaKelas() {
         </div>
         {/* end Responsive Tablet and Mobile */}
 
-        <div className="md:mb-0 md:mt-2 mb-5 flex justify-center gap-3">
+        <div className="md:mb-0 md:mt-2 mb-24 flex justify-center gap-3">
           <button
             onClick={() => {
               setPage(page - 1);

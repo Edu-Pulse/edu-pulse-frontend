@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import Input from '../../UI/Input';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -73,80 +72,69 @@ function UploadVideoModal({
   };
 
   return (
-    <div
-      className={clsx(
-        'fixed z-10 inset-0 grid place-content-center',
-        'bg-black bg-opacity-75'
-      )}>
-      <div
-        className={clsx(
-          'relative transform-transition',
-          'bg-white px-7 pb-4 rounded-lg',
-          'h-[499px] w-[750px]'
-        )}>
-        <div className="flex justify-end font-bold text-2xl">
+    <div className="bg-black bg-opacity-75 inset-0 fixed">
+      <div className="bg-white z-10 h-max mt-10 rounded-lg md:w-2/4 w-[23rem] mx-auto p-5 md:px-20">
+        <div className="grid">
           <button
             type="button"
-            className="text-gray-400 close hover:bg-gray-300 rounded-full w-10 h-10"
+            className="flex justify-end text-end text-gray-400 close h-30 font-bold text-2xl"
             onClick={handleCloseModal}>
             &times;
           </button>
-        </div>
-        <div className="modal-body py-1 text-center w-[465px] mx-auto">
-          <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">
+          <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 text-center">
             Upload Video
           </h1>
-        </div>
-        <div className=" w-[465px] mx-auto">
-          <Select
-            id="code"
-            label="Pilih Kode Kelas"
-            onChange={(e) => setCodeClass(e.target.value)}
-            options={KodeKelas}
-          />
-          <Input
-            placeholder="Chapter 1 - Pendahuluan"
-            type="text"
-            id="chapterName"
-            label="Masukkan Nama Chapter"
-            onChange={(e) => setChapterName(e.target.value)}
-          />
-          <Input
-            placeholder="Tujuan Mengikuti Kelas Product Manajemen part 1"
-            type="text"
-            label="Masukkan Title Kelas"
-            id="title"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Input
-            placeholder="https://youtu.be/DwTkyMJi890"
-            type="text"
-            label="Masukkan Link Video Kelas"
-            value={videoKelas}
-            id="video"
-            onChange={(e) => setVideoKelas(e.target.value)}
-          />
-          <Input
-            placeholder="Materi Belajar"
-            type="text"
-            label="Masukkan Material"
-            id="material"
-            onChange={(e) => setMaterial(e.target.value)}
-          />
-        </div>
-        <div className="flex justify-center w-[465px] mx-auto mt-5 gap-2">
-          <Button
-            type="button"
-            color="primary"
-            onClick={handleCloseUpload}>
-            Tambah Kelas
-          </Button>
-          <Button
-            type="button"
-            color="success"
-            onClick={handleSave}>
-            Simpan
-          </Button>
+          <div>
+            <Select
+              id="code"
+              label="Pilih Kode Kelas"
+              onChange={(e) => setCodeClass(e.target.value)}
+              options={KodeKelas}
+            />
+            <Input
+              placeholder="Chapter 1 - Pendahuluan"
+              type="text"
+              id="chapterName"
+              label="Masukkan Nama Chapter"
+              onChange={(e) => setChapterName(e.target.value)}
+            />
+            <Input
+              placeholder="Tujuan Mengikuti Kelas Product Manajemen part 1"
+              type="text"
+              label="Masukkan Title Kelas"
+              id="title"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <Input
+              placeholder="https://youtu.be/DwTkyMJi890"
+              type="text"
+              label="Masukkan Link Video Kelas"
+              value={videoKelas}
+              id="video"
+              onChange={(e) => setVideoKelas(e.target.value)}
+            />
+            <Input
+              placeholder="Materi Belajar"
+              type="text"
+              label="Masukkan Material"
+              id="material"
+              onChange={(e) => setMaterial(e.target.value)}
+            />
+            <div className="flex justify-center gap-3 mt-3 mb-3">
+              <Button
+                type="button"
+                color="primary"
+                onClick={handleCloseUpload}>
+                Tambah Kelas
+              </Button>
+              <Button
+                type="button"
+                color="success"
+                onClick={handleSave}>
+                Simpan
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
