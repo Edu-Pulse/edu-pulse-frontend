@@ -4,14 +4,14 @@ import KursusPopuler from "@/components/HomePage/KursusPopuler";
 import WhyUs from "@/components/HomePage/WhyUs";
 
 const Home = () => {
-	return (
-		<main>
-			<Hero />
-			<StudyCategories />
-			<KursusPopuler />
-			<WhyUs />
-		</main>
-	);
+  return (
+    <main>
+      <Hero />
+      <StudyCategories />
+      <KursusPopuler />
+      <WhyUs />
+    </main>
+  );
 };
 
 export default Home;
