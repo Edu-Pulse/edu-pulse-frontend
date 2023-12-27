@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import axios from 'axios';
 import { BASE_URL } from '@/lib/baseUrl';
 import toast from 'react-hot-toast';
@@ -39,31 +38,18 @@ const DeleteModal = ({
   };
 
   return (
-    <div
-      className={clsx(
-        'fixed z-10 inset-0 grid place-content-center',
-        'bg-black bg-opacity-75'
-      )}>
-      <div
-        className={clsx(
-          'relative transform-transition',
-          'bg-white px-7 pb-4 rounded-lg',
-          'h-[570px] w-[650px]'
-        )}>
-        <div className="flex justify-end font-bold text-2xl">
+    <div className="bg-black bg-opacity-75 inset-0 fixed">
+      <div className="bg-white z-10 h-max mt-10 rounded-lg md:w-2/4 w-[23rem] mx-auto p-5 md:px-20">
+        <div className="grid">
           <button
             type="button"
-            className="text-gray-400 close hover:bg-gray-300 rounded-full w-10 h-10"
+            className="flex justify-end text-end text-gray-400 close h-30 font-bold text-2xl"
             onClick={handleCloseModal}>
             &times;
           </button>
-        </div>
-        <div className="py-1 text-center w-[465px] mx-auto">
-          <h1 className="font-Montserrat text-[24px]  font-bold leading-[36px] text-darkblue-05">
+          <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 text-center">
             Hapus Kelas
           </h1>
-        </div>
-        <div className="w-[465px] grid place-content-center mx-auto">
           <h1 className="font-Montserrat font-normal text-center leading-[24px] mb-3">
             Apakah anda yakin ingin menghapus kelas ini ?
           </h1>
@@ -77,20 +63,20 @@ const DeleteModal = ({
             lecturer={courseItem.lecturer}
             rating={courseItem.rating}
           />
-        </div>
-        <div className="flex justify-center w-[465px] mt-5 mx-auto gap-2">
-          <Button
-            type="button"
-            color="primary"
-            onClick={handleCloseModal}>
-            Batal
-          </Button>
-          <Button
-            type="button"
-            color="danger"
-            onClick={handleDelete}>
-            {isLoading ? 'Loading...' : 'Hapus'}
-          </Button>
+          <div className="flex justify-center gap-3 mt-5">
+            <Button
+              type="button"
+              color="primary"
+              onClick={handleCloseModal}>
+              Batal
+            </Button>
+            <Button
+              type="button"
+              color="danger"
+              onClick={handleDelete}>
+              {isLoading ? 'Loading...' : 'Hapus'}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
