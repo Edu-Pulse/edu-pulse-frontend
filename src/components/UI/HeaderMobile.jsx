@@ -5,7 +5,8 @@ import {
   BellIcon,
   UserIcon,
   ArrowRightEndOnRectangleIcon,
-} from "@heroicons/react/24/outline";
+  RocketLaunchIcon,
+} from '@heroicons/react/24/outline';
 
 import {
   HomeIcon as HomeIconSolid,
@@ -13,15 +14,16 @@ import {
   QueueListIcon as QueueListIconSolid,
   BellIcon as BellIconSolid,
   UserIcon as UserIconSolid,
-} from "@heroicons/react/24/solid";
+  RocketLaunchIcon as RocketLaunchIconSolid,
+} from '@heroicons/react/24/solid';
 
-import HeaderMobileNavMenu from "./HeaderMobileNavMenu";
+import HeaderMobileNavMenu from './HeaderMobileNavMenu';
 
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const HeaderMobile = () => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     const getMe = async () => {
@@ -37,6 +39,9 @@ const HeaderMobile = () => {
     };
     getMe();
   }, []);
+
+  const Admin = user.email === 'admin@email.com';
+
   return (
     <nav className="fixed bottom-0 z-50 w-full bg-white shadow-md">
       <div className="flex justify-evenly mx-4">
@@ -83,6 +88,14 @@ const HeaderMobile = () => {
             iconInactive={<ArrowRightEndOnRectangleIcon className="h-6 w-6" />}
           />
         )}
+        {Admin ? (
+          <HeaderMobileNavMenu
+            name="Admin"
+            href="/dashboard"
+            iconActive={<RocketLaunchIconSolid className="h-6 w-6" />}
+            iconInactive={<RocketLaunchIcon className="h-6 w-6" />}
+          />
+        ) : null}
       </div>
     </nav>
   );
