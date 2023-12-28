@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import Input from '../../UI/Input';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -8,7 +7,7 @@ import axios from 'axios';
 import Select from '../../UI/Select';
 import Button from '../../UI/Button';
 
-function AddModal({ handleCloseModal, handleUploadVideo, setIsReFetch }) {
+function AdminModal({ handleCloseModal, handleUploadVideo, setIsReFetch }) {
   const [courseCode, setCourseCode] = useState('');
   const [courseName, setCourseName] = useState('');
   const [category, setCategory] = useState('');
@@ -92,119 +91,108 @@ function AddModal({ handleCloseModal, handleUploadVideo, setIsReFetch }) {
   ];
 
   return (
-    <div
-      className={clsx(
-        'fixed z-10 inset-0 overflow-y-auto grid place-content-center',
-        'bg-black bg-opacity-75'
-      )}>
-      <div
-        className={clsx(
-          'relative transform-transition',
-          'bg-white md:px-7 px-3 pb-4 rounded-lg md:overflow-y-scroll',
-          'md:h-[599px] sm:w-[750px] w-[350px]'
-        )}>
-        <div className="flex justify-end font-bold text-2xl">
+    <div className="bg-black bg-opacity-75 inset-0 fixed">
+      <div className="bg-white z-10 h-5/6 mt-10 rounded-lg overflow-y-scroll md:w-2/4 sm:w-5/6 w-[23rem] mx-auto p-5 md:px-20">
+        <div className="grid">
           <button
             type="button"
-            className="text-gray-400 close hover:bg-gray-300 rounded-full w-10 h-10"
+            className="flex justify-end text-end text-gray-400 close h-30 font-bold text-2xl"
             onClick={handleCloseModal}>
             &times;
           </button>
-        </div>
-        <div className="modal-body py-1 text-center md:w-[465px] mx-auto">
-          <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05">
+          <h1 className="font-Montserrat text-[24px] font-bold leading-[36px] text-darkblue-05 text-center">
             Tambah Kelas
           </h1>
-        </div>
-        <div className="h-[83%] md:w-[465px] mx-auto">
-          <Input
-            placeholder="UIUX0123"
-            type="text"
-            id="courseCode"
-            label="Masukkan Kode Kelas"
-            onChange={(e) => setCourseCode(e.target.value)}
-          />
-          <Input
-            placeholder="Belajar Web Designer dengan Figma"
-            type="text"
-            label="Masukkan Nama Kelas"
-            id="courseName"
-            onChange={(e) => setCourseName(e.target.value)}
-          />
-          <Select
-            id="category"
-            label="Pilih Kategori Kelas"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            options={formattedOptions}
-          />
-          <Input
-            placeholder="Design Merupakan..."
-            type="text"
-            label="Masukkan Deskripsi Kelas"
-            id="description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Input
-            placeholder="Budi"
-            type="text"
-            label="Nama Pelajar"
-            id="intended"
-            onChange={(e) => setIntended(e.target.value)}
-          />
-          <Input
-            placeholder="Mr. Udin"
-            type="text"
-            label="Nama Pengajar"
-            id="lecturer"
-            onChange={(e) => setLecturer(e.target.value)}
-          />
-          <Select
-            id="type"
-            label="Pilih Tipe Kelas"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            options={classType}
-          />
-          <Select
-            id="level"
-            label="Pilih Level Kelas"
-            value={level}
-            onChange={(e) => setLevel(e.target.value)}
-            options={classLevel}
-          />
-          <Input
-            placeholder="199000"
-            type="number"
-            label="Harga Kelas"
-            id="price"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <Input
-            placeholder="10000"
-            type="number"
-            label="Potongan Harga"
-            id="discount"
-            onChange={(e) => setDiscount(e.target.value)}
-          />
-        </div>
-        <div className="flex justify-center md:w-[465px] mx-auto md:mt-48 mt-2 gap-2">
-          <Button
-            type="button"
-            color="primary"
-            onClick={handleUploadVideo}>
-            Upload Video
-          </Button>
-          <Button
-            type="button"
-            color="success"
-            onClick={handleSave}>
-            Simpan
-          </Button>
+          <div>
+            <Input
+              placeholder="UIUX0123"
+              type="text"
+              id="courseCode"
+              label="Masukkan Kode Kelas"
+              onChange={(e) => setCourseCode(e.target.value)}
+            />
+            <Input
+              placeholder="Belajar Web Designer dengan Figma"
+              type="text"
+              label="Masukkan Nama Kelas"
+              id="courseName"
+              onChange={(e) => setCourseName(e.target.value)}
+            />
+            <Select
+              id="category"
+              label="Pilih Kategori Kelas"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              options={formattedOptions}
+            />
+            <Input
+              placeholder="Design Merupakan..."
+              type="text"
+              label="Masukkan Deskripsi Kelas"
+              id="description"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <Input
+              placeholder="Budi"
+              type="text"
+              label="Nama Pelajar"
+              id="intended"
+              onChange={(e) => setIntended(e.target.value)}
+            />
+            <Input
+              placeholder="Mr. Udin"
+              type="text"
+              label="Nama Pengajar"
+              id="lecturer"
+              onChange={(e) => setLecturer(e.target.value)}
+            />
+            <Select
+              id="type"
+              label="Pilih Tipe Kelas"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              options={classType}
+            />
+            <Select
+              id="level"
+              label="Pilih Level Kelas"
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              options={classLevel}
+            />
+            <Input
+              placeholder="199000"
+              type="number"
+              label="Harga Kelas"
+              id="price"
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <Input
+              placeholder="10000"
+              type="number"
+              label="Potongan Harga"
+              id="discount"
+              onChange={(e) => setDiscount(e.target.value)}
+            />
+            <div className="flex justify-center gap-3 mt-5 mb-3">
+              <Button
+                type="button"
+                color="primary"
+                onClick={handleUploadVideo}>
+                Upload Video
+              </Button>
+              <Button
+                type="button"
+                color="success"
+                onClick={handleSave}>
+                Simpan
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default AddModal;
+export default AdminModal;

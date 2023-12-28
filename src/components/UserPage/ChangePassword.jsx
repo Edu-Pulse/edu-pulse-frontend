@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import app from "../../lib/axiosConfig";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { getMe } from "../../lib/getMe";
+// import { getMe } from "../../lib/getMe";
 
 const ChangePassword = () => {
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getMe(setUser);
-    };
-    return () => fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getMe(setUser);
+  //   };
+  //   return () => fetchData();
+  // }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -55,22 +55,6 @@ const ChangePassword = () => {
     }
   };
 
-  const handleForgetPassword = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await app.get(`forgot-password/${user.email}`);
-      console.log(response.data);
-      if (response.error === true) {
-        toast.error("Ada Masalah!");
-      } else {
-        toast.success("Tautan Reset Password Telah Dikirim ke Email");
-      }
-    } catch (error) {
-      toast.error(error.message);
-      return;
-    }
-  };
-
   return (
     <div className="flex flex-col items-center my-7 w-full space-y-4 px-4 md:px-12">
       <h2 className="text-2xl font-semibold">Ubah Password</h2>
@@ -101,7 +85,7 @@ const ChangePassword = () => {
         />
         <label
           className="font-poppins text-xs font-normal leading-[18px] text-darkblue-05 mb-1 cursor-pointer"
-          onClick={handleForgetPassword}
+          onClick={() => navigate("/auth/forgotPassword")}
         >
           Lupa Kata Sandi
         </label>

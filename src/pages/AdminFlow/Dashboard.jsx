@@ -3,23 +3,28 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '@/lib/baseUrl';
 import clsx from 'clsx';
+import Spinner from '../../components/UI/Spinner';
 
 function Dashboard() {
   const [course, setCourse] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getAllCourse = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(`${BASE_URL}/payment?page=${page}`);
         const data = response.data.data.content;
         setCourse(data);
         const totalPage = response.data.data.totalPages;
         setTotalPages(totalPage);
+        setIsLoading(false);
       } catch (error) {
         console.log(error.message);
+        setIsLoading(false);
       }
     };
     getAllCourse();
@@ -89,121 +94,141 @@ function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filteredData.map((courseItem, index) => (
-                <tr
-                  key={index}
-                  className="bg-white">
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    <a
-                      href="#"
-                      className="font-bold text-blue-500 hover:underline">
-                      {courseItem.userId}
-                    </a>
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {courseItem.categoryName}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {courseItem.courseName}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {courseItem.status ? (
-                      <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                        SUDAH BAYAR
-                      </span>
-                    ) : (
-                      <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
-                        BELUM BAYAR
-                      </span>
-                    )}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {courseItem.paymentMethod === 'CREDIT_CARD'
-                      ? 'CREDIT CARD'
-                      : 'Kartu Debit'}
-                  </td>
-                  <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
-                    {courseItem.paymentDate[2]}-{courseItem.paymentDate[1]}-
-                    {courseItem.paymentDate[0]}{' '}
-                    {courseItem.paymentDate[3] !== 0 &&
-                    courseItem.paymentDate[4] !== 0
-                      ? courseItem.paymentDate[3]
-                      : ''}
-                    {courseItem.paymentDate[4] !== 0
-                      ? courseItem.paymentDate[4]
-                      : ''}
-                  </td>
-                </tr>
-              ))}
-              {filteredData.length === 0 && (
+              {isLoading ? (
                 <tr className="bg-white">
                   <td
-                    colSpan="6"
+                    colSpan="7"
                     className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    No course data available
+                    <Spinner />
                   </td>
                 </tr>
+              ) : (
+                <>
+                  {filteredData.map((courseItem, index) => (
+                    <tr
+                      key={index}
+                      className="bg-white">
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        <a
+                          href="#"
+                          className="font-bold text-blue-500 hover:underline">
+                          {courseItem.userId}
+                        </a>
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.categoryName}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.courseName}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.status ? (
+                          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                            SUDAH BAYAR
+                          </span>
+                        ) : (
+                          <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                            BELUM BAYAR
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.paymentMethod === 'CREDIT_CARD'
+                          ? 'CREDIT CARD'
+                          : 'Kartu Debit'}
+                      </td>
+                      <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
+                        {courseItem.paymentDate[2]}-{courseItem.paymentDate[1]}-
+                        {courseItem.paymentDate[0]}{' '}
+                        {courseItem.paymentDate[3] !== 0 &&
+                        courseItem.paymentDate[4] !== 0
+                          ? courseItem.paymentDate[3]
+                          : ''}
+                        {courseItem.paymentDate[4] !== 0
+                          ? courseItem.paymentDate[4]
+                          : ''}
+                      </td>
+                    </tr>
+                  ))}
+                  {filteredData.length === 0 && (
+                    <tr className="bg-white">
+                      <td
+                        colSpan="6"
+                        className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                        No course data available
+                      </td>
+                    </tr>
+                  )}
+                </>
               )}
             </tbody>
           </table>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden pb-5">
-          {filteredData.map((courseItem, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
-              <div className="flex items-center space-x-2 text-sm">
-                <div>
-                  <a
-                    href="#"
-                    className="text-blue-500 font-bold hover:underline">
-                    {courseItem.userId}
-                  </a>
-                </div>
-                <div className="text-gray-500">
-                  {courseItem.paymentDate[0]}-{courseItem.paymentDate[1]}-
-                  {courseItem.paymentDate[2]}{' '}
-                  {courseItem.paymentDate[3] !== 0 &&
-                  courseItem.paymentDate[4] !== 0
-                    ? courseItem.paymentDate[3]
-                    : ''}
-                  {courseItem.paymentDate[4] !== 0
-                    ? courseItem.paymentDate[4]
-                    : ''}
-                </div>
-                <div>
-                  {courseItem.status ? (
-                    <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                      SUDAH BAYAR
-                    </span>
-                  ) : (
-                    <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-green-200 rounded-lg bg-opacity-50">
-                      BELUM BAYAR
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="text-sm text-gray-700">
-                {courseItem.categoryName}
-              </div>
-              <div className="text-sm text-gray-700">
-                {courseItem.courseName}
-              </div>
-              <div className="text-sm font-medium text-black">
-                {courseItem.paymentMethod === 'CREDIT_CARD'
-                  ? 'CREDIT CARD'
-                  : 'Kartu Debit'}
-              </div>
-            </div>
-          ))}
-          {filteredData.length === 0 && (
+          {isLoading ? (
             <div className="bg-gray-100 p-4 rounded-lg shadow">
-              No course data available
+              <Spinner />
             </div>
+          ) : (
+            <>
+              {filteredData.map((courseItem, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-100 space-y-3 p-4 rounded-lg shadow">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <div>
+                      <a
+                        href="#"
+                        className="text-blue-500 font-bold hover:underline">
+                        {courseItem.userId}
+                      </a>
+                    </div>
+                    <div className="text-gray-500">
+                      {courseItem.paymentDate[0]}-{courseItem.paymentDate[1]}-
+                      {courseItem.paymentDate[2]}{' '}
+                      {courseItem.paymentDate[3] !== 0 &&
+                      courseItem.paymentDate[4] !== 0
+                        ? courseItem.paymentDate[3]
+                        : ''}
+                      {courseItem.paymentDate[4] !== 0
+                        ? courseItem.paymentDate[4]
+                        : ''}
+                    </div>
+                    <div>
+                      {courseItem.status ? (
+                        <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                          SUDAH BAYAR
+                        </span>
+                      ) : (
+                        <span className="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-green-200 rounded-lg bg-opacity-50">
+                          BELUM BAYAR
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-700">
+                    {courseItem.categoryName}
+                  </div>
+                  <div className="text-sm text-gray-700">
+                    {courseItem.courseName}
+                  </div>
+                  <div className="text-sm font-medium text-black">
+                    {courseItem.paymentMethod === 'CREDIT_CARD'
+                      ? 'CREDIT CARD'
+                      : 'Kartu Debit'}
+                  </div>
+                </div>
+              ))}
+              {filteredData.length === 0 && (
+                <div className="bg-gray-100 p-4 rounded-lg shadow">
+                  No course data available
+                </div>
+              )}
+            </>
           )}
         </div>
-        <div className="md:mb-0 md:mt-2 mb-5 flex justify-center gap-3">
+        <div className="md:mb-0 md:mt-2 mb-24 flex justify-center gap-3">
           <button
             onClick={() => setPage(page - 1)}
             disabled={page === 0}
