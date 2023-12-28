@@ -31,7 +31,7 @@ import ChapterLists from "@/components/ClassPage/ChapterLists";
 import Button from "@/components/UI/Button";
 import ChapterDetails from "@/components/ClassPage/ChapterDetails";
 import Modals from "@/components/CoursePage/Modals";
-import Input from "@/components/UI/Input";
+// import Input from "@/components/UI/Input";
 
 const ClassDetails = () => {
   const [currentTopic, setCurrentTopic] = useState(null);
@@ -110,9 +110,9 @@ const ClassDetails = () => {
 
   // Buy Course
 
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setOpen(false);
+  // };
 
   const freeEnroll = async () => {
     try {

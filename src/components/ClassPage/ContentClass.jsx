@@ -1,20 +1,3 @@
-import Modals from "@/components/CoursePage/Modals";
-import Button from "@/components/UI/Button";
-import {
-  StarIcon,
-  ArrowRightCircleIcon,
-  CurrencyDollarIcon,
-  PlayIcon,
-} from "@heroicons/react/24/solid";
-import {
-  RectangleStackIcon,
-  ShieldCheckIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-
 const ContentClass = ({ details }) => {
   return (
     <>
