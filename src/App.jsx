@@ -33,7 +33,7 @@ import NotFound from "./pages/NotFound";
 import Search from "./pages/Search";
 import NotLoggedIn from "./pages/NotLoggedIn";
 import ForgotPassword from "./pages/AuthFlow/ForgotPassword";
-import ProtectedRoutes from "./layouts/ProtectedRoutes";
+// import ProtectedRoutes from "./layouts/ProtectedRoutes";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -112,11 +112,7 @@ const App = () => {
     },
     {
       path: "/dashboard",
-      element: (
-        <ProtectedRoutes>
-          <DashboardLayout />
-        </ProtectedRoutes>
-      ),
+      element: <DashboardLayout />,
       children: [
         {
           index: true,
