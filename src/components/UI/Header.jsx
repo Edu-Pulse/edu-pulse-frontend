@@ -6,10 +6,12 @@ import {
   QueueListIcon,
   BellIcon,
   AcademicCapIcon,
+  RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
 import HeaderNavMenu from "./HeaderNavMenu";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import userImagePlaceholder from "@/assets/user-image-placeholder.jpg";
 
 const Header = () => {
@@ -34,6 +36,7 @@ const Header = () => {
   function handleSearch() {
     setInput("");
   }
+  const Admin = user.email === "admin@email.com";
 
   return (
     <header className="fixed top-0 z-50 w-full py-3 bg-darkblue-05">
@@ -68,6 +71,14 @@ const Header = () => {
         <div className="flex items-center justify-end md:w-1/3">
           {user ? (
             <div className="flex gap-2">
+              {Admin ? (
+                <HeaderNavMenu
+                  href="/dashboard"
+                  path={"/dashboard"}
+                  icon={<RocketLaunchIcon className="w-5 h-5" />}
+                  name="Admin"
+                />
+              ) : null}
               <HeaderNavMenu
                 href="/my-class"
                 path={"/my-class"}

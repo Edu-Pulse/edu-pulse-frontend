@@ -6,16 +6,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '@/lib/baseUrl';
 import toast from 'react-hot-toast';
-import { getMe } from '@/lib/getMe';
+import { getMe } from '../lib/getMe';
 import app from '../lib/axiosConfig';
 import HeaderMobileNavMenu from '../components/UI/HeaderMobileNavMenu';
 import {
+  HomeIcon,
   TableCellsIcon,
   FolderOpenIcon,
   ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 
 import {
+  HomeIcon as HomeIconSolid,
   TableCellsIcon as TableCellsIconSolid,
   FolderOpenIcon as FolderOpenIconSolid,
   ArrowRightStartOnRectangleIcon as ArrowRightStartOnRectangleIconSolid,
@@ -24,7 +26,6 @@ import {
 const DashboardLayout = () => {
   const [user, setUser] = useState('');
   const [course, setCourse] = useState([]);
-  const [isRefresh, setIsRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,37 +33,34 @@ const DashboardLayout = () => {
     const fetchData = async () => {
       await getMe(setUser);
     };
-    return () => fetchData();
+    fetchData();
   }, []);
 
   useEffect(() => {
     const getAllCourse = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const response = await axios.get(
           `${BASE_URL}/admin/administration-data`
         );
         const data = response.data.data;
         if (response.status === 200) {
           setCourse(data);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error.message);
-        setIsLoading(false);
         toast.error(error.response.data.message);
-        return;
+        setIsLoading(false);
       }
     };
-    setIsRefresh(false);
-    return () => getAllCourse();
-  }, [isRefresh]);
+    getAllCourse();
+  }, []);
 
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
       const response = await app.post(`user/logout`);
-      console.log(response);
       if (response.status === 200) {
         window.location.href = '/';
       } else {
@@ -81,7 +79,7 @@ const DashboardLayout = () => {
             <img
               src={logo}
               alt="logo-belajar"
-              className=" h-[150px]"
+              className="h-[150px] cursor-pointer"
               onClick={() => navigate('/')}
             />
           </div>
@@ -164,13 +162,19 @@ const DashboardLayout = () => {
       <nav className="md:hidden fixed bottom-0 z-50 w-full bg-white shadow-md">
         <div className="flex justify-evenly mx-4">
           <HeaderMobileNavMenu
+            name="Beranda"
+            href="/"
+            iconActive={<HomeIconSolid className="h-6 w-6" />}
+            iconInactive={<HomeIcon className="h-6 w-6" />}
+          />
+          <HeaderMobileNavMenu
             name="Dashboard"
             href="/dashboard"
             iconActive={<TableCellsIconSolid className="h-6 w-6" />}
             iconInactive={<TableCellsIcon className="h-6 w-6" />}
           />
           <HeaderMobileNavMenu
-            name="Kelola Kelas"
+            name="Kelola"
             href="/dashboard/kelolakelas"
             iconActive={<FolderOpenIconSolid className="h-6 w-6" />}
             iconInactive={<FolderOpenIcon className="h-6 w-6" />}
