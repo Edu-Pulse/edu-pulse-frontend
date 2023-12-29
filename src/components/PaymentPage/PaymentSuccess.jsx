@@ -6,6 +6,7 @@ import illustration from "@/assets/illustration _Cart shopping list_.png";
 const PaymentSuccess = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
+  console.log(code);
 
   return (
     <section className="mt-16 w-full h-full">
