@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import PaymentCard from "../UI/PaymentCard";
 
 const PaymentPending = () => {
-  const [classDetail, setClassDetail] = useState();
+  const [classDetail, setClassDetail] = useState([]);
   const [cardNumber, setCardNumber] = useState();
   const [cardHolderName, setCardHolderName] = useState();
   const [cvv, setCvv] = useState();
@@ -57,7 +57,7 @@ const PaymentPending = () => {
       if (response.status === 200) {
         toast.success(response.message);
         setTimeout(() => {
-          navigate("/payment-success?code=" + code);
+          navigate("/payment-success");
         }, 1500);
       }
       return;
@@ -112,13 +112,13 @@ const PaymentPending = () => {
           <div className="outline outline-offset-2 outline-darkblue-05 rounded-2xl p-4">
             <p className="font-bold text-lg my-4">Pembayaran Kelas</p>
             <CourseCard
-              category={classDetail?.category}
-              name={classDetail?.courseName}
-              lecturer={classDetail?.lecturer}
-              level={classDetail?.level}
-              rating={classDetail?.rating}
-              image={classDetail?.image}
-              amount={classDetail?.price}
+              category={classDetail.category}
+              name={classDetail.courseName}
+              lecturer={classDetail.lecturer}
+              level={classDetail.level}
+              rating={classDetail.rating}
+              image={classDetail.image}
+              amount={classDetail.price}
             />
             <Button
               className="my-4 w-full bg-red-500"
