@@ -57,7 +57,7 @@ const PaymentPending = () => {
       if (response.status === 200) {
         toast.success(response.message);
         setTimeout(() => {
-          navigate("/payment-success");
+          navigate("/payment-success?success=" + code);
         }, 1500);
       }
       return;
