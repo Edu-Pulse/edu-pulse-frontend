@@ -13,13 +13,15 @@ import {
 const PurchaseHistory = () => {
   const [history, setHistory] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  // const [paginate, setPaginate] = useState([]);
   useEffect(() => {
     const getPaymentHistory = async () => {
       try {
         const response = await app.get(`payment/user?page=${currentPage}`);
-        const content = response.data.data.content;
+        const data = response.data.data;
         if (response.status === 200) {
-          setHistory(content);
+          setHistory(data);
+          // setPaginate(response.data.data);
         }
       } catch (error) {
         console.error("Error", error);
@@ -29,20 +31,21 @@ const PurchaseHistory = () => {
     getPaymentHistory();
   }, [currentPage]);
 
-  const MaxPage = history.length < 2;
-
   return (
     <div className="flex flex-col items-center my-7 w-full space-y-4 px-4 md:px-12">
-      {history ? (
-        history.map((bebas, index) => (
+      {history.content ? (
+        history.content.map((item, index) => (
           <CourseCard
             key={index}
-            category={bebas.categoryName}
-            name={bebas.courseName}
-            lecturer={bebas.lecturer}
-            level={bebas.level}
-            rating={bebas.rating}
-            image={bebas.image}
+            category={item.categoryName}
+            name={item.courseName}
+            lecturer={item.lecturer}
+            level={item.level}
+            rating={item.rating}
+            image={item.image}
+            amount={item.amount}
+            paymentDate={item.paymentDate}
+            paymentMethod={item.paymentMethod}
           />
         ))
       ) : (
@@ -63,9 +66,10 @@ const PurchaseHistory = () => {
         <Button
           icon={<ChevronDoubleLeftIcon className="h-4 w-4" />}
           onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage == 0}
+          disabled={history.first}
+          iconPosition="left"
           className={`${
-            currentPage === 0
+            history.first
               ? "!bg-gray-300 !cursor-not-allowed"
               : "!bg-darkblue-05"
           } !text-white px-2 py-2 rounded`}
@@ -75,9 +79,11 @@ const PurchaseHistory = () => {
         <Button
           icon={<ChevronDoubleRightIcon className="h-4 w-4" />}
           onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={MaxPage}
+          disabled={history.last}
           className={`${
-            MaxPage ? "!bg-gray-300 !cursor-not-allowed" : "!bg-darkblue-05"
+            history.last
+              ? "!bg-gray-300 !cursor-not-allowed"
+              : "!bg-darkblue-05"
           } !text-white px-2 py-2 rounded`}
         >
           Next
