@@ -23,8 +23,6 @@ function KelolaKelas() {
   const [selectedType, setSelectedType] = useState('ALL');
   const [isRefetch, setIsReFetch] = useState(true);
 
-  console.log(course);
-
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -69,8 +67,6 @@ function KelolaKelas() {
   const filteredData = course.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log('ini filter', filteredData);
 
   const typeOptions = [...new Set(course.map((item) => item.type))];
   typeOptions.unshift('ALL');
@@ -125,7 +121,7 @@ function KelolaKelas() {
         </div>
         {/* end Responsive Tablet and Mobile */}
 
-        <div className="md:mb-0 md:mt-2 mb-5 flex justify-center gap-3">
+        <div className="md:mb-0 md:mt-2 mb-24 flex justify-center gap-3">
           <button
             onClick={() => {
               setPage(page - 1);

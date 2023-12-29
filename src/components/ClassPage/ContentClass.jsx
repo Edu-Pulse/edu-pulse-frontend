@@ -1,6 +1,3 @@
-import Modals from "@/components/CoursePage/Modals";
-// import onboarding from "@/assets/Onboarding.png";
-
 const ContentClass = ({ details }) => {
   return (
     <>
@@ -27,32 +24,6 @@ const ContentClass = ({ details }) => {
           </ol>
         </div>
       </div>
-      {/* <Modals isOpen={open} onClose={() => setOpen(!open)}>
-        <div className="text-center">
-          <div className="flex justify-center items-center">
-            <h3 className="text-2xl font-bold mb-4">Onboarding</h3>
-          </div>
-          <img
-            src={onboarding}
-            className="object-cover hover:scale-105 transition-all duration-300 mx-auto"
-          />
-          <div>
-            <p className="font-semibold my-5">Selamat Belajar</p>
-            <p>
-              Persiapkan semua tools yang disarankan agar bisa belajar dengan
-              maksimal
-            </p>
-          </div>
-          <div className="flex flex-row justify-center gap-4 mt-5">
-            <button
-              onClick={handleCloseModal}
-              className="text-white bg-darkblue-05 h-10 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
-            >
-              Ikuti Kelas
-            </button>
-          </div>
-        </div>
-      </Modals> */}
     </>
   );
 };

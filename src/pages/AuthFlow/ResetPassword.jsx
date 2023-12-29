@@ -4,37 +4,19 @@ import Input from "@/components/UI/Input";
 import { ValidationContext } from "@/context/ValidationContext";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "@/lib/baseUrl";
 
 function ResetPassword() {
   const { handlePasswordValidation } = useContext(ValidationContext);
   const [password, setPassword] = useState("");
   const [kode, setKode] = useState("");
-  const [email, setEmail] = useState("");
   const [error, setError] = useState({
     isPasswordError: false,
     isPasswordSimilar: true,
   });
+  const { email } = useParams();
   const navigate = useNavigate();
-  console.log(email);
-
-  const handleEmail = async (e) => {
-    e.preventDefault();
-
-    try {
-      let config = {
-        method: "GET",
-        url: `${BASE_URL}/forgot-password/` + email,
-      };
-      const response = await axios.request(config);
-      if (response.data == true) {
-        toast.success(response.data.message);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -64,19 +46,6 @@ function ResetPassword() {
         Reset Password
       </h1>
       <div className="mb-4">
-        <Input
-          placeholder="Email"
-          type="text"
-          label="Masukkan Email"
-          name="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        ></Input>
-        <div className="flex justify-center mt-6">
-          <Button className="w-full" onClick={handleEmail}>
-            Send Reset Code
-          </Button>
-        </div>
         <Input
           placeholder="********"
           type="password"
