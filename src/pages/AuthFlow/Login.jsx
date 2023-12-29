@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "@/components/UI/Button";
-import Input from "@/components/UI/Input";
-import toast from "react-hot-toast";
-import { ValidationContext } from "@/context/ValidationContext";
-import app from "@/lib/axiosConfig";
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '@/components/UI/Button';
+import Input from '@/components/UI/Input';
+import toast from 'react-hot-toast';
+import { ValidationContext } from '@/context/ValidationContext';
+import app from '@/lib/axiosConfig';
 
 const Login = () => {
   const { handleEmailValidation, handlePasswordValidation } =
     useContext(ValidationContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState({
     isEmailError: false,
     isPasswordError: false,
@@ -26,20 +26,20 @@ const Login = () => {
         password,
       };
 
-      const response = await app.post("login", data, {
+      const response = await app.post('login', data, {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
         },
       });
-      if (response.status === 200 && response.data.data == "[ROLE_ADMIN]") {
+      if (response.status === 200 && response.data.data == '[ROLE_ADMIN]') {
         setIsLoading(false);
-        window.location.href = "/dashboard";
+        window.location.href = '/dashboard';
       } else if (
         response.status === 200 &&
-        response.data.data == "[ROLE_USER]"
+        response.data.data == '[ROLE_USER]'
       ) {
-        window.location.href = "/";
+        window.location.href = '/';
       }
       return;
     } catch (error) {
@@ -48,6 +48,9 @@ const Login = () => {
       return;
     }
   };
+
+  const handleNotLog =
+    error && error.isEmailError && error.isPasswordError === true;
 
   return (
     <div className="max-w-[452px] w-full">
@@ -65,7 +68,9 @@ const Login = () => {
           onBlur={() => handleEmailValidation(email, setError)}
         />
         {error && error.isEmailError && (
-          <label htmlFor="email" className="text-xs text-alert-warning">
+          <label
+            htmlFor="email"
+            className="text-xs text-alert-warning">
             Email tidak valid
           </label>
         )}
@@ -89,7 +94,9 @@ const Login = () => {
           onBlur={() => handlePasswordValidation(password, setError)}
         />
         {error && error.isPasswordError && (
-          <label htmlFor="email" className="text-xs text-alert-warning">
+          <label
+            htmlFor="email"
+            className="text-xs text-alert-warning">
             Password tidak boleh kurang dari 8 atau lebih dari 20 karakter
           </label>
         )}
@@ -99,8 +106,8 @@ const Login = () => {
           className="w-full"
           onClick={onSubmit}
           loading={isLoading}
-          loadingText="Memproses..."
-        >
+          disabled={handleNotLog}
+          loadingText="Memproses...">
           Masuk
         </Button>
       </div>
