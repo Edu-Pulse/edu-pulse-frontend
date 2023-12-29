@@ -183,6 +183,10 @@ const ClassDetails = () => {
     setHoverValue(newHoverValue);
   };
 
+  function handleTelegram() {
+    window.open("https://t.me/+1JrPpQMZbaQzOWM1", "_blank", "noreferrer");
+  }
+
   return (
     <>
       <section className="sm:mt-16 container">
@@ -240,6 +244,7 @@ const ClassDetails = () => {
                         iconPosition="right"
                         size="md"
                         className="text-white my-5 w-full !bg-alert-success hover:!bg-purple-800 text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                        onClick={handleTelegram}
                       >
                         Join Grup Telegram
                       </Button>

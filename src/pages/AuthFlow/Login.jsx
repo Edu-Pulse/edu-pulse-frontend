@@ -49,6 +49,9 @@ const Login = () => {
     }
   };
 
+  const handleNotLog =
+    (error && error.isEmailError) || error.isPasswordError === true;
+
   return (
     <div className="max-w-[452px] w-full">
       <h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
@@ -76,7 +79,7 @@ const Login = () => {
         <label className="font-poppins text-sm mb-1 font-normal leading-[18px] text-black">
           Password
         </label>
-        <Link to="/auth/reset">
+        <Link to="/auth/forgotPassword">
           <label className="font-poppins text-xs font-normal leading-[18px] text-darkblue-05 mb-1 cursor-pointer">
             Lupa Kata Sandi
           </label>
@@ -103,6 +106,7 @@ const Login = () => {
           className="w-full"
           onClick={onSubmit}
           loading={isLoading}
+          disabled={handleNotLog}
           loadingText="Memproses...">
           Masuk
         </Button>
