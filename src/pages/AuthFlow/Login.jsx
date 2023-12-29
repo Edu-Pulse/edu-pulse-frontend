@@ -50,7 +50,7 @@ const Login = () => {
   };
 
   const handleNotLog =
-    error && error.isEmailError && error.isPasswordError === true;
+    (error && error.isEmailError) || error.isPasswordError === true;
 
   return (
     <div className="max-w-[452px] w-full">
