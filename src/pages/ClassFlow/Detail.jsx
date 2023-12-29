@@ -16,13 +16,19 @@ import {
   CurrencyDollarIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
 
 // Utilities
 import { BASE_URL } from "@/lib/baseUrl";
+import onboarding from "@/assets/Onboarding.png";
 
 // Core components
 import ContentClass from "@/components/ClassPage/ContentClass";
@@ -31,7 +37,6 @@ import ChapterLists from "@/components/ClassPage/ChapterLists";
 import Button from "@/components/UI/Button";
 import ChapterDetails from "@/components/ClassPage/ChapterDetails";
 import Modals from "@/components/CoursePage/Modals";
-// import Input from "@/components/UI/Input";
 
 const ClassDetails = () => {
   const [currentTopic, setCurrentTopic] = useState(null);
@@ -39,12 +44,16 @@ const ClassDetails = () => {
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   const [openRate, setOpenRate] = useState(false);
   const [details, setDetails] = useState();
+  console.log(details);
   const [isRefetch, setIsReFetch] = useState(true);
   const [rateCourse, setRateCourse] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [openOnBoarding, setOpenOnBoarding] = useState(
+    searchParams.get("onBoarding") || false
+  );
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const stars = Array(5).fill(0);
   const { code } = useParams();
   const navigate = useNavigate();
 
@@ -109,10 +118,11 @@ const ClassDetails = () => {
   };
 
   // Buy Course
-
-  // const handleCloseModal = () => {
-  //   setOpen(false);
-  // };
+  const handleCloseModal = () => {
+    searchParams.delete("onBoarding");
+    setOpen(false);
+    setOpenOnBoarding(false);
+  };
 
   const freeEnroll = async () => {
     try {
@@ -125,7 +135,7 @@ const ClassDetails = () => {
       if (response.status === 200) {
         toast.success(response.message);
         setTimeout(() => {
-          window.location.href = "/my-class";
+          window.location.href = `/detail/${details.code}?onBoarding=true`;
         }, 1500);
       }
       return;
@@ -171,10 +181,6 @@ const ClassDetails = () => {
 
   const handleMouseOver = (newHoverValue) => {
     setHoverValue(newHoverValue);
-  };
-
-  const handleMouseLeave = () => {
-    setHoverValue(undefined);
   };
 
   return (
@@ -291,29 +297,69 @@ const ClassDetails = () => {
 
       {/* Rating modal */}
       <Modals isOpen={openRate} onClose={handleCloseRateModal}>
-        <div style={styles.container}>
-          <h2 className="my-2 font-semibold"> Rating Kelas </h2>
-          <div style={styles.stars}>
-            {stars.map((_, index) => {
-              return (
-                <FaStar
-                  key={index}
-                  size={30}
-                  onClick={() => handleClick(index + 1)}
-                  onMouseOver={() => handleMouseOver(index + 1)}
-                  onMouseLeave={handleMouseLeave}
-                  value={rateCourse}
-                  onChange={(e) => setRateCourse(e.target.value)}
-                  color={
-                    (hoverValue || currentValue) > index ? "#FFBA5A" : "#a9a9a9"
-                  }
-                  style={{
-                    marginRight: 10,
-                    cursor: "pointer",
-                  }}
-                />
-              );
-            })}
+        <div className="flex flex-col items-center">
+          <h2 className="my-2 font-semibold">Rating Kelas</h2>
+          <div className="flex flex-row">
+            <FaStar
+              size={30}
+              onClick={() => handleClick(1)}
+              onMouseOver={() => handleMouseOver(1)}
+              value={rateCourse}
+              onChange={(e) => setRateCourse(e.target.value)}
+              className={`mr-3 cursor-pointer ${
+                (hoverValue || currentValue) >= 1
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            />
+            <FaStar
+              size={30}
+              onClick={() => handleClick(2)}
+              onMouseOver={() => handleMouseOver(2)}
+              value={rateCourse}
+              onChange={(e) => setRateCourse(e.target.value)}
+              className={`mr-3 cursor-pointer ${
+                (hoverValue || currentValue) >= 2
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            />
+            <FaStar
+              size={30}
+              onClick={() => handleClick(3)}
+              onMouseOver={() => handleMouseOver(3)}
+              value={rateCourse}
+              onChange={(e) => setRateCourse(e.target.value)}
+              className={`mr-3 cursor-pointer ${
+                (hoverValue || currentValue) >= 3
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            />
+            <FaStar
+              size={30}
+              onClick={() => handleClick(4)}
+              onMouseOver={() => handleMouseOver(4)}
+              value={rateCourse}
+              onChange={(e) => setRateCourse(e.target.value)}
+              className={`mr-3 cursor-pointer ${
+                (hoverValue || currentValue) >= 4
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            />
+            <FaStar
+              size={30}
+              onClick={() => handleClick(5)}
+              onMouseOver={() => handleMouseOver(5)}
+              value={rateCourse}
+              onChange={(e) => setRateCourse(e.target.value)}
+              className={`cursor-pointer ${
+                (hoverValue || currentValue) >= 5
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            />
           </div>
           <button
             onClick={handleRate}
@@ -349,7 +395,9 @@ const ClassDetails = () => {
                 </h5>
                 <span className="flex">
                   <StarIcon className="h-5 w-5 text-yellow-500" />
-                  <p className="text-sm">{details?.rating}</p>
+                  <p className="text-sm">
+                    {details?.rating ? details?.rating?.toFixed(1) : 0}
+                  </p>
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -396,34 +444,37 @@ const ClassDetails = () => {
           </div>
         </div>
       </Modals>
+
+      {/* On Boarding Modals */}
+
+      <Modals isOpen={openOnBoarding} onClose={handleCloseModal}>
+        <div className="text-center">
+          <div className="flex justify-center items-center">
+            <h3 className="text-2xl font-bold mb-4">Onboarding</h3>
+          </div>
+          <img
+            src={onboarding}
+            className="object-cover hover:scale-105 transition-all duration-300 mx-auto"
+          />
+          <div>
+            <p className="font-semibold my-5">Selamat Belajar</p>
+            <p>
+              Persiapkan semua tools yang disarankan agar bisa belajar dengan
+              maksimal
+            </p>
+          </div>
+          <div className="flex flex-row justify-center gap-4 mt-5">
+            <button
+              onClick={handleCloseModal}
+              className="text-white bg-darkblue-05 h-10 px-16 py-2 flex gap-4 items-center hover:bg-purple-900 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+            >
+              Ikuti Kelas
+            </button>
+          </div>
+        </div>
+      </Modals>
     </>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  stars: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  textarea: {
-    border: "1px solid #a9a9a9",
-    borderRadius: 5,
-    padding: 10,
-    margin: "20px 0",
-    minHeight: 100,
-    width: 300,
-  },
-  button: {
-    border: "1px solid #a9a9a9",
-    borderRadius: 5,
-    width: 300,
-    padding: 10,
-  },
 };
 
 export default ClassDetails;
