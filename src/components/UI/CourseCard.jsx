@@ -46,11 +46,7 @@ const CourseCard = ({
           </div>
           <h5 className="font-semibold mt-1">{name}</h5>
           <p className="text-sm text-slate-500">by {lecturer}</p>
-          {code ? (
-            <p className="text-sm">Code: {code}</p>
-          ) : (
-            <p>Payment Date : {paymentDate.slice(0, 3).join("-")}</p>
-          )}
+          <p>Payment Date: {paymentDate?.slice(0, 3).join("-")}</p>
           <div className="flex justify-between text-sm mb-2">
             <span className="flex my-2 gap-1">
               <ShieldCheckIcon className="h-5 w-5 text-green-500" />
