@@ -181,147 +181,126 @@ const ClassDetails = () => {
 		setRateCourse(value);
 	};
 
-	const handleMouseOver = (newHoverValue) => {
-		setHoverValue(newHoverValue);
-	};
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
 
-	return (
-		<>
-			<section className="sm:mt-16 container">
-				<div className="w-full mt-1">
-					<div>
-						<div className="font-semibold text-xl flex items-center py-10">
-							<Link
-								to="/"
-								className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
-							>
-								<ArrowLeftIcon className="w-5 h-5" />
-								<p>Kelas Lainnya</p>
-							</Link>
-						</div>
-					</div>
-					<div className="gap-12 grid md:grid-cols-5 grid-cols-1">
-						<div className="md:col-span-3">
-							<div className="w-full">
-								<div>
-									<div className="h-full flex flex-col">
-										<div className="flex justify-between">
-											<h5 className="text-darkblue-05 font-bold pb-1 text-xl">
-												{details?.category}
-											</h5>
-											<span className="flex">
-												<button
-													onClick={() =>
-														setOpenRate(!openRate)
-													}
-												>
-													<StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
-													<p>
-														{details?.rating
-															? details?.rating?.toFixed(
-																	1
-															  )
-															: 0}
-													</p>
-												</button>
-											</span>
-										</div>
-										<h5 className="font-bold pb-1 text-xl">
-											{details?.name}
-										</h5>
-										<p>by {details?.lecturer}</p>
-										<div className="flex gap-6">
-											<span className="flex my-2 gap-1">
-												<ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
-												<p className="text-darkblue-05">
-													{details?.level} Level
-												</p>
-											</span>
-											<span className="flex my-2 gap-1">
-												<RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
-												<p>
-													{details?.totalMaterial}{" "}
-													Modul
-												</p>
-											</span>
-											<span className="flex my-2 gap-1">
-												<ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
-												<p>120 Menit</p>
-											</span>
-										</div>
-										<div className="flex gap-4">
-											<Button
-												icon={
-													<ChatBubbleLeftRightIcon className="h-6 w-6" />
-												}
-												iconPosition="right"
-												size="md"
-												className="text-white my-5 w-full !bg-alert-success hover:!bg-purple-800 text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
-											>
-												Join Grup Telegram
-											</Button>
-											<Button
-												onClick={() => {
-													setOpen(true);
-												}}
-												icon={
-													<CurrencyDollarIcon className="h-6 w-6" />
-												}
-												iconPosition="right"
-												size="md"
-												className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
-											>
-												Beli Kelas
-											</Button>
-											<Button
-												icon={
-													<QueueListIcon className="h-6 w-6" />
-												}
-												iconPosition="right"
-												size="md"
-												onClick={() =>
-													setIsChapterDrawerOpen(
-														!isChapterDrawerOpen
-													)
-												}
-												className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:hidden"
-											>
-												Chapter
-											</Button>
-										</div>
-									</div>
-								</div>
-							</div>
-							{!currentTopic ? (
-								<ContentClass details={details} />
-							) : (
-								<ChapterDetails
-									selectedChapterContent={
-										selectedChapterContent
-									}
-								/>
-							)}
-						</div>
-						<div className="md:col-span-2 mb-8 w-full">
-							<div className="hidden sm:block bg-white py-4 px-2 rounded-2xl shadow-2xl h-fit">
-								<ChapterLists
-									details={details}
-									handleTopicClick={handleTopicClick}
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<Drawer
-				isOpen={isChapterDrawerOpen}
-				onClose={() => setIsChapterDrawerOpen(!isChapterDrawerOpen)}
-			>
-				<ChapterLists
-					details={details}
-					handleTopicClick={handleTopicClick}
-				/>
-			</Drawer>
+  function handleTelegram() {
+    window.open("https://t.me/+1JrPpQMZbaQzOWM1", "_blank", "noreferrer");
+  }
+
+  return (
+    <>
+      <section className="sm:mt-16 container">
+        <div className="w-full mt-1">
+          <div>
+            <div className="font-semibold text-xl flex items-center py-10">
+              <Link
+                to="/"
+                className="px-4 py-2 flex gap-4 items-center hover:bg-blue-100 w-fit rounded-full hover:cursor-pointer transition-all duration-300"
+              >
+                <ArrowLeftIcon className="w-5 h-5" />
+                <p>Kelas Lainnya</p>
+              </Link>
+            </div>
+          </div>
+          <div className="gap-12 grid md:grid-cols-5 grid-cols-1">
+            <div className="md:col-span-3">
+              <div className="w-full">
+                <div>
+                  <div className="h-full flex flex-col">
+                    <div className="flex justify-between">
+                      <h5 className="text-darkblue-05 font-bold pb-1 text-xl">
+                        {details?.category}
+                      </h5>
+                      <span className="flex">
+                        <button onClick={() => setOpenRate(!openRate)}>
+                          <StarIcon className="h-5 w-5 text-yellow-500"></StarIcon>
+                          <p>
+                            {details?.rating ? details?.rating?.toFixed(1) : 0}
+                          </p>
+                        </button>
+                      </span>
+                    </div>
+                    <h5 className="font-bold pb-1 text-xl">{details?.name}</h5>
+                    <p>by {details?.lecturer}</p>
+                    <div className="flex gap-6">
+                      <span className="flex my-2 gap-1">
+                        <ShieldCheckIcon className="h-5 w-5 text-green-500"></ShieldCheckIcon>
+                        <p className="text-darkblue-05">
+                          {details?.level} Level
+                        </p>
+                      </span>
+                      <span className="flex my-2 gap-1">
+                        <RectangleStackIcon className="h-5 w-5 text-green-500"></RectangleStackIcon>
+                        <p>{details?.totalMaterial} Modul</p>
+                      </span>
+                      <span className="flex my-2 gap-1">
+                        <ClockIcon className="h-5 w-5 text-green-500"></ClockIcon>
+                        <p>120 Menit</p>
+                      </span>
+                    </div>
+                    <div className="flex gap-4">
+                      <Button
+                        icon={<ChatBubbleLeftRightIcon className="h-6 w-6" />}
+                        iconPosition="right"
+                        size="md"
+                        className="text-white my-5 w-full !bg-alert-success hover:!bg-purple-800 text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                        onClick={handleTelegram}
+                      >
+                        Join Grup Telegram
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setOpen(true);
+                        }}
+                        icon={<CurrencyDollarIcon className="h-6 w-6" />}
+                        iconPosition="right"
+                        size="md"
+                        className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                      >
+                        Beli Kelas
+                      </Button>
+                      <Button
+                        icon={<QueueListIcon className="h-6 w-6" />}
+                        iconPosition="right"
+                        size="md"
+                        onClick={() =>
+                          setIsChapterDrawerOpen(!isChapterDrawerOpen)
+                        }
+                        className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:hidden"
+                      >
+                        Chapter
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {!currentTopic ? (
+                <ContentClass details={details} />
+              ) : (
+                <ChapterDetails
+                  selectedChapterContent={selectedChapterContent}
+                />
+              )}
+            </div>
+            <div className="md:col-span-2 mb-8 w-full">
+              <div className="hidden sm:block bg-white py-4 px-2 rounded-2xl shadow-2xl h-fit">
+                <ChapterLists
+                  details={details}
+                  handleTopicClick={handleTopicClick}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Drawer
+        isOpen={isChapterDrawerOpen}
+        onClose={() => setIsChapterDrawerOpen(!isChapterDrawerOpen)}
+      >
+        <ChapterLists details={details} handleTopicClick={handleTopicClick} />
+      </Drawer>
 
 			{/* Rating modal */}
 			<Modals isOpen={openRate} onClose={handleCloseRateModal}>

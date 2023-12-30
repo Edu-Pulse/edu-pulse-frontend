@@ -133,9 +133,9 @@ function AdminModal({ handleCloseModal, handleUploadVideo, setIsReFetch }) {
               onChange={(e) => setDescription(e.target.value)}
             />
             <Input
-              placeholder="Budi"
+              placeholder="1. Anda yang ingin Menjadi Sukses,..."
               type="text"
-              label="Nama Pelajar"
+              label="Di Tunjukan Untuk"
               id="intended"
               onChange={(e) => setIntended(e.target.value)}
             />
@@ -168,9 +168,9 @@ function AdminModal({ handleCloseModal, handleUploadVideo, setIsReFetch }) {
               onChange={(e) => setPrice(e.target.value)}
             />
             <Input
-              placeholder="10000"
+              placeholder="0 - 100"
               type="number"
-              label="Potongan Harga"
+              label="discount"
               id="discount"
               onChange={(e) => setDiscount(e.target.value)}
             />
