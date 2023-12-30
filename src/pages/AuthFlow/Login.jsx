@@ -77,6 +77,8 @@ const Login = () => {
   const handleNotLog =
     (error && error.isEmailError) || error.isPasswordError === true;
 
+  // const kosong = email || password === '';
+
   return (
     <div className="max-w-[452px] w-full">
       <h1 className="font-Montserrat text-2xl font-bold leading-9 text-darkblue-05 mb-6">
