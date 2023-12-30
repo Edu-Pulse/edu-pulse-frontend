@@ -36,105 +36,106 @@ import ForgotPassword from "./pages/AuthFlow/ForgotPassword";
 // import ProtectedRoutes from "./layouts/ProtectedRoutes";
 
 const App = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomeLayout />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/my-class",
-          element: <MyClass />,
-        },
-        {
-          path: "/class-topic",
-          element: <ClassTopic />,
-        },
-        {
-          path: "/payment-pending/:code",
-          element: <PaymentDetail />,
-        },
-        {
-          path: "/payment-success",
-          element: <PaymentDetailSuccess />,
-        },
-        {
-          path: "/detail/:code",
-          element: <Detail />,
-        },
-        {
-          path: "/notifikasi",
-          element: <Notification />,
-        },
-        {
-          path: "/user",
-          element: <User />,
-        },
-        {
-          path: "/search/:input",
-          element: <Search />,
-        },
-        {
-          path: "/not-logged-in",
-          element: <NotLoggedIn />,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "reset/:email",
-          element: <ResetPassword />,
-        },
-        {
-          path: "otp/:email",
-          element: <Otp />,
-        },
-        {
-          path: "forgotPassword",
-          element: <ForgotPassword />,
-        },
-      ],
-    },
-    {
-      path: "/dashboard",
-      element: <DashboardLayout />,
-      children: [
-        {
-          index: true,
-          element: <Dashboard />,
-        },
-        {
-          path: "kelolakelas",
-          element: <KelolaKelas />,
-        },
-      ],
-    },
-    {
-      path: "/admin",
-      element: <LoginAdmin />,
-    },
-  ]);
-  return (
-    <ValidationContextProvider>
-      <Toaster position="bottom-center" reverseOrder={false} />
-      <RouterProvider router={routes} />
-    </ValidationContextProvider>
-  );
+	const routes = createBrowserRouter([
+		{
+			path: "/",
+			element: <HomeLayout />,
+			errorElement: <NotFound />,
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+				{
+					path: "/my-class",
+					element: <MyClass />,
+				},
+				{
+					path: "/class-topic",
+					element: <ClassTopic />,
+				},
+				{
+					path: "/payment-pending/:code",
+					element: <PaymentDetail />,
+				},
+				{
+					path: "/payment-success",
+					element: <PaymentDetailSuccess />,
+				},
+				{
+					path: "/detail/:code",
+					element: <Detail />,
+				},
+				{
+					path: "/notifikasi",
+					element: <Notification />,
+				},
+				{
+					path: "/user",
+					element: <User />,
+				},
+				{
+					path: "/search/:input",
+					element: <Search />,
+				},
+				{
+					path: "/not-logged-in",
+					element: <NotLoggedIn />,
+				},
+			],
+		},
+		{
+			path: "/auth",
+			element: <AuthLayout />,
+			children: [
+				{
+					path: "login",
+					element: <Login />,
+				},
+				{
+					path: "register",
+					element: <Register />,
+				},
+				{
+					path: "reset/:email",
+					element: <ResetPassword />,
+				},
+				{
+					path: "otp/:email",
+					element: <Otp />,
+				},
+				{
+					path: "forgotPassword",
+					element: <ForgotPassword />,
+				},
+			],
+		},
+		{
+			path: "/dashboard",
+			element: <DashboardLayout />,
+			children: [
+				{
+					index: true,
+					element: <Dashboard />,
+				},
+				{
+					path: "kelolakelas",
+					element: <KelolaKelas />,
+				},
+			],
+		},
+		{
+			path: "/admin",
+			element: <LoginAdmin />,
+		},
+	]);
+
+	return (
+		<ValidationContextProvider>
+			<Toaster position="bottom-center" reverseOrder={false} />
+			<RouterProvider router={routes} />
+		</ValidationContextProvider>
+	);
 };
 
 export default App;

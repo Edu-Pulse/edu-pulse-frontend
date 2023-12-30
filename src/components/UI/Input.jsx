@@ -49,6 +49,8 @@ const Input = ({
 					value={value}
 					onChange={onChange}
 					onBlur={onBlur}
+					id={name}
+					name={name}
 				/>
 				{type === "password" && (
 					<span
