@@ -19,6 +19,9 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (email === '' || password === '') {
+      return;
+    }
     try {
       setIsLoading(true);
       let data = {
@@ -51,6 +54,8 @@ const Login = () => {
 
   const handleNotLog =
     (error && error.isEmailError) || error.isPasswordError === true;
+
+  // const kosong = email || password === '';
 
   return (
     <div className="max-w-[452px] w-full">
