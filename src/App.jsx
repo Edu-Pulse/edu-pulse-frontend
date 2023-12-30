@@ -1,46 +1,55 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ValidationContextProvider } from "./context/ValidationContext";
+import { Toaster } from "react-hot-toast";
+
 import HomeLayout from "@/layouts/HomeLayout";
 import Home from "@/pages/Home";
-import { Toaster } from "react-hot-toast";
 
 // Auth Flow
 import AuthLayout from "@/layouts/AuthLayout";
-import Login from "@/pages/AuthFlow/Login";
-import Register from "@/pages/AuthFlow/Register";
-import Otp from "@/pages/AuthFlow/OTP";
-import ResetPassword from "@/pages/AuthFlow/ResetPassword";
+const Login = lazy(() => import("@/pages/AuthFlow/Login"));
+const Register = lazy(() => import("@/pages/AuthFlow/Register"));
+const Otp = lazy(() => import("@/pages/AuthFlow/OTP"));
+const ResetPassword = lazy(() => import("@/pages/AuthFlow/ResetPassword"));
+const ForgotPassword = lazy(() => import("./pages/AuthFlow/ForgotPassword"));
 
 // User Flow
-import User from "@/pages/UserFlow/User";
-import Notification from "@/pages/UserFlow/Notification";
+const User = lazy(() => import("@/pages/UserFlow/User"));
+const Notification = lazy(() => import("@/pages/UserFlow/Notification"));
 
 // Class Flow
-import Detail from "@/pages/ClassFlow/Detail";
-import MyClass from "@/pages/ClassFlow/MyClass";
-import ClassTopic from "@/pages/ClassFlow/ClassTopic";
+const Detail = lazy(() => import("@/pages/ClassFlow/Detail"));
+const MyClass = lazy(() => import("@/pages/ClassFlow/MyClass"));
+const ClassTopic = lazy(() => import("@/pages/ClassFlow/ClassTopic"));
 
 // Admin Flow
 import DashboardLayout from "@/layouts/DashboardLayout";
-import LoginAdmin from "@/pages/AdminFlow/LoginAdmin";
-import Dashboard from "@/pages/AdminFlow/Dashboard";
-import KelolaKelas from "@/pages/AdminFlow/KelolaKelas";
+const LoginAdmin = lazy(() => import("@/pages/AdminFlow/LoginAdmin"));
+const Dashboard = lazy(() => import("@/pages/AdminFlow/Dashboard"));
+const KelolaKelas = lazy(() => import("@/pages/AdminFlow/KelolaKelas"));
 
 // Payment Flow
-import PaymentDetail from "@/pages/PaymentFlow/PaymentDetail";
-import PaymentDetailSuccess from "@/pages/PaymentFlow/PaymentDetailSuccess";
-import { ValidationContextProvider } from "./context/ValidationContext";
-import NotFound from "./pages/NotFound";
-import Search from "./pages/Search";
-import NotLoggedIn from "./pages/NotLoggedIn";
-import ForgotPassword from "./pages/AuthFlow/ForgotPassword";
-// import ProtectedRoutes from "./layouts/ProtectedRoutes";
+const PaymentDetail = lazy(() => import("@/pages/PaymentFlow/PaymentDetail"));
+const PaymentDetailSuccess = lazy(() =>
+	import("@/pages/PaymentFlow/PaymentDetailSuccess")
+);
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Search = lazy(() => import("./pages/Search"));
+const NotLoggedIn = lazy(() => import("./pages/NotLoggedIn"));
+
+import PageLoading from "./components/UI/PageLoading";
 
 const App = () => {
 	const routes = createBrowserRouter([
 		{
 			path: "/",
 			element: <HomeLayout />,
-			errorElement: <NotFound />,
+			errorElement: (
+				<Suspense fallback={<PageLoading />}>
+					<NotFound />
+				</Suspense>
+			),
 			children: [
 				{
 					index: true,
@@ -48,39 +57,75 @@ const App = () => {
 				},
 				{
 					path: "/my-class",
-					element: <MyClass />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<MyClass />
+						</Suspense>
+					),
 				},
 				{
 					path: "/class-topic",
-					element: <ClassTopic />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<ClassTopic />
+						</Suspense>
+					),
 				},
 				{
 					path: "/payment-pending/:code",
-					element: <PaymentDetail />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<PaymentDetail />
+						</Suspense>
+					),
 				},
 				{
 					path: "/payment-success",
-					element: <PaymentDetailSuccess />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<PaymentDetailSuccess />
+						</Suspense>
+					),
 				},
 				{
 					path: "/detail/:code",
-					element: <Detail />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Detail />
+						</Suspense>
+					),
 				},
 				{
 					path: "/notifikasi",
-					element: <Notification />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Notification />
+						</Suspense>
+					),
 				},
 				{
 					path: "/user",
-					element: <User />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<User />
+						</Suspense>
+					),
 				},
 				{
 					path: "/search/:input",
-					element: <Search />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Search />
+						</Suspense>
+					),
 				},
 				{
 					path: "/not-logged-in",
-					element: <NotLoggedIn />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<NotLoggedIn />
+						</Suspense>
+					),
 				},
 			],
 		},
@@ -90,23 +135,43 @@ const App = () => {
 			children: [
 				{
 					path: "login",
-					element: <Login />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Login />
+						</Suspense>
+					),
 				},
 				{
 					path: "register",
-					element: <Register />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Register />
+						</Suspense>
+					),
 				},
 				{
 					path: "reset/:email",
-					element: <ResetPassword />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<ResetPassword />
+						</Suspense>
+					),
 				},
 				{
 					path: "otp/:email",
-					element: <Otp />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Otp />
+						</Suspense>
+					),
 				},
 				{
 					path: "forgotPassword",
-					element: <ForgotPassword />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<ForgotPassword />
+						</Suspense>
+					),
 				},
 			],
 		},
@@ -116,17 +181,29 @@ const App = () => {
 			children: [
 				{
 					index: true,
-					element: <Dashboard />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<Dashboard />
+						</Suspense>
+					),
 				},
 				{
 					path: "kelolakelas",
-					element: <KelolaKelas />,
+					element: (
+						<Suspense fallback={<PageLoading />}>
+							<KelolaKelas />
+						</Suspense>
+					),
 				},
 			],
 		},
 		{
 			path: "/admin",
-			element: <LoginAdmin />,
+			element: (
+				<Suspense fallback={<PageLoading />}>
+					<LoginAdmin />
+				</Suspense>
+			),
 		},
 	]);
 
