@@ -58,11 +58,7 @@ const MyClass = () => {
     fetchData();
   }, [filter]);
 
-  const filteredClass = filteredBySearchQuery
-    ? filteredBySearchQuery
-    : filter == "all"
-    ? classes
-    : classesStatus;
+  const filteredClass = filter == "all" ? classes : classesStatus;
 
   const filteredBySearchQuery = filteredClass.filter((classItem) => {
     return classItem.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -142,8 +138,8 @@ const MyClass = () => {
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 my-10">
-                {filteredClass &&
-                  filteredClass.map((classItem, index) => (
+                {filteredBySearchQuery &&
+                  filteredBySearchQuery.map((classItem, index) => (
                     <CourseCard
                       key={index}
                       category={classItem.category}
