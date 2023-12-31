@@ -106,8 +106,6 @@ const ClassDetails = () => {
     const clickedChapter = details.chapters.find((chapter) =>
       chapter.detailChapters.some((detailChapter) => detailChapter.id === topic)
     );
-    console.log(topic);
-
     if (clickedChapter) {
       const selectedDetail = clickedChapter.detailChapters.find(
         (detailChapter) => detailChapter.id === topic
@@ -248,17 +246,21 @@ const ClassDetails = () => {
                       >
                         Join Grup Telegram
                       </Button>
-                      <Button
-                        onClick={() => {
-                          setOpen(true);
-                        }}
-                        icon={<CurrencyDollarIcon className="h-6 w-6" />}
-                        iconPosition="right"
-                        size="md"
-                        className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
-                      >
-                        Beli Kelas
-                      </Button>
+                      {details?.doneMaterial == null ? (
+                        <Button
+                          onClick={() => {
+                            setOpen(true);
+                          }}
+                          icon={<CurrencyDollarIcon className="h-6 w-6" />}
+                          iconPosition="right"
+                          size="md"
+                          className="text-white my-5 w-full text-xs font-normal sm:text-lg sm:text-semibold sm:w-fit"
+                        >
+                          Beli Kelas
+                        </Button>
+                      ) : (
+                        <div className="hidden"></div>
+                      )}
                       <Button
                         icon={<QueueListIcon className="h-6 w-6" />}
                         iconPosition="right"
