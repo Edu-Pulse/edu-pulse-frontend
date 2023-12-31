@@ -10,11 +10,11 @@ import { getMe } from "../../lib/getMe";
 
 const UserProfile = () => {
   const [user, setUser] = useState("");
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [phone, setphone] = useState(user.phone);
-  const [country, setCountry] = useState(user.country);
-  const [city, setCity] = useState(user.city);
+  const [name, setName] = useState(user.name || "");
+  const [email, setEmail] = useState(user.email || "");
+  const [phone, setphone] = useState(user.phone || "");
+  const [country, setCountry] = useState(user.country || "");
+  const [city, setCity] = useState(user.city || "");
   const [image, setImage] = useState(user.imageProfile);
   const [newImage, setNewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

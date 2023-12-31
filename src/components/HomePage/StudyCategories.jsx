@@ -64,6 +64,9 @@ const StudyCategories = () => {
 												<img
 													className="w-full h-[120px] object-cover hover:scale-105 transition-all duration-300"
 													src={`${kelas.image}`}
+													width={294}
+													height={120}
+													alt="Study category"
 												/>
 											</div>
 											<div className="text-center mt-3 hover:text-darkblue-05 transition-all">
