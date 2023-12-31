@@ -1,8 +1,8 @@
 import axios from "axios";
-
 axios.defaults.withCredentials = true;
 
-const baseURL = import.meta.env.VITE_API_BASE_URL;
+// eslint-disable-next-line no-undef
+const baseURL = process.env.VITE_API_BASE_URL;
 
 const app = axios.create({
 	baseURL,

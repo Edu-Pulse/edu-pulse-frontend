@@ -4,12 +4,12 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { BellIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 
-import { db } from "@/lib/firebase";
+import { db } from "../../lib/firebase";
 import { ref, onValue } from "firebase/database";
 import noData from "@/assets/svg/nodata.svg";
-import { formatDateTime } from "@/lib/dateFormatter";
+import { formatDateTime } from "../../lib/dateFormatter";
 import { orderByChild, query, equalTo } from "firebase/database";
-import { getMe } from "@/lib/getMe";
+import { getMe } from "../../lib/getMe";
 
 const Notification = () => {
 	const [notifications, setNotifications] = useState([]);

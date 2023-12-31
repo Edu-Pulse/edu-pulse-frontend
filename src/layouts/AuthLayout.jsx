@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import logo from "@/assets/svg/Logo-Belajar.svg";
+import { AcademicCapIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 
 const AuthLayout = () => {
@@ -10,11 +10,13 @@ const AuthLayout = () => {
 				<Outlet />
 			</section>
 			<aside className="md:grid hidden w-[45%] h-full bg-darkblue-05 place-content-center">
-				<img
-					src={logo}
-					alt="logo-belajar"
+				<div
+					className="flex gap-4 items-center justify-center text-white"
 					onClick={() => navigate("/")}
-				/>
+				>
+					<AcademicCapIcon className="h-24 w-24" />
+					<span className="text-7xl font-semibold">EduPulse</span>
+				</div>
 			</aside>
 		</main>
 	);

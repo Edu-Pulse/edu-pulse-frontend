@@ -30,6 +30,8 @@ const Hero = () => {
 					src={illustration}
 					alt="Hero Image"
 					className="h-full object-cover"
+					height={300}
+					width={1000}
 				/>
 			</div>
 		</section>
