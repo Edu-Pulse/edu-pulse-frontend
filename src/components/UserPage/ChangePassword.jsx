@@ -55,6 +55,11 @@ const ChangePassword = () => {
     }
   };
 
+  const buttonDisabled =
+    oldPassword?.length <= 6 ||
+    newPassword?.length <= 6 ||
+    repeatPassword?.length <= 6 === true;
+
   return (
     <div className="flex flex-col items-center my-7 w-full space-y-4 px-4 md:px-12">
       <h2 className="text-2xl font-semibold">Ubah Password</h2>
@@ -92,9 +97,14 @@ const ChangePassword = () => {
 
         <Button
           size="lg"
-          className="w-full"
           onClick={onSubmit}
           loading={isLoading}
+          disabled={buttonDisabled}
+          className={
+            buttonDisabled
+              ? "!bg-gray-300 !cursor-not-allowed w-full"
+              : " w-full"
+          }
         >
           Ubah Password
         </Button>
