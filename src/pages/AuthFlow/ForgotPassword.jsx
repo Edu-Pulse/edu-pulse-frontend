@@ -8,20 +8,24 @@ import { BASE_URL } from "@/lib/baseUrl";
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   console.log(email);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEmail = async (e) => {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       let config = {
         method: "GET",
         url: `${BASE_URL}/forgot-password/${email}`,
       };
       const response = await axios.request(config);
       if (response.status === 200) {
+        setIsLoading(false);
         toast.success("Tautan Ganti Password Telah Dikirim!");
       }
     } catch (error) {
+      setIsLoading(false);
       toast.error("Unexpected Error!");
     }
   };
@@ -41,7 +45,12 @@ function ForgotPassword() {
           onChange={(e) => setEmail(e.target.value)}
         ></Input>
         <div className="flex justify-center mt-6">
-          <Button className="w-full" onClick={handleEmail}>
+          <Button
+            className="w-full"
+            loading={isLoading}
+            loadingText="Memproses..."
+            onClick={handleEmail}
+          >
             Send Reset Code
           </Button>
         </div>

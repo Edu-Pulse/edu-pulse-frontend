@@ -15,6 +15,7 @@ function ResetPassword() {
     isPasswordError: false,
     isPasswordSimilar: true,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const { email } = useParams();
   const navigate = useNavigate();
 
@@ -22,12 +23,14 @@ function ResetPassword() {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       let config = {
         method: "POST",
         url: `${BASE_URL}/reset-password?email=${email}&verificationCode=${kode}&newPassword=${password}`,
       };
       const response = await axios.request(config);
       if (response.data.error == true) {
+        setIsLoading(false);
         toast.error(response.data.data);
       } else {
         toast.success(response.data.message);
@@ -36,9 +39,12 @@ function ResetPassword() {
         }, 2000);
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };
+
+  const buttonDisabled = password?.length <= 8;
 
   return (
     <div className="max-w-[452px] w-full">
@@ -70,7 +76,17 @@ function ResetPassword() {
         onChange={(e) => setKode(e.target.value)}
       />
       <div className="flex justify-center mt-6">
-        <Button className="w-full" onClick={handleReset}>
+        <Button
+          className={
+            buttonDisabled
+              ? "!bg-gray-300 !cursor-not-allowed w-full"
+              : " w-full"
+          }
+          disable={buttonDisabled}
+          loading={isLoading}
+          loadingText="Memproses..."
+          onClick={handleReset}
+        >
           Simpan
         </Button>
       </div>

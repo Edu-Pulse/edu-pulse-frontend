@@ -28,6 +28,8 @@ const WhyUs = () => {
 							src={curriculumIllustration}
 							className="w-full h-full object-cover absolute right-0 group-hover:scale-105 transition-all"
 							alt="Curriculum"
+							width={600}
+							height={400}
 						/>
 					</div>
 					<div className="min-h-32 group relative flex justify-between overflow-hidden items-center rounded-xl">
@@ -40,6 +42,8 @@ const WhyUs = () => {
 							src={timeIllustration}
 							className="w-full h-full object-cover absolute right-0 group-hover:scale-105 transition-all"
 							alt="Curriculum"
+							width={600}
+							height={398}
 						/>
 					</div>
 					<div className="min-h-32 group relative flex justify-between overflow-hidden items-center rounded-xl">
@@ -52,6 +56,8 @@ const WhyUs = () => {
 							src={communityIllustration}
 							className="w-full h-full object-cover absolute right-0 group-hover:scale-105 transition-all"
 							alt="Community"
+							width={600}
+							height={400}
 						/>
 					</div>
 					<div className="min-h-32 group relative flex justify-between overflow-hidden items-center rounded-xl">
@@ -64,6 +70,8 @@ const WhyUs = () => {
 							src={videoIllustration}
 							className="w-full h-full object-cover absolute right-0 group-hover:scale-105 transition-all"
 							alt="Quality content"
+							width={600}
+							height={400}
 						/>
 					</div>
 				</div>

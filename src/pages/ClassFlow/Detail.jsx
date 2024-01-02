@@ -44,10 +44,11 @@ const ClassDetails = () => {
   const [selectedChapterContent, setSelectedChapterContent] = useState(null);
   const [openRate, setOpenRate] = useState(false);
   const [details, setDetails] = useState();
+  console.log(details);
   const [isRefetch, setIsReFetch] = useState(true);
   const [rateCourse, setRateCourse] = useState(0);
   const [open, setOpen] = useState();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [openOnBoarding, setOpenOnBoarding] = useState(
     searchParams.get("onBoarding") || false
   );
@@ -61,7 +62,6 @@ const ClassDetails = () => {
       const response = await axios.get(`${BASE_URL}/course/` + code);
 
       const data = response.data.data;
-      console.log(data);
       if (response.status == 200 && response.data.error === false) {
         setDetails(data);
       } else {
@@ -131,7 +131,7 @@ const ClassDetails = () => {
         },
       });
       if (response.status === 200) {
-        toast.success(response.message);
+        toast.success(response.data.message);
         setTimeout(() => {
           window.location.href = `/detail/${details.code}?onBoarding=true`;
         }, 1500);
@@ -261,7 +261,6 @@ const ClassDetails = () => {
                       ) : (
                         <div className="hidden"></div>
                       )}
-
                       <Button
                         icon={<QueueListIcon className="h-6 w-6" />}
                         iconPosition="right"
